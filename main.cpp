@@ -6,12 +6,8 @@ using namespace std;
 struct pos_t{
     int x;
     int y;
+    int prob;
 };
-
-struct prob_counter{
-    int left;
-    int right;
-}lvl_zero,lvl_one, lvl_two;
 
 vector<pos_t> bteam;
 vector<pos_t> rteam;
@@ -68,52 +64,32 @@ void init_assignment(){
     rteam[3].y = 3;
 }
 
-void threat_check(int lvl){
-    for (int i = 0; i < 4; i++) {
+void threat_check(int b){
         for (int j = 0; j < 4; j++) {
-            //Check left
-            if ((bteam[i].x + lvl == rteam[j].x + 1) && (bteam[i].y + lvl == rteam[j].y - 1)) {
+            //Check bottom left
+            if ((bteam[b].x == rteam[j].x + 1) && (bteam[b].y == rteam[j].y - 1)) {
                 cout << "left";
                 cout << endl;
-                cout << "original x,y coordinates:" << bteam[i].x << bteam[i].y;
+                cout << "original x,y coordinates:" << bteam[b].x << bteam[b].y;
                 cout << endl;
-                cout << "leveled x,y coordinates:" << bteam[i].x + lvl << bteam[i].y + lvl;
-                cout << endl;
-                if(lvl == 0){
-                    lvl_zero.left += 1;
-                }
-                if(lvl == 1){
-                    lvl_one.left += 1;
-                }
-                if(lvl == 2){
-                    lvl_two.left += 1;
-                }
             }
-            //Check right
-            if ((bteam[i].x + lvl == rteam[j].x - 1) && (bteam[i].y + lvl == rteam[j].y - 1)) {
+            //Check bottom right
+            if ((bteam[b].x == rteam[j].x - 1) && (bteam[b].y == rteam[j].y - 1)) {
                 cout << "right";
                 cout << endl;
-                cout << "original x,y coordinates:" << bteam[i].x << bteam[i].y;
+                cout << "original x,y coordinates:" << bteam[b].x << bteam[b].y;
                 cout << endl;
-                cout << "leveled x,y coordinates:" << bteam[i].x + lvl << bteam[i].y + lvl;
-                cout << endl;
-                if(lvl == 0){
-                    lvl_zero.right += 1;
-                }
-                if(lvl == 1){
-                    lvl_one.right += 1;
-                }
-                if(lvl == 2){
-                    lvl_two.right += 1;
-                }
             }
         }
+    }
+
+void move_check(){
+    for(int b=0;b<4;b++){
+        threat_check(b);
     }
 }
 
 int main() {
     init_assignment();
-    for(int lvl=0;lvl<2;lvl++) {
-        threat_check(lvl);
-    }
+    move_check();
 }
