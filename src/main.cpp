@@ -10,13 +10,13 @@ int main( int argc, char* args[] )
         printf("Could not load!");
     }
     
-    SDL_Event e;
+    SDL_Event event;
     bool quit = false;
     
     while(!quit){
-        while(SDL_PollEvent(&e)!=0){
+        while(SDL_PollEvent(&event)!=0){
             //quits game
-            if(e.type==SDL_QUIT)
+            if(event.type==SDL_QUIT)
             {
                 quit=true;
             }
@@ -25,7 +25,7 @@ int main( int argc, char* args[] )
         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear(gRenderer);
         
-        mainBoard.drawBoard();
+        Board.drawBoard();
         
         SDL_RenderPresent(gRenderer);
         SDL_Delay(100);

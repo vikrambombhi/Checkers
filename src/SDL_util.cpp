@@ -25,7 +25,7 @@ bool init(){
                 printf("Warning: Linear texture filtering not enabled!");
             }
             
-            gWindow=SDL_CreateWindow("Tic Tac Toe",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
+            gWindow=SDL_CreateWindow("Checkers",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
             
             if(gWindow==NULL)
             {

@@ -11,7 +11,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL2/SDL.h>
+
+#ifdef _WIN32
+    #include <SDL.h>
+#elif __APPLE__
+    #include <SDL2/SDL.h>
+#endif
+
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 640;

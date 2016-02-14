@@ -9,6 +9,8 @@
 #include "CheckersBoard.h"
 #include "Button.h"
 
+CheckersBoard Board;
+
 CheckersBoard::CheckersBoard(){
     for (int y = 0; y < 8; y++)
     {
@@ -43,5 +45,3 @@ void CheckersBoard::printBoard(){
         printf("\n");
     }
 }
-
-CheckersBoard mainBoard;

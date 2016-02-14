@@ -6,4 +6,18 @@
 //  Copyright © 2016 Jacky Chiu. All rights reserved.
 //
 
+#include "Button.h"
 
+Button::Button(){
+    buttonPoint.x = 0;
+    buttonPoint.y = 0;
+}
+
+void Button::setPoint(int x, int y){
+    buttonPoint.x = x;
+    buttonPoint.y = y;
+}
+
+void Button::render(){
+    //Render Spritsheet
+}

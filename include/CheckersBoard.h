@@ -21,5 +21,5 @@ public:
     vector<vector<int>> virtualBoard;
 };
 
-extern CheckersBoard mainBoard;
+extern CheckersBoard Board;
 #endif /* CheckersBoard_h */

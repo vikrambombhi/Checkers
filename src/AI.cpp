@@ -86,16 +86,16 @@ void threat_check(int b){
 
 int func(int x, int y, int val){
 
-    if(mainBoard.virtualBoard[x][y] == 2){
+    if(Board.virtualBoard[x][y] == 2){
         func(x+1, y+1, val+1);
         func(x-1, y+1, val+1);
     }
-    if(mainBoard.virtualBoard[x][y] == 1){
+    if(Board.virtualBoard[x][y] == 1){
         func(x+1, y+1, val+1);
         func(x-1, y+1, val+1);
     }
-    if(mainBoard.virtualBoard[x][y] == 0){
-        if((mainBoard.virtualBoard[x+1][y+1]) == 1 || (mainBoard.virtualBoard[x-1][y+1])){
+    if(Board.virtualBoard[x][y] == 0){
+        if((Board.virtualBoard[x+1][y+1]) == 1 || (Board.virtualBoard[x-1][y+1])){
             val -= 1;
         }
     }
