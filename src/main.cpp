@@ -10,8 +10,6 @@ int main( int argc, char* args[] )
         printf("Could not load!");
     }
     
-    CheckersBoard mainBoard;
-    mainBoard.printBoard();
     SDL_Event e;
     bool quit = false;
     

@@ -16,11 +16,13 @@ CheckersBoard::CheckersBoard(){
         {
             rowVector.push_back(0);
         }
-        vituralBoard.push_back(rowVector);
+        virtualBoard.push_back(rowVector);
     }
 }
 void CheckersBoard::drawBoard(){
     
+    SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
+
     for(int x=buttonWidth;x<SCREEN_WIDTH;x+=buttonWidth)
     {
         SDL_RenderDrawLine( gRenderer, x, 0, x, SCREEN_HEIGHT);
@@ -35,8 +37,10 @@ void CheckersBoard::drawBoard(){
 void CheckersBoard::printBoard(){
     for (int i=0; i<8; i++) {
         for (int j=0; j<8; j++) {
-            printf("%i",vituralBoard[i][j]);
+            printf("%i",virtualBoard[i][j]);
         }
         printf("\n");
     }
 }
+
+CheckersBoard mainBoard;

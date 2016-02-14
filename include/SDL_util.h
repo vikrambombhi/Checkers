@@ -13,10 +13,10 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-const int buttonWidth = 15;
-const int buttonHeight = 10;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 800;
+const int buttonWidth = 100;
+const int buttonHeight = 100;
 
 extern SDL_Window *gWindow;
 extern SDL_Renderer *gRenderer;

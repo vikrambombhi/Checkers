@@ -18,8 +18,8 @@ public:
     CheckersBoard();
     void drawBoard();
     void printBoard();
-private:
-    vector<vector<int>> vituralBoard;
+    vector<vector<int>> virtualBoard;
 };
 
+extern CheckersBoard mainBoard;
 #endif /* CheckersBoard_h */

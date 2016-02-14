@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "CheckersBoard.h"
 
 using namespace std;
 
@@ -84,22 +85,25 @@ void threat_check(int b){
 }
 
 int func(int x, int y, int val){
-    if(virtualBoard[x,y] == 2){
+
+    if(mainBoard.virtualBoard[x][y] == 2){
         func(x+1, y+1, val+1);
         func(x-1, y+1, val+1);
     }
-    if(virtualBoard[x,y] == 1){
+    if(mainBoard.virtualBoard[x][y] == 1){
         func(x+1, y+1, val+1);
         func(x-1, y+1, val+1);
     }
-    if(virtualBoard[x,y] == 0){
-        if((virtualBoard[x+1,y+1]) == 1 || (virtualBoard[x-1,y+1])){
+    if(mainBoard.virtualBoard[x][y] == 0){
+        if((mainBoard.virtualBoard[x+1][y+1]) == 1 || (mainBoard.virtualBoard[x-1][y+1])){
             val -= 1;
         }
     }
     if((x>8) || (y>8)){
         return val+10;
     }
+    
+    return 0;
 }
 
 
