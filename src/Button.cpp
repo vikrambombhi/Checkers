@@ -8,9 +8,7 @@
 
 #include "Button.h"
 
-SDL_Rect SpriteClips[TOTAL_PIECES];
 Button boardButtons[TOTAL_BUTTONS];
-Sprites currentSprite;
 
 Button::Button(){
     buttonPoint.x = 0;
