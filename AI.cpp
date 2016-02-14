@@ -65,27 +65,48 @@ void init_assignment(){
 }
 
 void threat_check(int b){
-        for (int j = 0; j < 4; j++) {
-            //Check bottom left
-            if ((blueTeam[b].x == redTeam[j].x + 1) && (blueTeam[b].y == redTeam[j].y - 1)) {
-                cout << "left";
-                cout << endl;
-                cout << "original x,y coordinates:" << blueTeam[b].x << blueTeam[b].y;
-                cout << endl;
-            }
-            //Check bottom right
-            if ((blueTeam[b].x == redTeam[j].x - 1) && (blueTeam[b].y == redTeam[j].y - 1)) {
-                cout << "right";
-                cout << endl;
-                cout << "original x,y coordinates:" << blueTeam[b].x << blueTeam[b].y;
-                cout << endl;
-            }
+    for (int j = 0; j < 4; j++) {
+        //Check bottom left
+        if ((blueTeam[b].x == redTeam[j].x + 1) && (blueTeam[b].y == redTeam[j].y - 1)) {
+            cout << "left";
+            cout << endl;
+            cout << "original x,y coordinates:" << blueTeam[b].x << blueTeam[b].y;
+            cout << endl;
+        }
+        //Check bottom right
+        if ((blueTeam[b].x == redTeam[j].x - 1) && (blueTeam[b].y == redTeam[j].y - 1)) {
+            cout << "right";
+            cout << endl;
+            cout << "original x,y coordinates:" << blueTeam[b].x << blueTeam[b].y;
+            cout << endl;
         }
     }
+}
+
+int func(int x, int y, int val){
+    if(virtualBoard[x,y] == 2){
+        func(x+1, y+1, val+1);
+        func(x-1, y+1, val+1);
+    }
+    if(virtualBoard[x,y] == 1){
+        func(x+1, y+1, val+1);
+        func(x-1, y+1, val+1);
+    }
+    if(virtualBoard[x,y] == 0){
+        if((virtualBoard[x+1,y+1]) == 1 || (virtualBoard[x-1,y+1])){
+            val -= 1;
+        }
+    }
+    if((x>8) || (y>8)){
+        return val+10;
+    }
+}
+
 
 void move_check(){
     for(int b=0;b<4;b++){
-        threat_check(b);
+        blueTeam[b].prob = 0;
+        func(blueTeam[b].x, blueTeam[b].y, blueTeam[b].prob);
     }
 }
 
