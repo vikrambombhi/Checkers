@@ -7,6 +7,7 @@
 //
 
 #include "CheckersBoard.h"
+#include "Button.h"
 
 CheckersBoard::CheckersBoard(){
     for (int y = 0; y < 8; y++)
