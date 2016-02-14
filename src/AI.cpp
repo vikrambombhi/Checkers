@@ -109,8 +109,8 @@ void move_check(){
         func(blueTeam[b].x, blueTeam[b].y, blueTeam[b].prob);
     }
 }
-
+/*
 int main(){
     init_assignment();
     move_check();
-}
+}*/
