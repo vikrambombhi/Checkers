@@ -36,5 +36,6 @@ private:
 
 extern SDL_Rect SpriteClips[TOTAL_PIECES];
 extern Button boardButtons[TOTAL_BUTTONS];
+extern Sprites currentSprite;
 
 #endif /* Button_h */

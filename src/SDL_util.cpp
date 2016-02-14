@@ -7,6 +7,7 @@
 //
 
 #include "SDL_util.h"
+#include "Button.h"
 
 SDL_Window *gWindow=NULL;
 SDL_Renderer *gRenderer=NULL;
@@ -48,6 +49,19 @@ bool init(){
             
     }
     return true;
+}
+
+void loadMedia(){
+    SpriteClips[0].x = 0;
+    SpriteClips[0].y = 0;
+    SpriteClips[0].w = BUTTON_WIDTH;
+    SpriteClips[0].h = BUTTON_HEIGHT;
+    
+    SpriteClips[1].x = BUTTON_WIDTH;
+    SpriteClips[1].y = 0;
+    SpriteClips[1].w = BUTTON_WIDTH;
+    SpriteClips[1].h = BUTTON_HEIGHT;
+    
 }
 
 void closeWindow(){

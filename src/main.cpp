@@ -6,22 +6,30 @@
 
 int main( int argc, char* args[] )
 {
+    // Checks if init was able to excute //
     if(!init()){
         printf("Could not load!");
     }
     
+    // Loads media such as buttons and sprites //
+    loadMedia();
+    
     SDL_Event event;
     bool quit = false;
     
+    // Main loop //
     while(!quit){
+        
+        // Event loop //
         while(SDL_PollEvent(&event)!=0){
-            //quits game
+            
+            // Quits game //
             if(event.type==SDL_QUIT)
             {
                 quit=true;
             }
         }
-        
+        // Refreshs screen //
         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear(gRenderer);
         
@@ -30,6 +38,7 @@ int main( int argc, char* args[] )
         SDL_RenderPresent(gRenderer);
         SDL_Delay(100);
     }
+    
     closeWindow();
     return (EXIT_SUCCESS);
 }
