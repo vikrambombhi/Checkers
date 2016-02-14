@@ -26,12 +26,12 @@ void CheckersBoard::drawBoard(){
     
     SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
 
-    for(int x=buttonWidth;x<SCREEN_WIDTH;x+=buttonWidth)
+    for(int x=BUTTON_WIDTH;x<SCREEN_WIDTH;x+=BUTTON_WIDTH)
     {
         SDL_RenderDrawLine( gRenderer, x, 0, x, SCREEN_HEIGHT);
     }
     
-    for(int y=buttonHeight;y<SCREEN_HEIGHT;y+=buttonHeight)
+    for(int y=BUTTON_HEIGHT;y<SCREEN_HEIGHT;y+=BUTTON_HEIGHT)
     {
         SDL_RenderDrawLine( gRenderer, 0, y, SCREEN_WIDTH, y);
     }
