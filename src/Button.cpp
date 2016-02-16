@@ -29,6 +29,13 @@ void Button::render(){
 }
 
 void Button::renderTeam(Player Player,int index){
+    // Things are switched around idk why SOMEONE CHECK THESE//
+    if (Player.topSide) {
+        currentSprite = BLACK_PIECE;
+    }
+    else{
+        currentSprite = RED_PIECE;
+    }
     renderButton = true;
     buttonPoint.x = BUTTON_WIDTH*Player.team[index].x;
     buttonPoint.y = BUTTON_HEIGHT*Player.team[index].y;

@@ -18,7 +18,6 @@ public:
     Player(bool);
     void initTeam(bool);
     vector<Piece> team;
-private:
     bool topSide;
 };
 

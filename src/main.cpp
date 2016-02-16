@@ -40,11 +40,14 @@ int main( int argc, char* args[] )
         
         // Render stuff here //
         Board.drawBoard();
-        for(int i=0;i<Player1.team.size()/2;i++){
+        
+        // Render player 1 team //
+        for(int i=0;i<Player1.team.size();i++){
             boardButtons[i].renderTeam(Player1, i);
         }
-        for(int i=12;i<Player1.team.size();i++){
-            boardButtons[i].renderTeam(Player2, i);
+        // Render player 2 team //
+        for(int i=0;i<Player2.team.size();i++){
+            boardButtons[i+12].renderTeam(Player2, i);
         }
         
         SDL_RenderPresent(gRenderer);

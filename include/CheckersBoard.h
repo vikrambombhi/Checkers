@@ -20,7 +20,6 @@ public:
     CheckersBoard();
     void drawBoard();
     void printBoard();
-    //int buttonPressed(int,int);
     vector<vector<int>> virtualBoard;
 };
 
