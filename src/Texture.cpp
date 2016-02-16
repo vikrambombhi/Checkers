@@ -32,16 +32,23 @@ bool Texture::loadFromFile(std::string path){
     // Load image from path //
     SDL_Surface *loadedSurface = IMG_Load(path.c_str());
     
-    newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
-    
-    // Gets image dimensions //
-    width = loadedSurface->w;
-    height = loadedSurface->h;
-    
-    SDL_FreeSurface(loadedSurface);
-    
-    currentTexture = newTexture;
-    return currentTexture != NULL;
+    if(loadedSurface == NULL){
+        printf("Unable to load img from %s! SDL Error: %s\n",path.c_str(),IMG_GetError());
+    }
+    else{
+        newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+        if (newTexture == NULL) {
+            printf("Unable to create texture from %s! SDL Error: %s\n",path.c_str(), SDL_GetError());
+        }
+        else{
+            // Gets image dimensions //
+            width = loadedSurface->w;
+            height = loadedSurface->h;
+        }
+        SDL_FreeSurface(loadedSurface);
+    }
+        currentTexture = newTexture;
+        return currentTexture != NULL;
 }
 
 void Texture::render(int x, int y, SDL_Rect *clip){

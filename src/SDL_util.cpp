@@ -84,10 +84,20 @@ bool loadMedia(){
     spriteClips[1].h = BUTTON_HEIGHT;
     
     int index = 0;
+    bool indent = true;
+    int xStart;
     
     // Sets points for buttons (top left of button)
     for(int y=0;y<SCREEN_HEIGHT;y+=BUTTON_HEIGHT){
-        for(int x=0;x<SCREEN_WIDTH;x+=BUTTON_WIDTH){
+        if (indent) {
+            xStart = BUTTON_WIDTH;
+            indent = false;
+        }
+        else{
+            xStart = 0;
+            indent = true;
+        }
+        for(int x=xStart;x<SCREEN_WIDTH;x+=2*BUTTON_WIDTH){
             boardButtons[index].setPoint(x, y);
             index++;
         }

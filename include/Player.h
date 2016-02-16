@@ -11,14 +11,15 @@
 
 #include "CheckersBoard.h"
 #include "Piece.h"
+using namespace std;
 
 class Player {
 public:
-    Player();
-    void initTeam();
-
-    vector<Piece> blackTeam;
-    vector<Piece> redTeam;
+    Player(bool);
+    void initTeam(bool);
+    vector<Piece> team;
+private:
+    bool topSide;
 };
 
 

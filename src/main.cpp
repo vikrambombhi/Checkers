@@ -36,6 +36,9 @@ int main( int argc, char* args[] )
         
         // Render stuff here //
         Board.drawBoard();
+        for(int i=0;i<TOTAL_BUTTONS;i++){
+            boardButtons[i].render();
+        }
         
         SDL_RenderPresent(gRenderer);
         SDL_Delay(100);

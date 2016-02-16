@@ -23,10 +23,20 @@ void Button::setPoint(int x, int y){
 
 void Button::render(){
     //Render button with spritesheet
-    spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite]);
+    if(renderButton){
+        spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite]);
+    }
+}
+
+void Button::renderTeam(Player Player){
+    for (int i=0; i<Player.team.size(); i++) {
+        printf("hi");
+    }
 }
 
 void Button::handleEvent(SDL_Event *event){
+    
+    // If clikced on do something //
     if(event->type == SDL_MOUSEBUTTONDOWN){
         
         int x,y;
@@ -52,8 +62,11 @@ void Button::handleEvent(SDL_Event *event){
         }
         
         if (insideButton) {
-            //buttonClicked.render();
-            printf("%i,%i\n",buttonPoint.x,buttonPoint.y);
+            renderButton = true;
+            //printf("%i,%i\n",buttonPoint.x,buttonPoint.y);
+        }
+        else{
+            renderButton = false;
         }
     }
 }
