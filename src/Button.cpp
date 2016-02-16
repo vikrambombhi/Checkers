@@ -8,6 +8,7 @@
 
 #include "../include/Button.h"
 #include "../include/Texture.h"
+#include "../include/CheckersBoard.h"
 
 Button boardButtons[TOTAL_BUTTONS];
 
@@ -43,7 +44,7 @@ void Button::renderTeam(Player Player,int index){
 
 }
 
-void Button::handleEvent(SDL_Event *event){
+void Button::handleEvent(SDL_Event *event, int index){
     
     // If clikced on do something //
     if(event->type == SDL_MOUSEBUTTONDOWN){
@@ -73,6 +74,9 @@ void Button::handleEvent(SDL_Event *event){
         if (insideButton) {
             renderButton = true;
             //printf("%i,%i\n",buttonPoint.x,buttonPoint.y);
+            
+            Board.printBoard();
+            
         }
         else{
             renderButton = false;
