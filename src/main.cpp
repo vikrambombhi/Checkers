@@ -1,5 +1,5 @@
 #include <iostream>
-#include "CheckersBoard.h"
+#include "../include/CheckersBoard.h"
 
 int main( int argc, char* args[] )
 {

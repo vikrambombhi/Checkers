@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "CheckersBoard.h"
+#include "../include/CheckersBoard.h"
 
 using namespace std;
 
@@ -10,111 +10,45 @@ struct pos {
     int prob;
 };
 
-vector<pos> blueTeam;
+vector<pos> blackTeam;
 vector<pos> redTeam;
 
-void init_assignment(){
-    //----------------------------BLUE TEAM----------------------------\\
-    //Push back new chip created with default constructor.
-    blueTeam.push_back(pos());
-    //Vector now has 1 element @ index 0
-    blueTeam[0].x = 1;
-    blueTeam[0].y = 0;
-
-    //Push back new chip created with default constructor.
-    blueTeam.push_back(pos());
-    //Vector now has 1 element @ index 1
-    blueTeam[1].x = 3;
-    blueTeam[1].y = 0;
-
-    //Push back new chip created with default constructor.
-    blueTeam.push_back(pos());
-    //Vector now has 1 element @ index 2
-    blueTeam[2].x = 2;
-    blueTeam[2].y = 1;
-
-    //Push back new chip created with default constructor.
-    blueTeam.push_back(pos());
-    //Vector now has 1 element @ index 3
-    blueTeam[3].x = 1;
-    blueTeam[3].y = 2;
-
-    //-----------------------------RED TEAM----------------------------\\
-    //Push back new chip created with default constructor.
-    redTeam.push_back(pos());
-    //Vector now has 1 element @ index 0
-    redTeam[0].x = 0;
-    redTeam[0].y = 4;
-
-    //Push back new chip created with default constructor.
-    redTeam.push_back(pos());
-    //Vector now has 1 element @ index 1
-    redTeam[1].x = 2;
-    redTeam[1].y = 4;
-
-    //Push back new chip created with default constructor.
-    redTeam.push_back(pos());
-    //Vector now has 1 element @ index 2
-    redTeam[2].x = 2;
-    redTeam[2].y = 3;
-
-    //Push back new chip created with default constructor.
-    redTeam.push_back(pos());
-    //Vector now has 1 element @ index 3
-    redTeam[3].x = 3;
-    redTeam[3].y = 3;
-}
-
-void threat_check(int b){
-    for (int j = 0; j < 4; j++) {
-        //Check bottom left
-        if ((blueTeam[b].x == redTeam[j].x + 1) && (blueTeam[b].y == redTeam[j].y - 1)) {
-            cout << "left";
-            cout << endl;
-            cout << "original x,y coordinates:" << blueTeam[b].x << blueTeam[b].y;
-            cout << endl;
-        }
-        //Check bottom right
-        if ((blueTeam[b].x == redTeam[j].x - 1) && (blueTeam[b].y == redTeam[j].y - 1)) {
-            cout << "right";
-            cout << endl;
-            cout << "original x,y coordinates:" << blueTeam[b].x << blueTeam[b].y;
-            cout << endl;
-        }
-    }
-}
-
-int func(int x, int y, int val){
-
-    if(Board.virtualBoard[x][y] == 2){
-        func(x+1, y+1, val+1);
-        func(x-1, y+1, val+1);
-    }
-    if(Board.virtualBoard[x][y] == 1){
-        func(x+1, y+1, val+1);
-        func(x-1, y+1, val+1);
-    }
-    if(Board.virtualBoard[x][y] == 0){
-        if((Board.virtualBoard[x+1][y+1]) == 1 || (Board.virtualBoard[x-1][y+1])){
-            val -= 1;
-        }
-    }
-    if((x>8) || (y>8)){
+int choose(int x, int y, int val){
+    if((x>8)){
         return val+10;
     }
-    
-    return 0;
+    if(Board.virtualBoard[x][y] == 2){
+        choose(x + 1, y + 1, val);
+        choose(x - 1, y + 1, val);
+    }
+    if(Board.virtualBoard[x][y] == 1){
+        choose(x + 1, y + 1, val + 1);
+        choose(x - 1, y + 1, val + 1);
+    }
+    if(Board.virtualBoard[x][y] == 0){
+        if(Board.virtualBoard[x+1][y+1] == 1){
+            choose(x + 1, y + 1, val + 1);
+        }
+        if(Board.virtualBoard[x-1][y+1] == 1){
+            choose(x - 1, y + 1, val + 1);
+        }
+    }
+    return val;
 }
 
-
-void move_check(){
+void theChoosenOne(){
     for(int b=0;b<4;b++){
-        blueTeam[b].prob = 0;
-        func(blueTeam[b].x, blueTeam[b].y, blueTeam[b].prob);
+        blackTeam[b].prob = choose(blackTeam[b].x, blackTeam[b].y, 0);
+    }
+
+    int temp = 0;
+    int neo_x;
+    int neo_y;
+    for(int b=0;b<4;b++){
+        if(blackTeam[b].prob>temp) {
+            temp = blackTeam[b].prob;
+            neo_x = blackTeam[b].x;
+            neo_y = blackTeam[b].y;
+        }
     }
 }
-/*
-int main(){
-    init_assignment();
-    move_check();
-}*/

@@ -7,8 +7,8 @@
 //
 
 #include "SDL_util.h"
-#include "Button.h"
-#include "Texture.h"
+#include "../include/Button.h"
+#include "../include/Texture.h"
 
 SDL_Window *gWindow=NULL;
 SDL_Renderer *gRenderer=NULL;

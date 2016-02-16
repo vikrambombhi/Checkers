@@ -16,9 +16,9 @@ class Player {
 public:
     Player();
     void initTeam();
-    
-    vector<Piece> team;
-    
+
+    vector<Piece> blackTeam;
+    vector<Piece> redTeam;
 };
 
 

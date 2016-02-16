@@ -6,8 +6,8 @@
 //  Copyright © 2016 Jacky Chiu. All rights reserved.
 //
 
-#include "CheckersBoard.h"
-#include "Button.h"
+#include "../include/CheckersBoard.h"
+#include "../include/Button.h"
 
 CheckersBoard Board;
 

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Ben Emdon. All rights reserved.
 //
 
-#include "Piece.h"
+#include "../include/Piece.h"
 
 Piece::Piece(int xLocation, int yLocation, int probabilityValue) {
     x = xLocation;

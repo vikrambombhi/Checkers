@@ -6,8 +6,8 @@
 //  Copyright © 2016 Jacky Chiu. All rights reserved.
 //
 
-#include "Button.h"
-#include "Texture.h"
+#include "../include/Button.h"
+#include "../include/Texture.h"
 
 Button boardButtons[TOTAL_BUTTONS];
 

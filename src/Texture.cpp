@@ -6,7 +6,7 @@
 //  Copyright © 2016 Jacky Chiu. All rights reserved.
 //
 
-#include "Texture.h"
+#include "../include/Texture.h"
 #include "SDL_util.h"
 
 SDL_Rect spriteClips[TOTAL_PIECES];
