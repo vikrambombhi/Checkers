@@ -26,7 +26,9 @@ int choose(int x, int y, int val){
     }
     return val;
 }
+    // Code review 0/10
 
+/*
 void theChoosenOne(){
     for(int b=0;b<4;b++){
         blackTeam[b].prob = choose(blackTeam[b].x, blackTeam[b].y, 0);
@@ -43,3 +45,4 @@ void theChoosenOne(){
         }
     }
 }
+*/

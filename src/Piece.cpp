@@ -8,8 +8,12 @@
 
 #include "../include/Piece.h"
 
-Piece::Piece(int xLocation, int yLocation, int probabilityValue) {
+Piece::Piece() {
+    x = 0;
+    y = 0;
+}
+
+void Piece::setPoint (int xLocation, int yLocation) {
     x = xLocation;
     y = yLocation;
-    probability = probabilityValue;
 }

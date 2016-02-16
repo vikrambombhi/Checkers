@@ -11,7 +11,8 @@
 
 class Piece {
 public:
-    Piece(int, int, int);
+    Piece();
+    void setPoint(int, int);
     int x;
     int y;
     int probability;
