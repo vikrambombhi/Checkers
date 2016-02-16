@@ -23,6 +23,7 @@ class Button{
 public:
     Button();
     void setPoint(int,int);
+    void handleEvent(SDL_Event*);
     void render();
 private:
     SDL_Point buttonPoint;

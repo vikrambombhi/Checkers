@@ -11,6 +11,8 @@
 
 #include <vector>
 #include "SDL_util.h"
+# include "Button.h"
+
 using namespace std;
 
 class CheckersBoard{
@@ -18,6 +20,7 @@ public:
     CheckersBoard();
     void drawBoard();
     void printBoard();
+    int buttonPressed(int,int);
     vector<vector<int>> virtualBoard;
 };
 

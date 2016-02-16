@@ -18,9 +18,9 @@
     #include <SDL2_image/SDL_image.h>
 #endif
 
-enum Sprites{
-    BLACK_PIECES,
-    RED_PIECES,
+enum SpriteList{
+    RED_PIECE,
+    BLACK_PIECE,
     TOTAL_PIECES
 };
 
@@ -41,7 +41,7 @@ private:
 
 extern SDL_Rect spriteClips[TOTAL_PIECES];
 extern Texture spriteSheetTexture;
-extern Sprites currentSprite;
+extern SpriteList currentSprite;
 
 
 #endif /* Texture_h */

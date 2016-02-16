@@ -3,6 +3,7 @@
 #include <iostream>
 #include "SDL_util.h"
 #include "CheckersBoard.h"
+#include "Button.h"
 
 int main( int argc, char* args[] )
 {
@@ -15,10 +16,10 @@ int main( int argc, char* args[] )
     loadMedia();
     
     SDL_Event event;
-    bool quit = false;
+    bool userQuit = false;
     
     // Main loop //
-    while(!quit){
+    while(!userQuit){
         
         // Event loop //
         while(SDL_PollEvent(&event)!=0){
@@ -26,13 +27,17 @@ int main( int argc, char* args[] )
             // Quits game //
             if(event.type==SDL_QUIT)
             {
-                quit=true;
+                userQuit=true;
+            }
+            for(int i=0;i<TOTAL_BUTTONS;i++){
+                boardButtons[i].handleEvent(&event);
             }
         }
         // Refreshs screen //
         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear(gRenderer);
         
+        // Render stuff here //
         Board.drawBoard();
         
         SDL_RenderPresent(gRenderer);

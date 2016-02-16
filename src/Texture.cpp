@@ -11,7 +11,7 @@
 
 SDL_Rect spriteClips[TOTAL_PIECES];
 Texture spriteSheetTexture;
-Sprites currentSprite;
+SpriteList currentSprite = RED_PIECE;
 
 Texture::Texture(){
     currentTexture = NULL;

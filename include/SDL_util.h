@@ -28,7 +28,7 @@ extern SDL_Window *gWindow;
 extern SDL_Renderer *gRenderer;
 
 bool init();
-void loadMedia();
+bool loadMedia();
 void closeWindow();
 
 #endif /* SDL_util_h */
