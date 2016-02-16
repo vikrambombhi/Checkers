@@ -15,12 +15,12 @@ SDL_Renderer *gRenderer=NULL;
 
 bool init(){
     
-    bool success = true;
+    bool initSuccessful = true;
     
     if(SDL_Init(SDL_INIT_VIDEO)>0)
     {
         printf("Failed init. SDL_ERROR: %s\n",SDL_GetError());
-        success = false;
+        initSuccessful = false;
         }
         else
         {
@@ -34,7 +34,7 @@ bool init(){
             if(gWindow==NULL)
             {
                 printf("Couldnt make window. SDL_Error: %s\n",SDL_GetError());
-                success = false;
+                initSuccessful = false;
             }
             else
             {
@@ -42,7 +42,7 @@ bool init(){
                 if(gRenderer==NULL)
                 {
                     printf("Renderer failed. SDL_Error: %s\n",SDL_GetError());
-                    success = false;
+                    initSuccessful = false;
                 }
                 else
                 {
@@ -53,27 +53,47 @@ bool init(){
                     if( !( IMG_Init( imgFlags ) & imgFlags ) )
                     {
                         printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
-                        success = false;
+                        initSuccessful = false;
                     }
                 }
             }
             
             
     }
-    return success;
+    return initSuccessful;
 }
 
-void loadMedia(){
+bool loadMedia(){
+    
+    bool initSuccessfulful = true;
+    
+    if (!spriteSheetTexture.loadFromFile("data/CheckerSprite.png")) {
+        printf("Could not load sprite");
+        initSuccessfulful = false;
+    }
+    // Initalize Checkers Pieces //
+    // Red Piece //
     spriteClips[0].x = 0;
     spriteClips[0].y = 0;
     spriteClips[0].w = BUTTON_WIDTH;
     spriteClips[0].h = BUTTON_HEIGHT;
-    
+    // Black Piece //
     spriteClips[1].x = BUTTON_WIDTH;
     spriteClips[1].y = 0;
     spriteClips[1].w = BUTTON_WIDTH;
     spriteClips[1].h = BUTTON_HEIGHT;
     
+    int index = 0;
+    
+    // Sets points for buttons (top left of button)
+    for(int y=0;y<SCREEN_HEIGHT;y+=BUTTON_HEIGHT){
+        for(int x=0;x<SCREEN_WIDTH;x+=BUTTON_WIDTH){
+            boardButtons[index].setPoint(x, y);
+            index++;
+        }
+    }
+    
+    return initSuccessfulful;
 }
 
 void closeWindow(){
