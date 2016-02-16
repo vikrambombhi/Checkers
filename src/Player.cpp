@@ -161,4 +161,13 @@ void Player::initTeam(bool topSide) {
         team[11].x = 6;
         team[11].y = 5;
     }
+    
+        // Update Virtual board after init //
+    
+    for (int teamIndex = 0; teamIndex < 12; teamIndex++) {
+        Board.virtualBoard[team[teamIndex].y][team[teamIndex].x] = topSide + 1;
+    }
+    
+    
+    
 }

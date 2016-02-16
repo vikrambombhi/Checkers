@@ -18,6 +18,8 @@ int main( int argc, char* args[] )
     SDL_Event event;
     bool userQuit = false;
     
+    Board.printBoard();
+    
     // Main loop //
     while(!userQuit){
         
