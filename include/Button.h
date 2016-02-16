@@ -28,7 +28,7 @@ public:
     void setPoint(int,int);
     void handleEvent(SDL_Event*);
     void render();
-    void renderTeam(Player);
+    void renderTeam(Player,int);
 private:
     SDL_Point buttonPoint;
     bool renderButton = false;

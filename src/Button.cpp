@@ -28,10 +28,12 @@ void Button::render(){
     }
 }
 
-void Button::renderTeam(Player Player){
-    for (int i=0; i<Player.team.size(); i++) {
-        printf("hi");
-    }
+void Button::renderTeam(Player Player,int index){
+    renderButton = true;
+    buttonPoint.x = BUTTON_WIDTH*Player.team[index].x;
+    buttonPoint.y = BUTTON_HEIGHT*Player.team[index].y;
+    render();
+
 }
 
 void Button::handleEvent(SDL_Event *event){

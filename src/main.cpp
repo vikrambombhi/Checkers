@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/CheckersBoard.h"
+#include "../include/Player.h"
 
 int main( int argc, char* args[] )
 {
@@ -7,6 +8,9 @@ int main( int argc, char* args[] )
     if(!init()){
         printf("Could not load!");
     }
+    
+    Player Player1(true);
+    Player Player2(false);
     
     // Loads media such as buttons and sprites //
     loadMedia();
@@ -36,8 +40,11 @@ int main( int argc, char* args[] )
         
         // Render stuff here //
         Board.drawBoard();
-        for(int i=0;i<TOTAL_BUTTONS;i++){
-            boardButtons[i].render();
+        for(int i=0;i<Player1.team.size()/2;i++){
+            boardButtons[i].renderTeam(Player1, i);
+        }
+        for(int i=12;i<Player1.team.size();i++){
+            boardButtons[i].renderTeam(Player2, i);
         }
         
         SDL_RenderPresent(gRenderer);
