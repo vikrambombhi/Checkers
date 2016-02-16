@@ -1,9 +1,5 @@
-#include <SDl2/SDL.h>
-#include <stdio.h>
 #include <iostream>
-#include "SDL_util.h"
 #include "CheckersBoard.h"
-#include "Button.h"
 
 int main( int argc, char* args[] )
 {
@@ -33,8 +29,9 @@ int main( int argc, char* args[] )
                 boardButtons[i].handleEvent(&event);
             }
         }
+        // Light wood color //
+        SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
         // Refreshs screen //
-        SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear(gRenderer);
         
         // Render stuff here //

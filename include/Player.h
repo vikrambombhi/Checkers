@@ -9,7 +9,6 @@
 #ifndef Player_h
 #define Player_h
 
-#include <iostream>
 #include "CheckersBoard.h"
 #include "Piece.h"
 
