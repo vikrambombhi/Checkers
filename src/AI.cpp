@@ -4,15 +4,6 @@
 
 using namespace std;
 
-struct pos {
-    int x;
-    int y;
-    int prob;
-};
-
-vector<pos> blackTeam;
-vector<pos> redTeam;
-
 int choose(int x, int y, int val){
     if((x>8)){
         return val+10;
