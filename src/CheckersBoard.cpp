@@ -48,10 +48,10 @@ void CheckersBoard::drawBoard(){
 
 void CheckersBoard::printBoard(){
     printf("========\n");
-    for (int i=0; i<8; i++) {
-        for (int j=0; j<8; j++) {
-            if ((i + j) % 2 == 1) {
-                printf("%i", virtualBoard[i][j]);
+    for (int y=0; y<8; y++) {
+        for (int x=0; x<8; x++) {
+            if ((y + x) % 2 == 1) {
+                printf("%i", virtualBoard[x][y]);
             }
             else {
                 printf(" ");
