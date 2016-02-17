@@ -19,6 +19,8 @@ int main( int argc, char* args[] )
     bool userQuit = false;
     int index;
     
+    Board.printBoard();
+    
     // Main loop //
     while(!userQuit){
         
@@ -31,7 +33,7 @@ int main( int argc, char* args[] )
                 userQuit=true;
             }
             for(int i=0;i<TOTAL_BUTTONS;i++){
-                boardButtons[i].handleEvent(&event);
+                boardButtons[i].handleEvent(&event, i);
             }
         }
         // Light wood color //

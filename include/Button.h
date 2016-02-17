@@ -28,7 +28,7 @@ class Button{
 public:
     Button();
     void setPoint(int,int);
-    void handleEvent(SDL_Event*);
+    void handleEvent(SDL_Event*, int);
     void render();
     void renderTeamMember(CheckersBoard,int,int);
 private:

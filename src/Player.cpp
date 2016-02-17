@@ -87,7 +87,7 @@ void Player::initTeam(bool topSide) {
         team[11].x = 7;
         team[11].y = 2;
     }
-        else{
+    else {
         //-----------------------------RED TEAM----------------------------\\
         //Push back new chip created with default constructor.
         team.push_back(Piece());
@@ -160,5 +160,14 @@ void Player::initTeam(bool topSide) {
         //Vector now has 1 element @ index 11
         team[11].x = 6;
         team[11].y = 5;
-        }
+    }
+    
+        // Update Virtual board after init //
+    
+    for (int teamIndex = 0; teamIndex < 12; teamIndex++) {
+        Board.virtualBoard[team[teamIndex].x][team[teamIndex].y] = topSide + 1;
+    }
+    
+    
+    
 }

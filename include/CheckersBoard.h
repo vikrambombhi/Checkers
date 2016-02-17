@@ -20,7 +20,7 @@ public:
     CheckersBoard();
     void drawBoard();
     void printBoard();
-    vector<vector<int>> virtualBoard;
+    vector<vector<int>> virtualBoard; // Virtual board inexed by [x][y]
 };
 
 extern CheckersBoard Board;

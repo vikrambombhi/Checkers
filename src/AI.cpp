@@ -26,7 +26,8 @@ int choose(int x, int y, int val){
     }
     return val;
 }
-    // Code review 0/10
+
+// Code review 0/10
 
 /*
 void theChoosenOne(){
