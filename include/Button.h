@@ -15,12 +15,14 @@
 #include <SDL2/SDL.h>
 #endif
 #include "Player.h"
+#include "CheckersBoard.h"
 
 const int BUTTON_WIDTH = 80;
 const int BUTTON_HEIGHT = 80;
 const int TOTAL_BUTTONS = 32;
 
 class Player;
+class CheckersBoard;
 
 class Button{
 public:
@@ -28,13 +30,11 @@ public:
     void setPoint(int,int);
     void handleEvent(SDL_Event*);
     void render();
-    void renderTeam(Player,int);
+    void renderTeamMember(CheckersBoard,int,int);
 private:
     SDL_Point buttonPoint;
-    bool renderButton = false;
-    bool selected = false;
 };
 
 extern Button boardButtons[TOTAL_BUTTONS];
-
+extern bool selectedState;
 #endif /* Button_h */

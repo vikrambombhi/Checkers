@@ -10,6 +10,7 @@
 #include "../include/Texture.h"
 
 Button boardButtons[TOTAL_BUTTONS];
+bool selectedState = false;
 
 Button::Button(){
     buttonPoint.x = 0;
@@ -23,24 +24,22 @@ void Button::setPoint(int x, int y){
 
 void Button::render(){
     //Render button with spritesheet
-    if(renderButton){
-        spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite]);
-    }
+    spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite]);
 }
 
-void Button::renderTeam(Player Player,int index){
-    // Things are switched around idk why SOMEONE CHECK THESE//
-    if (Player.topSide) {
-        currentSprite = BLACK_PIECE;
+void Button::renderTeamMember(CheckersBoard Board, int x, int y){
+    //renderButton = true;
+    switch (Board.virtualBoard[x][y]) {
+        case 1:
+            currentSprite = RED_PIECE;
+            render();
+            break;
+        case 2:
+            currentSprite = BLACK_PIECE;
+            render();
+        default:
+            break;
     }
-    else{
-        currentSprite = RED_PIECE;
-    }
-    renderButton = true;
-    buttonPoint.x = BUTTON_WIDTH*Player.team[index].x;
-    buttonPoint.y = BUTTON_HEIGHT*Player.team[index].y;
-    render();
-
 }
 
 void Button::handleEvent(SDL_Event *event){
@@ -71,11 +70,16 @@ void Button::handleEvent(SDL_Event *event){
         }
         
         if (insideButton) {
-            renderButton = true;
+            //renderButton = true;
+            if (selectedState == false) {
+                selectedState = true;
+            }
+            else{
+                buttonPoint.x = x;
+                buttonPoint.y = y;
+                selectedState = false;
+            }
             //printf("%i,%i\n",buttonPoint.x,buttonPoint.y);
-        }
-        else{
-            renderButton = false;
         }
     }
 }

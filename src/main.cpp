@@ -17,6 +17,7 @@ int main( int argc, char* args[] )
     
     SDL_Event event;
     bool userQuit = false;
+    int index;
     
     // Main loop //
     while(!userQuit){
@@ -41,13 +42,15 @@ int main( int argc, char* args[] )
         // Render stuff here //
         Board.drawBoard();
         
-        // Render player 1 team //
-        for(int i=0;i<Player1.team.size();i++){
-            boardButtons[i].renderTeam(Player1, i);
-        }
-        // Render player 2 team //
-        for(int i=0;i<Player2.team.size();i++){
-            boardButtons[i+12].renderTeam(Player2, i);
+        // Render whole team //
+        index = 0;
+        for (int y=0; y<8; y++) {
+            for (int x=0; x<8; x++) {
+                if((y+x)%2 == 1){
+                    boardButtons[index].renderTeamMember(Board, x, y);
+                    index++;
+                }
+            }
         }
         
         SDL_RenderPresent(gRenderer);
