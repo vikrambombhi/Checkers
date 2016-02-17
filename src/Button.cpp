@@ -76,8 +76,6 @@ void Button::handleEvent(SDL_Event *event, int index){
                 selectedState = true;
             }
             else{
-                buttonPoint.x = x;
-                buttonPoint.y = y;
                 selectedState = false;
             }
             //printf("%i,%i\n",buttonPoint.x,buttonPoint.y);
