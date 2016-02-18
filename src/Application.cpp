@@ -1,69 +1,85 @@
 //
-//  SDL_util.cpp
-//  Checkers
+//  Application.cpp
+//  SDL_Checkers
 //
-//  Created by Jacky Chiu on 2016-02-12.
+//  Created by Jacky Chiu on 2016-02-18.
 //  Copyright © 2016 Jacky Chiu. All rights reserved.
 //
 
-#include "SDL_util.h"
+#include "Application.h"
 #include "../include/Button.h"
 #include "../include/Texture.h"
 
 SDL_Window *gWindow=NULL;
 SDL_Renderer *gRenderer=NULL;
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 640;
 
-bool init(){
-    
+Application::Application(){
+    // Checks if init was able to excute //
+    if(!init()){
+        cout<<"Could not load application!"<<endl;
+    }
+    // Loads media such as buttons and sprites //
+    if(!loadMedia()){
+        cout<<"Could not load media!"<<endl;
+    }
+}
+
+Application::~Application(){
+    closeApplication();
+}
+
+bool Application::init(){
     bool initSuccessful = true;
     
     if(SDL_Init(SDL_INIT_VIDEO)>0)
     {
-        printf("Failed init. SDL_ERROR: %s\n",SDL_GetError());
+        cout<<"Failed init. SDL_ERROR: %s\n"<<SDL_GetError();
         initSuccessful = false;
+    }
+    else
+    {
+        if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
+        {
+            cout<<"Warning: Linear texture filtering not enabled!"<<endl;
+        }
+        
+        gWindow=SDL_CreateWindow("Checkers",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
+        
+        if(gWindow==NULL)
+        {
+            cout<<"Couldnt make window. SDL_Error: %s\n"<<SDL_GetError()<<endl;
+            initSuccessful = false;
         }
         else
         {
-            if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
+            gRenderer=SDL_CreateRenderer(gWindow,-1,SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
+            if(gRenderer==NULL)
             {
-                printf("Warning: Linear texture filtering not enabled!");
-            }
-            
-            gWindow=SDL_CreateWindow("Checkers",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
-            
-            if(gWindow==NULL)
-            {
-                printf("Couldnt make window. SDL_Error: %s\n",SDL_GetError());
+                cout<<"Renderer failed. SDL_Error: %s\n"<<SDL_GetError()<<endl;
                 initSuccessful = false;
             }
             else
             {
-                gRenderer=SDL_CreateRenderer(gWindow,-1,SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
-                if(gRenderer==NULL)
+                SDL_SetRenderDrawColor(gRenderer,0xFF,0xFF,0xFF,0xFF);
+                
+                // Init for img loading
+                int imgFlags = IMG_INIT_PNG;
+                if( !( IMG_Init( imgFlags ) & imgFlags ) )
                 {
-                    printf("Renderer failed. SDL_Error: %s\n",SDL_GetError());
+                    cout<<"Image failed. SDl_image Error: %s\n"<<IMG_GetError()<<endl;
                     initSuccessful = false;
                 }
-                else
-                {
-                    SDL_SetRenderDrawColor(gRenderer,0xFF,0xFF,0xFF,0xFF);
-                    
-                    // Init for img loading
-                    int imgFlags = IMG_INIT_PNG;
-                    if( !( IMG_Init( imgFlags ) & imgFlags ) )
-                    {
-                        printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
-                        initSuccessful = false;
-                    }
-                }
             }
-            
-            
+        }
+        
+        
     }
     return initSuccessful;
 }
 
-bool loadMedia(){
+bool Application::loadMedia(){
     
     bool initSuccessfulful = true;
     
@@ -106,7 +122,7 @@ bool loadMedia(){
     return initSuccessfulful;
 }
 
-void closeWindow(){
+void Application::closeApplication(){
     SDL_DestroyWindow(gWindow);
     gWindow=NULL;
     
@@ -114,5 +130,4 @@ void closeWindow(){
     gRenderer=NULL;
     
     SDL_Quit();
-
 }
