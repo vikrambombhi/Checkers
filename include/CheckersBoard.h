@@ -10,7 +10,7 @@
 #define CheckersBoard_h
 
 #include <vector>
-#include "SDL_util.h"
+#include "Application.h"
 # include "Button.h"
 
 using namespace std;

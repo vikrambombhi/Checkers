@@ -7,7 +7,7 @@
 //
 
 #include "../include/Texture.h"
-#include "SDL_util.h"
+#include "Application.h"
 
 SDL_Rect spriteClips[TOTAL_PIECES];
 Texture spriteSheetTexture;

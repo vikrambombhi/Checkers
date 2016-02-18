@@ -4,16 +4,10 @@
 
 int main( int argc, char* args[] )
 {
-    // Checks if init was able to excute //
-    if(!init()){
-        printf("Could not load!");
-    }
+    Application App;
     
     Player Player1(true);
     Player Player2(false);
-    
-    // Loads media such as buttons and sprites //
-    loadMedia();
     
     SDL_Event event;
     bool userQuit = false;
@@ -58,7 +52,5 @@ int main( int argc, char* args[] )
         SDL_RenderPresent(gRenderer);
         SDL_Delay(100);
     }
-    
-    closeWindow();
     return (EXIT_SUCCESS);
 }
