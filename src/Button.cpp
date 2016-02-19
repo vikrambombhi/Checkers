@@ -11,7 +11,6 @@
 #include "../include/CheckersBoard.h"
 
 Button boardButtons[TOTAL_BUTTONS];
-bool selectedState = false;
 
 Button::Button(){
     buttonPoint.x = 0;
@@ -28,60 +27,56 @@ void Button::render(){
     spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite]);
 }
 
-void Button::renderTeamMember(CheckersBoard Board, int x, int y){
-    //renderButton = true;
+void Button::renderBoardMember(CheckersBoard Board, int x, int y){
+
     switch (Board.virtualBoard[x][y]) {
+            
         case 1:
             currentSprite = RED_PIECE;
             render();
             break;
+            
         case 2:
             currentSprite = BLACK_PIECE;
             render();
+            break;
+            
         default:
             break;
     }
 }
 
-void Button::handleEvent(SDL_Event *event, int index){
+bool Button::insideButton(){
+
+    int x,y;
+    bool insideButton = true;
+    SDL_GetMouseState(&x,&y);
     
-    // If clikced on do something //
-    if(event->type == SDL_MOUSEBUTTONDOWN){
-        
-        int x,y;
-        bool insideButton = true;
-        SDL_GetMouseState(&x,&y);
-        
-        // Checks if button has been clicked
-        // Above button //
-        if(y < buttonPoint.y){
-            insideButton = false;
-        }
-        // Under button //
-        else if (y > buttonPoint.y + BUTTON_HEIGHT){
-            insideButton = false;
-        }
-        // Left of button //
-        else if (x < buttonPoint.x) {
-            insideButton = false;
-        }
-        // Right of button //
-        else if (x > buttonPoint.x + BUTTON_WIDTH){
-            insideButton = false;
-        }
-        
-        if (insideButton) {
-            //renderButton = true;
-            if (selectedState == false) {
-                selectedState = true;
-            }
-            else{
-                selectedState = false;
-            }
-            //printf("%i,%i\n",buttonPoint.x,buttonPoint.y);
-            
-            Board.printBoard();
-            
-        }
+    // Checks if button has been clicked
+    // Above button //
+    if(y < buttonPoint.y){
+        insideButton = false;
     }
+    // Under button //
+    else if (y > buttonPoint.y + BUTTON_HEIGHT){
+        insideButton = false;
+    }
+    // Left of button //
+    else if (x < buttonPoint.x) {
+        insideButton = false;
+    }
+    // Right of button //
+    else if (x > buttonPoint.x + BUTTON_WIDTH){
+        insideButton = false;
+    }
+
+    return insideButton;
+}
+
+int Button::getButtonPointX(){
+    return buttonPoint.x;
+}
+
+int Button::getButtonPointY(){
+    return buttonPoint.y;
 }

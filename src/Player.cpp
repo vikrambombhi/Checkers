@@ -7,9 +7,17 @@
 //
 
 #include "../include/Player.h"
+#include "../include/CheckersBoard.h"
 
 Player::Player(bool topSide) {
     initTeam(topSide);
+    if (topSide) {
+        turn = false;
+    }
+    else{
+        turn = true;
+    }
+    selectingState = false;
 }
 
 void Player::initTeam(bool topSide) {
@@ -167,7 +175,26 @@ void Player::initTeam(bool topSide) {
     for (int teamIndex = 0; teamIndex < 12; teamIndex++) {
         Board.virtualBoard[team[teamIndex].x][team[teamIndex].y] = topSide + 1;
     }
-    
-    
-    
+}
+
+void Player::selectPiece(int *value, int *column, int *row, int index){
+    // SELECT PIECE //
+    // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
+    if (Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] != 0) {
+        *column = boardButtons[index].getButtonPointX()/80;
+        *row = boardButtons[index].getButtonPointY()/80;
+        *value = Board.virtualBoard[*column][*row];
+        selectingState = true;
+    }
+}
+
+void Player::movePiece(int value, int column, int row, int index){
+    // MOVE PIECE //
+    // When a piece has been selected, and the button currently selected is empty //
+    if(Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] == 0){
+        Board.virtualBoard[column][row] = Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80];
+        Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] = value;
+        selectingState = false;
+    }
+    Board.printBoard();
 }

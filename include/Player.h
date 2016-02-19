@@ -17,7 +17,12 @@ class Player {
 public:
     Player(bool);
     void initTeam(bool);
+    void selectPiece(int*, int*, int*, int);
+    void movePiece(int, int, int, int);
     vector<Piece> team;
+    bool turn;
+    bool selectingState;
+private:
     bool topSide;
 };
 

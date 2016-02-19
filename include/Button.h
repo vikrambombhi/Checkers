@@ -21,20 +21,21 @@ const int BUTTON_WIDTH = 80;
 const int BUTTON_HEIGHT = 80;
 const int TOTAL_BUTTONS = 32;
 
-class Player;
 class CheckersBoard;
 
 class Button{
 public:
     Button();
     void setPoint(int,int);
-    void handleEvent(SDL_Event*, int);
+    bool insideButton();
     void render();
-    void renderTeamMember(CheckersBoard,int,int);
+    void renderBoardMember(CheckersBoard,int,int);
+    int getButtonPointX();
+    int getButtonPointY();
 private:
     SDL_Point buttonPoint;
 };
 
 extern Button boardButtons[TOTAL_BUTTONS];
-extern bool selectedState;
+
 #endif /* Button_h */
