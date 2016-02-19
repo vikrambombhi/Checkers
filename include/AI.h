@@ -9,8 +9,9 @@ class AI : public Player
 {
     public:
         AI(bool);
+        int updateProb(int x, int y, int val, int times);
+        void movePiece(int, int);
         void moveChoose();
-        int updateProb(int x, int y, int val);
 };
 
 #endif // AI_H

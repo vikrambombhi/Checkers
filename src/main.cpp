@@ -13,6 +13,7 @@ int main( int argc, char* args[] )
 
     SDL_Event event;
     bool userQuit = false;
+    bool AITurn = false;
     int index = 0, column = 0, row = 0, value = 0;
 
     // Main loop //
@@ -44,21 +45,28 @@ int main( int argc, char* args[] )
                             index = i;
                             // Player selects where the piece should move //
                             Player2.movePiece(value, column, row, index);
+                            AITurn = true;
                             break;
                         }
                     }
                 }
             }
+            if(AITurn == true){
+                Player1.moveChoose();
+                cout<<"AI made a move"<<endl;
+                AITurn = false;
+                break;
+            }
         }
         // MAKE AI MOVE HERE //
-        
+
         // Light wood color //
         SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
         // Refreshs screen //
         SDL_RenderClear(gRenderer);
 
         // Render stuff here //
-        
+
         Board.drawBoard();
 
         // Render whole team //
