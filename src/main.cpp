@@ -1,19 +1,19 @@
 #include <iostream>
 #include "../include/CheckersBoard.h"
 #include "../include/Player.h"
+#include "../include/AI.h"
 
 int main( int argc, char* args[] )
 {
+    // Calls Application consturctor
     Application App;
 
-    Player AI(true);
+    AI Player1(true);
     Player Player2(false);
 
     SDL_Event event;
     bool userQuit = false;
-    int index;
-
-    Board.printBoard();
+    int index = 0, column = 0, row = 0, value = 0;
 
     // Main loop //
     while(!userQuit){
@@ -26,16 +26,39 @@ int main( int argc, char* args[] )
             {
                 userQuit=true;
             }
-            for(int i=0;i<TOTAL_BUTTONS;i++){
-                boardButtons[i].handleEvent(&event, i);
+            // Player make move //
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                if (Player2.selectingState == false) {
+                    for (int i=0; i<TOTAL_BUTTONS; i++) {
+                        if (boardButtons[i].insideButton()) {
+                            index = i;
+                            // Player selects a piece to move //
+                            Player2.selectPiece(&value, &column, &row, index);
+                            break;
+                        }
+                    }
+                }
+                else{
+                    for (int i=0; i<TOTAL_BUTTONS; i++) {
+                        if (boardButtons[i].insideButton()) {
+                            index = i;
+                            // Player selects where the piece should move //
+                            Player2.movePiece(value, column, row, index);
+                            break;
+                        }
+                    }
+                }
             }
         }
+        // MAKE AI MOVE HERE //
+        
         // Light wood color //
         SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
         // Refreshs screen //
         SDL_RenderClear(gRenderer);
 
         // Render stuff here //
+        
         Board.drawBoard();
 
         // Render whole team //
@@ -43,7 +66,7 @@ int main( int argc, char* args[] )
         for (int y=0; y<8; y++) {
             for (int x=0; x<8; x++) {
                 if((y+x)%2 == 1){
-                    boardButtons[index].renderTeamMember(Board, x, y);
+                    boardButtons[index].renderBoardMember(Board, x, y);
                     index++;
                 }
             }
