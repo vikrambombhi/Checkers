@@ -34,6 +34,9 @@ SDL2 Library: https://www.libsdl.org/download-2.0.php
 SDL2 Image: https://www.libsdl.org/projects/SDL_image/
 
 ## Project Progress
+(Updated Feb 19)
+The pieces are now movable by selecting piece then selecting position.
+
 (Updated Feb 16)
 Created inital board with all initial pieces.
 
