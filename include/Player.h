@@ -26,6 +26,6 @@ private:
     bool topSide;
 };
 
-
+extern const int TEAM_SIZE;
 
 #endif /* Player_h */

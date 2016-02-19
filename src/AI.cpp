@@ -47,6 +47,7 @@ int AI::updateProb(int x, int y, int val, int times)
         cout << "val: " << val << endl;
         return val;
     }
+    return EXIT_FAILURE;
 }
 
 void AI::movePiece(int neo_x, int neo_y){
@@ -55,7 +56,7 @@ void AI::movePiece(int neo_x, int neo_y){
         Board.virtualBoard[bestMove.x][bestMove.y] = 2;
         Board.virtualBoard[neo_x][neo_y] = 0;
     }
-    for(int b=0;b<12;b++){
+    for(int b=0;b<TEAM_SIZE;b++){
             if((team[b].x == neo_x) && (team[b].y == neo_y)){
                 team[b].x = bestMove.x;
                 team[b].y = bestMove.y;
@@ -73,7 +74,7 @@ void AI::moveChoose(){
     int temp = 0;
     int neo_x;
     int neo_y;
-    for(int b=0;b<12;b++){
+    for(int b=0;b<TEAM_SIZE;b++){
         if(team[b].probability>temp) {
             temp = team[b].probability;
             neo_x = team[b].x;

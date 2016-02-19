@@ -9,6 +9,8 @@
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
 
+const int TEAM_SIZE = 12;
+
 Player::Player(bool topSide) {
     initTeam(topSide);
     if (topSide) {
@@ -172,7 +174,7 @@ void Player::initTeam(bool topSide) {
 
         // Update Virtual board after init //
 
-    for (int teamIndex = 0; teamIndex < 12; teamIndex++) {
+    for (int teamIndex = 0; teamIndex < TEAM_SIZE; teamIndex++) {
         Board.virtualBoard[team[teamIndex].x][team[teamIndex].y] = topSide + 1;
     }
 }
@@ -180,33 +182,47 @@ void Player::initTeam(bool topSide) {
 void Player::selectPiece(int *value, int *column, int *row, int index){
     // SELECT PIECE //
     // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
-    if (Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] == 0){
-        cout<<"not a piece"<<endl;
-    }
-    if (Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] == 1) {
-        *column = boardButtons[index].getButtonPointX()/80;
-        *row = boardButtons[index].getButtonPointY()/80;
-        *value = Board.virtualBoard[*column][*row];
-        selectingState = true;
-    }
-    if (Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] == 2){
-        cout<<"not ur team piece"<<endl;
+    switch (Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80]) {
+        case 0:
+            cout<<"Selected button isn't a piece"<<endl;
+            break;
+        case 1:
+            *column = boardButtons[index].getButtonPointX()/80;
+            *row = boardButtons[index].getButtonPointY()/80;
+            *value = Board.virtualBoard[*column][*row];
+            selectingState = true;
+            break;
+        case 2:
+            cout<<"Piece isn't apart of your team"<<endl;
+            break;
+        default:
+            break;
     }
 }
 
 void Player::movePiece(int value, int column, int row, int index){
     // MOVE PIECE //
     // When a piece has been selected, and the button currently selected is empty //
-    if(Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] == 0){
-        Board.virtualBoard[column][row] = Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80];
-        Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] = value;
-        for(int b=0;b<12;b++){
-            if((team[b].x == column) && (team[b].y == row)){
-                team[b].x = (boardButtons[index].getButtonPointX()/80);
-                team[b].y = (boardButtons[index].getButtonPointY()/80);
-               }
-        }
-        selectingState = false;
+    switch (Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80]) {
+        case 0:
+            Board.virtualBoard[column][row] = Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80];
+            Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] = value;
+            for(int b=0;b<TEAM_SIZE;b++){
+                if((team[b].x == column) && (team[b].y == row)){
+                    team[b].x = (boardButtons[index].getButtonPointX()/80);
+                    team[b].y = (boardButtons[index].getButtonPointY()/80);
+                    break;
+                }
+            }
+            selectingState = false;
+            break;
+        case 1:
+            cout<<"Can't move onto team member"<<endl;
+            break;
+        case 2:
+            cout<<"Can't move onto other team's member"<<endl;
+            break;
+        default:
+            break;
     }
-    Board.printBoard();
 }
