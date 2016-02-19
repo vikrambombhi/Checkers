@@ -7,7 +7,7 @@
 //
 
 #include "../include/Texture.h"
-#include "Application.h"
+#include "../include/Application.h"
 
 SDL_Rect spriteClips[TOTAL_PIECES];
 Texture spriteSheetTexture;
@@ -24,14 +24,14 @@ Texture::~Texture(){
 }
 
 bool Texture::loadFromFile(std::string path){
-    
+
     // Frees current texture //
     free();
-    
+
     SDL_Texture *newTexture;
     // Load image from path //
     SDL_Surface *loadedSurface = IMG_Load(path.c_str());
-    
+
     if(loadedSurface == NULL){
         printf("Unable to load img from %s! SDL Error: %s\n",path.c_str(),IMG_GetError());
     }
@@ -52,16 +52,16 @@ bool Texture::loadFromFile(std::string path){
 }
 
 void Texture::render(int x, int y, SDL_Rect *clip){
-    
+
     // Sets place to render on screen //
     SDL_Rect renderSpace = {x, y, width, height};
-    
+
     // Sets rendering space dimensions from clip dimensions //
     if(clip != NULL){
         renderSpace.w = clip->w;
         renderSpace.h = clip->h;
     }
-    
+
     // Render to screen //
     SDL_RenderCopy(gRenderer, currentTexture, clip, &renderSpace);
 }

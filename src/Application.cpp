@@ -6,7 +6,7 @@
 //  Copyright © 2016 Jacky Chiu. All rights reserved.
 //
 
-#include "Application.h"
+#include "../include/Application.h"
 #include "../include/Button.h"
 #include "../include/Texture.h"
 
@@ -32,7 +32,7 @@ Application::~Application(){
 
 bool Application::init(){
     bool initSuccessful = true;
-    
+
     if(SDL_Init(SDL_INIT_VIDEO)>0)
     {
         cout<<"Failed init. SDL_ERROR: %s\n"<<SDL_GetError();
@@ -44,9 +44,9 @@ bool Application::init(){
         {
             cout<<"Warning: Linear texture filtering not enabled!"<<endl;
         }
-        
+
         gWindow=SDL_CreateWindow("Checkers",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
-        
+
         if(gWindow==NULL)
         {
             cout<<"Couldnt make window. SDL_Error: %s\n"<<SDL_GetError()<<endl;
@@ -63,7 +63,7 @@ bool Application::init(){
             else
             {
                 SDL_SetRenderDrawColor(gRenderer,0xFF,0xFF,0xFF,0xFF);
-                
+
                 // Init for img loading
                 int imgFlags = IMG_INIT_PNG;
                 if( !( IMG_Init( imgFlags ) & imgFlags ) )
@@ -73,16 +73,16 @@ bool Application::init(){
                 }
             }
         }
-        
-        
+
+
     }
     return initSuccessful;
 }
 
 bool Application::loadMedia(){
-    
+
     bool initSuccessfulful = true;
-    
+
     if (!spriteSheetTexture.loadFromFile("data/CheckerSprite.png")) {
         printf("Could not load sprite");
         initSuccessfulful = false;
@@ -98,11 +98,11 @@ bool Application::loadMedia(){
     spriteClips[1].y = 0;
     spriteClips[1].w = BUTTON_WIDTH;
     spriteClips[1].h = BUTTON_HEIGHT;
-    
+
     int index = 0;
     bool indent = true;
     int xStart;
-    
+
     // Sets points for buttons (top left of button)
     for(int y=0;y<SCREEN_HEIGHT;y+=BUTTON_HEIGHT){
         if (indent) {
@@ -118,16 +118,16 @@ bool Application::loadMedia(){
             index++;
         }
     }
-    
+
     return initSuccessfulful;
 }
 
 void Application::closeApplication(){
     SDL_DestroyWindow(gWindow);
     gWindow=NULL;
-    
+
     SDL_DestroyRenderer(gRenderer);
     gRenderer=NULL;
-    
+
     SDL_Quit();
 }

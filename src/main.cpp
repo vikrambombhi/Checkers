@@ -5,22 +5,22 @@
 int main( int argc, char* args[] )
 {
     Application App;
-    
-    Player Player1(true);
+
+    Player AI(true);
     Player Player2(false);
-    
+
     SDL_Event event;
     bool userQuit = false;
     int index;
-    
+
     Board.printBoard();
-    
+
     // Main loop //
     while(!userQuit){
-        
+
         // Event loop //
         while(SDL_PollEvent(&event)!=0){
-            
+
             // Quits game //
             if(event.type==SDL_QUIT)
             {
@@ -34,10 +34,10 @@ int main( int argc, char* args[] )
         SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
         // Refreshs screen //
         SDL_RenderClear(gRenderer);
-        
+
         // Render stuff here //
         Board.drawBoard();
-        
+
         // Render whole team //
         index = 0;
         for (int y=0; y<8; y++) {
@@ -48,7 +48,7 @@ int main( int argc, char* args[] )
                 }
             }
         }
-        
+
         SDL_RenderPresent(gRenderer);
         SDL_Delay(100);
     }
