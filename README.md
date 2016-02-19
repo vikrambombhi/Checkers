@@ -5,7 +5,7 @@ Project is programmed by:
 - VikramBombhi (https://github.com/VikramBombhi)
 - BenEmdon (https://github.com/BenEmdon)
 
-A simple checkers game created in C++ using SDL2's frameworks.that is planned to be a single player mode that challenges our AI checkers player and to have multiplayer mode so you can play with a friend beside you. 
+A simple checkers game created in C++ using SDL2's frameworks. That is planned to have a single player mode that challenges our AI checkers player and to have multiplayer mode so you can play with a friend beside you. 
 
 ![alt tag](https://raw.githubusercontent.com/VikramBombhi/Checkers/master/data/CheckersBoard.png)
 
