@@ -9,7 +9,7 @@
 #include "../include/Texture.h"
 #include "../include/Application.h"
 
-SDL_Rect spriteClips[TOTAL_PIECES];
+SDL_Rect spriteClips[TOTAL_PIECES-1];
 Texture spriteSheetTexture;
 SpriteList currentSprite;
 

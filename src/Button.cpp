@@ -24,19 +24,19 @@ void Button::setPoint(int x, int y){
 
 void Button::render(){
     //Render button with spritesheet
-    spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite]);
+    spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite-1]);
 }
 
 void Button::renderBoardMember(CheckersBoard Board, int x, int y){
 
     switch (Board.virtualBoard[x][y]) {
             
-        case 1:
+        case RED_PIECE:
             currentSprite = RED_PIECE;
             render();
             break;
             
-        case 2:
+        case BLACK_PIECE:
             currentSprite = BLACK_PIECE;
             render();
             break;

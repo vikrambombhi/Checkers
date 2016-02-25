@@ -19,6 +19,7 @@
 #endif
 
 enum SpriteList{
+    EMPTY_PIECE,
     RED_PIECE,
     BLACK_PIECE,
     TOTAL_PIECES
@@ -39,7 +40,7 @@ private:
     int height;
 };
 
-extern SDL_Rect spriteClips[TOTAL_PIECES];
+extern SDL_Rect spriteClips[TOTAL_PIECES-1];
 extern Texture spriteSheetTexture;
 extern SpriteList currentSprite;
 
