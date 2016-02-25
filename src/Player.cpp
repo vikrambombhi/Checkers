@@ -8,6 +8,7 @@
 
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
+#include "../include/Texture.h"
 
 const int TEAM_SIZE = 12;
 
@@ -203,31 +204,42 @@ void Player::selectPiece(int *value, int *column, int *row, int index){
 void Player::movePiece(int value, int column, int row, int index){
     // MOVE PIECE //
     // When a piece has been selected, and the button currently selected is empty //
-    switch (Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80]) {
-        case 0:
-            if (abs(boardButtons[index].getButtonPointX()/80 - column) == 1 || abs(boardButtons[index].getButtonPointY()/80 - row) == 1) {
-                Board.virtualBoard[column][row] = Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80];
-                Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80] = value;
-                for(int b=0;b<TEAM_SIZE;b++){
-                    if((team[b].x == column) && (team[b].y == row)){
-                        team[b].x = (boardButtons[index].getButtonPointX()/80);
-                        team[b].y = (boardButtons[index].getButtonPointY()/80);
-                        break;
-                    }
-                }
+    
+    int boardButtonClickedX = boardButtons[index].getButtonPointX()/80;
+    int boardButtonClickedY = boardButtons[index].getButtonPointY()/80;
+    
+    switch (Board.virtualBoard[boardButtonClickedX][boardButtonClickedY]) {
+        case EMPTY_PIECE:
+            if (abs(boardButtonClickedX - column) == 1 || abs(boardButtonClickedY - row) == 1) {
+                Board.virtualBoard[column][row] = Board.virtualBoard[boardButtonClickedX][boardButtonClickedY];
+                Board.virtualBoard[boardButtonClickedX][boardButtonClickedY] = value;
+                
+                team[pieceTeamIndexByXY(column, row)].x = boardButtonClickedX;
+                team[pieceTeamIndexByXY(boardButtonClickedX, row)].y = boardButtonClickedY;
+                
                 selectingState = false;
             }
             else {
                 cout<<"Cannot move here, out of range"<<endl;
             }
             break;
-        case 1:
+        case RED_PIECE:
             cout<<"Can't move onto team member"<<endl;
             break;
-        case 2:
+        case BLACK_PIECE:
             cout<<"Can't move onto other team's member"<<endl;
             break;
         default:
             break;
     }
+}
+
+int Player::pieceTeamIndexByXY(int x, int y) {
+    int index=0;
+    for(;index<TEAM_SIZE;index++){
+        if((team[index].x == x) && (team[index].y == y)){
+            break;
+        }
+    }
+    return index;
 }

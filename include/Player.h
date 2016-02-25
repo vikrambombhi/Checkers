@@ -9,6 +9,7 @@
 #ifndef Player_h
 #define Player_h
 
+#include <iostream>
 #include "CheckersBoard.h"
 #include "Piece.h"
 using namespace std;
@@ -16,6 +17,7 @@ using namespace std;
 class Player {
 public:
     Player(bool);
+    int pieceTeamIndexByXY(int, int);
     void initTeam(bool);
     void selectPiece(int*, int*, int*, int);
     void movePiece(int, int, int, int);
