@@ -14,16 +14,17 @@
 #elif __APPLE__
 #include <SDL2/SDL.h>
 #endif
+#include "Game.h"
 #include "Player.h"
 #include "CheckersBoard.h"
-
+/*
 const int BUTTON_WIDTH = 80;
 const int BUTTON_HEIGHT = 80;
 const int TOTAL_BUTTONS = 32;
-
+*/
 class CheckersBoard;
 
-class Button{
+class Button: public Game{
 public:
     Button();
     void setPoint(int,int);
