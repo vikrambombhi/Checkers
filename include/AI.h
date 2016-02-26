@@ -9,8 +9,11 @@ class AI : public Player
 {
     public:
         AI(bool);
-        int updateProb(int x, int y, int val, int times);
-        void movePiece(int, int);
+        int threatCheckLeft(int x, int y);
+        int threatCheckRight(int x, int y);
+        int checkLeft(int x, int y);
+        int checkRight(int x, int y);
+        void moveCheck(int x, int y, int b);
         void moveChoose();
 };
 

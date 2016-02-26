@@ -16,6 +16,7 @@ public:
     int x;
     int y;
     int probability;
+    int leftVright;
 };
 
 #endif /* Piece_hpp */

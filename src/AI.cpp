@@ -1,94 +1,19 @@
 #include<iostream>
 #include <cstdlib>
 #include "../include/AI.h"
+#include "../include/Texture.h"
 
 AI::AI(bool topSide): Player(topSide){
 }
 
-struct tempPos{
- int x;
- int y;
-}bestMove;
+struct bestKill{
+ int leftVright;
+ int killPotential;
+}bestKill;
 
-int AI::updateProb(int x, int y, int val, int b)
-{
-    if((y>7) || (x>7)|| (y<0) || (x<0)){
-        cout << "in loop" << team[b].x << "," << team[b].y << endl;
-        cout << x << "," << y << "," << val << "," << "," << b << endl;
-        if(x>=8){
-            x = x - 1;
-        }
-        if(y>=8){
-            y = y - 1;
-        }
-        bestMove.x = x;
-        bestMove.y = y;
-        cout << "val: " << val << endl;
-        return val;
-    }
-    else
-    {
-        if(Board.virtualBoard[x][y] == 2){
-            cout << "if caught 1" << endl;
-            updateProb(x + 1, y + 1, val, b);
-            updateProb(x - 1, y + 1, val, b);
-            cout << "if exit 1" << endl;
-        }
-        if(Board.virtualBoard[x][y] == 1){
-            cout << "if caught 2" << endl;
-            updateProb(x + 1, y + 1, val + 1, b);
-            updateProb(x - 1, y + 1, val + 1, b);
-            cout << "if exit 2" << endl;
-        }
-        if(Board.virtualBoard[x][y] == 0){
-            cout << "if caught 3.1" << endl;
-            if(x>=7){
-                if(Board.virtualBoard[x-1][y+1] == 1){
-                    cout << "if caught 3.3" << endl;
-                    updateProb(x - 1, y + 1, val + 1, b);
-                }
-                if(Board.virtualBoard[x-1][y+1] == 0){
-                    cout << "if caught 3.5" << endl;
-                    updateProb(x - 1, y + 1, val + 1, b);
-                }
-            }
-            if(y>=8){
-                //lel jest dont do anything
-            }
-            if(x<0){
-                if(Board.virtualBoard[x+1][y+1] == 1){
-                    cout << "if caught 3.2" << endl;
-                    updateProb(x + 1, y + 1, val + 1, b);
-                }
-                if(Board.virtualBoard[x+1][y+1] == 0){
-                    cout << "if caught 3.4" << endl;
-                    updateProb(x + 1, y + 1, val + 1, b);
-                }
-            }
-            if(y<0){
-                if(Board.virtualBoard[x+1][y+1] == 1){
-                    cout << "if caught 3.2" << endl;
-                    updateProb(x + 1, y + 1, val + 1, b);
-                }
-                if(Board.virtualBoard[x-1][y+1] == 1){
-                    cout << "if caught 3.3" << endl;
-                    updateProb(x - 1, y + 1, val + 1, b);
-                }
-                if(Board.virtualBoard[x+1][y+1] == 0){
-                    cout << "if caught 3.4" << endl;
-                    updateProb(x + 1, y + 1, val + 1, b);
-                }
-                if(Board.virtualBoard[x-1][y+1] == 0){
-                    cout << "if caught 3.5" << endl;
-                    updateProb(x - 1, y + 1, val + 1, b);
-                }
-            }
-            cout << "if exit 3" << endl;
-        }
-    }
-    return EXIT_FAILURE;
-}
+int EMPTYSQUARE = 0;
 
+/*
 void AI::movePiece(int neo_x, int neo_y){
     // LOLZ PLZ WORK//
     if((Board.virtualBoard[neo_x][neo_y] == 2) && (Board.virtualBoard[bestMove.x][bestMove.y] == 0)){
@@ -103,12 +28,89 @@ void AI::movePiece(int neo_x, int neo_y){
         }
     Board.printBoard();
 }
+*/
+
+int AI::threatCheckLeft(int x, int y){
+    if(Board.virtualBoard[x-1][y+1] == RED_PIECE){
+        return 1;
+    }
+    if(Board.virtualBoard[x-1][y+1] == BLACK_PIECE){
+        return 2;
+    }
+    if(Board.virtualBoard[x-1][y+1] == EMPTYSQUARE){
+        return 0;
+    }
+}
+
+int AI::threatCheckRight(int x, int y){
+    if(Board.virtualBoard[x+1][y+1] == RED_PIECE){
+        return RED_PIECE;
+    }
+    if(Board.virtualBoard[x+1][y+1] == BLACK_PIECE){
+        return BLACK_PIECE;
+    }
+    if(Board.virtualBoard[x+1][y+1] == EMPTYSQUARE){
+        return EMPTYSQUARE;
+    }
+}
+
+int AI:: checkLeft(int x, int y){
+    int left;
+    if(Board.virtualBoard[x-1][y+1] == EMPTYSQUARE){
+        left = left+1;
+        if(threatCheckLeft(x-1, y+1) == RED_PIECE){
+            left = left-1;
+        }
+        if(threatCheckRight(x-1, y+1) == RED_PIECE){
+            left = left-1;
+        }
+    }
+    if(Board.virtualBoard[x+1][y+1] == 0){
+        left=left+1;
+        if(threatCheckLeft(x+1, y+1) == RED_PIECE){
+            left = left-1;
+        }
+        if(threatCheckRight(x+1, y+1) == RED_PIECE){
+            left = left-1;
+        }
+    }
+    return left;
+}
+
+int AI:: checkRight(int x, int y){
+    int right;
+    if(Board.virtualBoard[x-1][y+1] == 0){
+        right = right+1;
+    }
+    if(Board.virtualBoard[x+1][y+1] == 0){
+        right = right+1;
+    }
+    return right;
+}
+
+
+void AI::moveCheck(int x, int y, int b){
+    int left = checkLeft(x-1, y+1);
+    int right = checkRight(x+1, y+1);
+    cout<< "left: " << left << " " << "Right: " << right << endl;
+    /*
+    if(left>=right){
+        team[b].probability = left;
+        team[b].leftVright = 0;
+    }
+    if(right>left){
+        team[b].probability = right;
+        bestKill.leftVright = 1;
+    }
+    */
+}
 
 void AI::moveChoose(){
     cout<<"AI's Turn"<<endl;
     for(int b=0;b<12;b++){
-        team[b].probability = updateProb(team[b].x, team[b].y, 0, b);
+        moveCheck(team[b].x, team[b].y, b);
     }
+    /*
     int temp = 0;
     int neo_x;
     int neo_y;
@@ -121,4 +123,5 @@ void AI::moveChoose(){
     }
     cout<< "the chosen one" << neo_x << "," << neo_y << "best move" << bestMove.x << "," << bestMove.y << endl;
     movePiece(neo_x, neo_y);
+    */
 }
