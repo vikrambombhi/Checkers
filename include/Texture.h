@@ -3,13 +3,14 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-14.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #ifndef Texture_h
 #define Texture_h
 
-#include <string>
+#include "Application.h"
+
 #ifdef _WIN32
     #include <SDL.h>
     #include <SDL_image.h>
@@ -25,7 +26,7 @@ enum SpriteList{
     TOTAL_PIECES
 };
 
-class Texture{
+class Texture: public Application{
 public:
     Texture();
     ~Texture();
@@ -39,10 +40,5 @@ private:
     int width;
     int height;
 };
-
-extern SDL_Rect spriteClips[TOTAL_PIECES-1];
-extern Texture spriteSheetTexture;
-extern SpriteList currentSprite;
-
 
 #endif /* Texture_h */

@@ -3,7 +3,7 @@
 //  CheckersProject
 //
 //  Created by Benjamin Emdon on 2016-02-13.
-//  Copyright © 2016 Ben Emdon. All rights reserved.
+//  Copyright © 2016 Ben Emdon. 
 //
 
 #ifndef Player_h
@@ -11,19 +11,25 @@
 
 #include "CheckersBoard.h"
 #include "Piece.h"
+
 using namespace std;
 
-class Player {
+class Button;
+
+class Player{
 public:
-    Player(bool);
+    Player(bool,CheckersBoard*, Button*);
     void initTeam(bool);
     void selectPiece(int*, int*, int*, int);
     void movePiece(int, int, int, int);
     vector<Piece> team;
     bool turn;
     bool selectingState;
-private:
+protected:
     bool topSide;
+    const int TEAM_SIZE;
+    CheckersBoard *Board;
+    Button *boardButtons;
 };
 
 //extern const int TEAM_SIZE;

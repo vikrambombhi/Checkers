@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include "../include/AI.h"
 
-AI::AI(bool topSide): Player(topSide){
+AI::AI(bool topSide, CheckersBoard *board, Button *buttons): Player(topSide, board, buttons){
 }
 
 struct tempPos{
@@ -28,26 +28,26 @@ int AI::updateProb(int x, int y, int val, int b)
     }
     else
     {
-        if(Board.virtualBoard[x][y] == 2){
+        if(Board->virtualBoard[x][y] == 2){
             cout << "if caught 1" << endl;
             updateProb(x + 1, y + 1, val, b);
             updateProb(x - 1, y + 1, val, b);
             cout << "if exit 1" << endl;
         }
-        if(Board.virtualBoard[x][y] == 1){
+        if(Board->virtualBoard[x][y] == 1){
             cout << "if caught 2" << endl;
             updateProb(x + 1, y + 1, val + 1, b);
             updateProb(x - 1, y + 1, val + 1, b);
             cout << "if exit 2" << endl;
         }
-        if(Board.virtualBoard[x][y] == 0){
+        if(Board->virtualBoard[x][y] == 0){
             cout << "if caught 3.1" << endl;
             if(x>=7){
-                if(Board.virtualBoard[x-1][y+1] == 1){
+                if(Board->virtualBoard[x-1][y+1] == 1){
                     cout << "if caught 3.3" << endl;
                     updateProb(x - 1, y + 1, val + 1, b);
                 }
-                if(Board.virtualBoard[x-1][y+1] == 0){
+                if(Board->virtualBoard[x-1][y+1] == 0){
                     cout << "if caught 3.5" << endl;
                     updateProb(x - 1, y + 1, val + 1, b);
                 }
@@ -56,29 +56,29 @@ int AI::updateProb(int x, int y, int val, int b)
                 //lel jest dont do anything
             }
             if(x<0){
-                if(Board.virtualBoard[x+1][y+1] == 1){
+                if(Board->virtualBoard[x+1][y+1] == 1){
                     cout << "if caught 3.2" << endl;
                     updateProb(x + 1, y + 1, val + 1, b);
                 }
-                if(Board.virtualBoard[x+1][y+1] == 0){
+                if(Board->virtualBoard[x+1][y+1] == 0){
                     cout << "if caught 3.4" << endl;
                     updateProb(x + 1, y + 1, val + 1, b);
                 }
             }
             if(y<0){
-                if(Board.virtualBoard[x+1][y+1] == 1){
+                if(Board->virtualBoard[x+1][y+1] == 1){
                     cout << "if caught 3.2" << endl;
                     updateProb(x + 1, y + 1, val + 1, b);
                 }
-                if(Board.virtualBoard[x-1][y+1] == 1){
+                if(Board->virtualBoard[x-1][y+1] == 1){
                     cout << "if caught 3.3" << endl;
                     updateProb(x - 1, y + 1, val + 1, b);
                 }
-                if(Board.virtualBoard[x+1][y+1] == 0){
+                if(Board->virtualBoard[x+1][y+1] == 0){
                     cout << "if caught 3.4" << endl;
                     updateProb(x + 1, y + 1, val + 1, b);
                 }
-                if(Board.virtualBoard[x-1][y+1] == 0){
+                if(Board->virtualBoard[x-1][y+1] == 0){
                     cout << "if caught 3.5" << endl;
                     updateProb(x - 1, y + 1, val + 1, b);
                 }
@@ -91,9 +91,9 @@ int AI::updateProb(int x, int y, int val, int b)
 
 void AI::movePiece(int neo_x, int neo_y){
     // LOLZ PLZ WORK//
-    if((Board.virtualBoard[neo_x][neo_y] == 2) && (Board.virtualBoard[bestMove.x][bestMove.y] == 0)){
-        Board.virtualBoard[bestMove.x][bestMove.y] = 2;
-        Board.virtualBoard[neo_x][neo_y] = 0;
+    if((Board->virtualBoard[neo_x][neo_y] == 2) && (Board->virtualBoard[bestMove.x][bestMove.y] == 0)){
+        Board->virtualBoard[bestMove.x][bestMove.y] = 2;
+        Board->virtualBoard[neo_x][neo_y] = 0;
     }
     for(int b=0;b<TEAM_SIZE;b++){
             if((team[b].x == neo_x) && (team[b].y == neo_y)){
@@ -101,7 +101,7 @@ void AI::movePiece(int neo_x, int neo_y){
                 team[b].y = bestMove.y;
                }
         }
-    Board.printBoard();
+    Board->printBoard();
 }
 
 void AI::moveChoose(){

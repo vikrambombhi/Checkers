@@ -3,15 +3,10 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-14.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #include "../include/Texture.h"
-#include "../include/Application.h"
-
-SDL_Rect spriteClips[TOTAL_PIECES-1];
-Texture spriteSheetTexture;
-SpriteList currentSprite;
 
 Texture::Texture(){
     currentTexture = NULL;

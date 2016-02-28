@@ -3,13 +3,11 @@
 //  Checkers
 //
 //  Created by Jacky Chiu on 2016-02-13.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #include "../include/CheckersBoard.h"
-#include "../include/Button.h"
-
-CheckersBoard Board;
+#include "GameState.h"
 
 CheckersBoard::CheckersBoard(){
     for (int y = 0; y < 8; y++)

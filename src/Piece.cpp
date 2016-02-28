@@ -3,7 +3,7 @@
 //  CheckersProject
 //
 //  Created by Benjamin Emdon on 2016-02-13.
-//  Copyright © 2016 Ben Emdon. All rights reserved.
+//  Copyright © 2016 Ben Emdon. 
 //
 
 #include "../include/Piece.h"

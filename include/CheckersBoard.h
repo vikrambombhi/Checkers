@@ -3,7 +3,7 @@
 //  Checkers
 //
 //  Created by Jacky Chiu on 2016-02-13.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #ifndef CheckersBoard_h
@@ -11,17 +11,14 @@
 
 #include <vector>
 #include "Application.h"
-# include "Button.h"
 
-using namespace std;
-
-class CheckersBoard{
+class CheckersBoard: protected Application{
 public:
     CheckersBoard();
     void drawBoard();
     void printBoard();
-    vector<vector<int> > virtualBoard; // Virtual board inexed by [x][y]
+    std::vector<std::vector<int> > virtualBoard; // Virtual board inexed by [x][y]
 };
 
-extern CheckersBoard Board;
+//extern CheckersBoard Board;
 #endif /* CheckersBoard_h */

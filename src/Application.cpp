@@ -3,31 +3,37 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-18.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #include "../include/Application.h"
-#include "../include/Button.h"
-#include "../include/Texture.h"
+#include "ApplicationState.h"
+#include "ApplicationStateManager.h"
 
-SDL_Window *gWindow=NULL;
-SDL_Renderer *gRenderer=NULL;
+
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 640;
 
 Application::Application(){
+    gWindow=NULL;
+    gRenderer=NULL;
+    applicationStateManager = new ApplicationStateManager();
+    
     // Checks if init was able to excute //
     if(!init()){
         cout<<"Could not load application!"<<endl;
     }
-    // Loads media such as buttons and sprites //
-    if(!loadMedia()){
-        cout<<"Could not load media!"<<endl;
-    }
 }
 
 Application::~Application(){
-    closeApplication();
+    if (applicationStateManager!=NULL) {
+        delete applicationStateManager;
+    }
+    SDL_DestroyWindow(gWindow);
+    gWindow=NULL;
+    
+    SDL_DestroyRenderer(gRenderer);
+    gRenderer=NULL;
 }
 
 bool Application::init(){
@@ -79,55 +85,26 @@ bool Application::init(){
     return initSuccessful;
 }
 
-bool Application::loadMedia(){
-
-    bool initSuccessfulful = true;
-
-    if (!spriteSheetTexture.loadFromFile("data/CheckerSprite.png")) {
-        printf("Could not load sprite");
-        initSuccessfulful = false;
+int Application::startApplication(){
+    
+    while (!applicationStateManager->stateExit()) {
+        applicationStateManager->stateEvent();
+        applicationStateManager->stateUpdate();
+        // Light wood color //
+        SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
+        // Refreshs screen //
+        SDL_RenderClear(gRenderer);
+        applicationStateManager->stateRender();
+        SDL_RenderPresent(gRenderer);
+        SDL_Delay(100);
     }
-    // Initalize Checkers Pieces //
-    // Red Piece //
-    spriteClips[0].x = 0;
-    spriteClips[0].y = 0;
-    spriteClips[0].w = BUTTON_WIDTH;
-    spriteClips[0].h = BUTTON_HEIGHT;
-    // Black Piece //
-    spriteClips[1].x = BUTTON_WIDTH;
-    spriteClips[1].y = 0;
-    spriteClips[1].w = BUTTON_WIDTH;
-    spriteClips[1].h = BUTTON_HEIGHT;
+    
+    closeApplication();
 
-    int index = 0;
-    bool indent = true;
-    int xStart;
-
-    // Sets points for buttons (top left of button)
-    for(int y=0;y<SCREEN_HEIGHT;y+=BUTTON_HEIGHT){
-        if (indent) {
-            xStart = BUTTON_WIDTH;
-            indent = false;
-        }
-        else{
-            xStart = 0;
-            indent = true;
-        }
-        for(int x=xStart;x<SCREEN_WIDTH;x+=2*BUTTON_WIDTH){
-            boardButtons[index].setPoint(x, y);
-            index++;
-        }
-    }
-
-    return initSuccessfulful;
+    return (EXIT_SUCCESS);
+     
 }
 
 void Application::closeApplication(){
-    SDL_DestroyWindow(gWindow);
-    gWindow=NULL;
-
-    SDL_DestroyRenderer(gRenderer);
-    gRenderer=NULL;
-
     SDL_Quit();
 }

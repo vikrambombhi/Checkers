@@ -3,14 +3,11 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-13.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #include "../include/Button.h"
-#include "../include/Texture.h"
-#include "../include/CheckersBoard.h"
-
-Button boardButtons[TOTAL_BUTTONS];
+#include "GameState.h"
 
 Button::Button(){
     buttonPoint.x = 0;

@@ -3,7 +3,7 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-18.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #ifndef Application_h
@@ -23,18 +23,22 @@
 
 using namespace std;
 
-extern SDL_Window *gWindow;
-extern SDL_Renderer *gRenderer;
-extern const int SCREEN_WIDTH;
-extern const int SCREEN_HEIGHT;
+class ApplicationStateManager;
 
 class Application{
 public:
     Application();
     ~Application();
+    int startApplication();
     bool init();
-    bool loadMedia();
     void closeApplication();
+protected:
+    SDL_Window *gWindow;
+    SDL_Renderer *gRenderer;
+    ApplicationStateManager *applicationStateManager;
 };
+
+extern const int SCREEN_WIDTH;
+extern const int SCREEN_HEIGHT;
 
 #endif /* Application_h */
