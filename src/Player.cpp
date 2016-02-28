@@ -207,10 +207,18 @@ void Player::movePiece(int value, int column, int row, int index){
     
     int boardButtonClickedX = boardButtons[index].getButtonPointX()/80;
     int boardButtonClickedY = boardButtons[index].getButtonPointY()/80;
+    bool canMove = false;
     
     switch (Board.virtualBoard[boardButtonClickedX][boardButtonClickedY]) {
         case EMPTY_PIECE:
-            if (abs(boardButtonClickedX - column) == 1 || abs(boardButtonClickedY - row) == 1) {
+            if (team[pieceTeamIndexByXY(column, row)].isKing() && (boardButtonClickedY - row) == 1) {
+                canMove = true;
+            }
+            if (!team[pieceTeamIndexByXY(column, row)].isKing() && (boardButtonClickedY - row) == -1) {
+                canMove = true;
+            }
+            if (abs(boardButtonClickedX - column) == 1 && canMove) {
+                
                 Board.virtualBoard[column][row] = Board.virtualBoard[boardButtonClickedX][boardButtonClickedY];
                 Board.virtualBoard[boardButtonClickedX][boardButtonClickedY] = value;
                 

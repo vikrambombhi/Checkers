@@ -11,9 +11,14 @@
 Piece::Piece() {
     x = 0;
     y = 0;
+    king = false;
 }
 
 void Piece::setPoint (int xLocation, int yLocation) {
     x = xLocation;
     y = yLocation;
+}
+
+bool Piece::isKing() {
+    return king;
 }
