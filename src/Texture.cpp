@@ -8,6 +8,10 @@
 
 #include "../include/Texture.h"
 
+SDL_Rect spriteClips[TOTAL_PIECES-1];
+Texture spriteSheetTexture;
+SpriteList currentSprite;
+
 Texture::Texture(){
     currentTexture = NULL;
     width = 0;

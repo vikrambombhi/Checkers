@@ -12,7 +12,7 @@
 #include <vector>
 #include "Application.h"
 
-class CheckersBoard: protected Application{
+class CheckersBoard{
 public:
     CheckersBoard();
     void drawBoard();

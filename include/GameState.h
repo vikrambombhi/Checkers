@@ -18,7 +18,7 @@
 #endif
 
 #include "ApplicationState.h"
-#include "Texture.h"
+
 
 class Button;
 class CheckersBoard;
@@ -37,12 +37,9 @@ public:
 private:
     bool loadMedia();
     CheckersBoard *Board;
+    Button *boardButtons;
     AI *Player1;
     Player *Player2;
-    Button *boardButtons;
-    SDL_Rect spriteClips[TOTAL_PIECES-1];
-    Texture spriteSheetTexture;
-    SpriteList currentSprite;
     bool userQuit;
     int index, column, row, value;
 };

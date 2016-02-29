@@ -33,11 +33,11 @@ public:
     bool init();
     void closeApplication();
 protected:
-    SDL_Window *gWindow;
-    SDL_Renderer *gRenderer;
     ApplicationStateManager *applicationStateManager;
 };
 
+extern SDL_Window *gWindow;
+extern SDL_Renderer *gRenderer;
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 

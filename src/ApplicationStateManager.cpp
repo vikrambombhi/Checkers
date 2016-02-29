@@ -10,8 +10,12 @@
 #include "GameState.h"
 
 ApplicationStateManager::ApplicationStateManager(){
-    currentState = new GameState();
+    currentState = new GameState;
     currentState->stateEnter();
+}
+
+ApplicationStateManager::~ApplicationStateManager(){
+    currentState = NULL;
 }
 
 void ApplicationStateManager::stateEnter(){

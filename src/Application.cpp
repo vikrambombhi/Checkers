@@ -10,19 +10,19 @@
 #include "ApplicationState.h"
 #include "ApplicationStateManager.h"
 
-
+SDL_Window *gWindow;
+SDL_Renderer *gRenderer;
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 640;
 
 Application::Application(){
     gWindow=NULL;
     gRenderer=NULL;
-    applicationStateManager = new ApplicationStateManager();
-    
     // Checks if init was able to excute //
     if(!init()){
         cout<<"Could not load application!"<<endl;
     }
+    applicationStateManager = new ApplicationStateManager;
 }
 
 Application::~Application(){
@@ -106,5 +106,6 @@ int Application::startApplication(){
 }
 
 void Application::closeApplication(){
+    IMG_Quit();
     SDL_Quit();
 }

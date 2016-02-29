@@ -9,8 +9,6 @@
 #ifndef Texture_h
 #define Texture_h
 
-#include "Application.h"
-
 #ifdef _WIN32
     #include <SDL.h>
     #include <SDL_image.h>
@@ -19,6 +17,8 @@
     #include <SDL2_image/SDL_image.h>
 #endif
 
+#include "Application.h"
+
 enum SpriteList{
     EMPTY_PIECE,
     RED_PIECE,
@@ -26,7 +26,7 @@ enum SpriteList{
     TOTAL_PIECES
 };
 
-class Texture: public Application{
+class Texture{
 public:
     Texture();
     ~Texture();
@@ -40,5 +40,9 @@ private:
     int width;
     int height;
 };
+
+extern SDL_Rect spriteClips[TOTAL_PIECES-1];
+extern Texture spriteSheetTexture;
+extern SpriteList currentSprite;
 
 #endif /* Texture_h */

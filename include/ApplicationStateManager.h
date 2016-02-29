@@ -14,6 +14,7 @@ class ApplicationState;
 class ApplicationStateManager{
 public:
     ApplicationStateManager();
+    ~ApplicationStateManager();
     void stateEnter();
     void stateEvent();
     void stateUpdate();

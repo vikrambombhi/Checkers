@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "AI.h"
 #include "Button.h"
+#include "Texture.h"
 
 const int BUTTON_WIDTH = 80;
 const int BUTTON_HEIGHT = 80;
@@ -23,6 +24,13 @@ GameState::GameState(){
     Player1 = new AI(true, Board, boardButtons);
     Player2 = new Player(false, Board, boardButtons);
     index = 0, column = 0, row = 0, value = 0;
+}
+
+GameState::~GameState(){
+    delete Board;
+    delete [] boardButtons;
+    delete Player1;
+    delete Player2;
 }
 
 void GameState::stateEnter(){

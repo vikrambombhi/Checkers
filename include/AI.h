@@ -12,9 +12,6 @@ class AI : public Player
         int updateProb(int x, int y, int val, int times);
         void movePiece(int, int);
         void moveChoose();
-private:
-    CheckersBoard *Board;
-    Button *boardButtons;
 };
 
 #endif // AI_H

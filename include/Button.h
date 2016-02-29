@@ -19,14 +19,10 @@
 #include "CheckersBoard.h"
 #include "Texture.h"
 
-/*
-const int BUTTON_WIDTH = 80;
-const int BUTTON_HEIGHT = 80;
-const int TOTAL_BUTTONS = 32;
-*/
+
 class CheckersBoard;
 
-class Button: protected Application{
+class Button{
 public:
     Button();
     void setPoint(int,int);
@@ -37,9 +33,6 @@ public:
     int getButtonPointY();
 private:
     SDL_Point buttonPoint;
-    SDL_Rect spriteClips[TOTAL_PIECES-1];
-    Texture spriteSheetTexture;
-    SpriteList currentSprite;
 };
 
 //extern Button boardButtons[TOTAL_BUTTONS];
