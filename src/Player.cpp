@@ -3,16 +3,17 @@
 //  CheckersProject
 //
 //  Created by Benjamin Emdon on 2016-02-13.
-//  Copyright © 2016 Ben Emdon. All rights reserved.
+//  Copyright © 2016 Ben Emdon. 
 //
 
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
-#include "../include/Texture.h"
+#include "../include/Button.h"
+#include "GameState.h"
 
-const int TEAM_SIZE = 12;
-
-Player::Player(bool topSide) {
+Player::Player(bool topSide, CheckersBoard *board, Button buttons[]){
+    Board = board;
+    boardButtons = buttons;
     initTeam(topSide);
     if (topSide) {
         turn = false;
@@ -21,6 +22,14 @@ Player::Player(bool topSide) {
         turn = true;
     }
     selectingState = false;
+}
+
+Player::~Player(){
+    team.clear();
+    delete Board;
+    Board = NULL;
+    delete boardButtons;
+    boardButtons = NULL;
 }
 
 void Player::initTeam(bool topSide) {
@@ -176,21 +185,21 @@ void Player::initTeam(bool topSide) {
         // Update Virtual board after init //
 
     for (int teamIndex = 0; teamIndex < TEAM_SIZE; teamIndex++) {
-        Board.virtualBoard[team[teamIndex].x][team[teamIndex].y] = topSide + 1;
+        Board->virtualBoard[team[teamIndex].x][team[teamIndex].y] = topSide + 1;
     }
 }
 
 void Player::selectPiece(int *value, int *column, int *row, int index){
     // SELECT PIECE //
     // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
-    switch (Board.virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80]) {
+    switch (Board->virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80]) {
         case 0:
             cout<<"Selected button isn't a piece"<<endl;
             break;
         case 1:
             *column = boardButtons[index].getButtonPointX()/80;
             *row = boardButtons[index].getButtonPointY()/80;
-            *value = Board.virtualBoard[*column][*row];
+            *value = Board->virtualBoard[*column][*row];
             selectingState = true;
             break;
         case 2:
@@ -209,7 +218,7 @@ void Player::movePiece(int value, int column, int row, int index){
     int boardButtonClickedY = boardButtons[index].getButtonPointY()/80;
     bool canMove = false;
     
-    switch (Board.virtualBoard[boardButtonClickedX][boardButtonClickedY]) {
+    switch (Board->virtualBoard[boardButtonClickedX][boardButtonClickedY]) {
         case EMPTY_PIECE:
             if (team[pieceTeamIndexByXY(column, row)].isKing() && (boardButtonClickedY - row) == 1) {
                 canMove = true;
@@ -219,8 +228,8 @@ void Player::movePiece(int value, int column, int row, int index){
             }
             if (abs(boardButtonClickedX - column) == 1 && canMove) {
                 
-                Board.virtualBoard[column][row] = Board.virtualBoard[boardButtonClickedX][boardButtonClickedY];
-                Board.virtualBoard[boardButtonClickedX][boardButtonClickedY] = value;
+                Board->virtualBoard[column][row] = Board->virtualBoard[boardButtonClickedX][boardButtonClickedY];
+                Board->virtualBoard[boardButtonClickedX][boardButtonClickedY] = value;
                 
                 team[pieceTeamIndexByXY(column, row)].x = boardButtonClickedX;
                 team[pieceTeamIndexByXY(boardButtonClickedX, row)].y = boardButtonClickedY;

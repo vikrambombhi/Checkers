@@ -3,13 +3,12 @@
 //  Checkers
 //
 //  Created by Jacky Chiu on 2016-02-13.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #include "../include/CheckersBoard.h"
-#include "../include/Button.h"
-
-CheckersBoard Board;
+#include "../include/GameState.h"
+#include "../include/Texture.h"
 
 CheckersBoard::CheckersBoard(){
     for (int y = 0; y < 8; y++)
@@ -21,6 +20,26 @@ CheckersBoard::CheckersBoard(){
         }
         virtualBoard.push_back(rowVector);
     }
+}
+
+CheckersBoard::~CheckersBoard(){
+    virtualBoard.clear();
+}
+
+ostream & operator << (ostream & output, CheckersBoard & boardPassed) {
+    output << "========" << endl;
+    for (int y=0; y<8; y++) {
+        for (int x=0; x<8; x++) {
+            if ((y + x) % 2 == 1) {
+                output << boardPassed.virtualBoard[x][y];
+            }
+            else {
+                output << " ";
+            }
+        }
+        output << endl;
+    }
+    return output;
 }
 
 void CheckersBoard::drawBoard(){
@@ -46,18 +65,22 @@ void CheckersBoard::drawBoard(){
     }
 }
 
-ostream & operator << (ostream & output, CheckersBoard & boardPassed) {
-    output << "========" << endl;
-    for (int y=0; y<8; y++) {
-        for (int x=0; x<8; x++) {
-            if ((y + x) % 2 == 1) {
-                output << boardPassed.virtualBoard[x][y];
-            }
-            else {
-                output << " ";
-            }
-        }
-        output << endl;
+void CheckersBoard::drawBoardPeices(int x, int y, Button *boardButton){
+    switch (virtualBoard[x][y]) {
+            
+        case RED_PIECE:
+            currentSprite = RED_PIECE;
+            boardButton->render();
+            break;
+            
+        case BLACK_PIECE:
+            currentSprite = BLACK_PIECE;
+            boardButton->render();
+            break;
+            
+        default:
+            break;
     }
-    return output;
+
 }
+   

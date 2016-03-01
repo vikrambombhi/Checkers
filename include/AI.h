@@ -8,7 +8,8 @@
 class AI : public Player
 {
     public:
-        AI(bool);
+        AI(bool, CheckersBoard*, Button*);
+        ~AI();
         void movePiece(int x, int y, int newX, int newY);
         int threatCheckLeft(int x, int y);
         int threatCheckRight(int x, int y);

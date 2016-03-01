@@ -3,15 +3,22 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../include/AI.h"
-#include "../include/Texture.h"
+#include "../include/GameState.h"
 
-AI::AI(bool topSide): Player(topSide){
+AI::AI(bool topSide, CheckersBoard *board, Button *buttons): Player(topSide, board, buttons){
+}
+
+AI::~AI(){
+    delete Board;
+    Board = NULL;
+    delete boardButtons;
+    boardButtons = NULL;
 }
 
 void AI::movePiece(int x, int y, int newX, int newY){
-    if((Board.virtualBoard[x][y] == BLACK_PIECE) && (Board.virtualBoard[newX][newY] == EMPTY_PIECE)){
-        Board.virtualBoard[newX][newY] = BLACK_PIECE;
-        Board.virtualBoard[x][y] = EMPTY_PIECE;
+    if((Board->virtualBoard[x][y] == BLACK_PIECE) && (Board->virtualBoard[newX][newY] == EMPTY_PIECE)){
+        Board->virtualBoard[newX][newY] = BLACK_PIECE;
+        Board->virtualBoard[x][y] = EMPTY_PIECE;
     }
     for(int b=0;b<team.size();b++){
             if((team[b].x == x) && (team[b].y == y)){
@@ -19,45 +26,41 @@ void AI::movePiece(int x, int y, int newX, int newY){
                 team[b].y = newY;
                }
         }
-    cout<<Board<<endl;
+    cout<<*Board<<endl;
 }
 
 int AI::threatCheckLeft(int x, int y){
     if(x>0 && y<7){
-        if(Board.virtualBoard[x-1][y+1] == RED_PIECE){
+        if(Board->virtualBoard[x-1][y+1] == RED_PIECE){
             return RED_PIECE;
         }
-        if(Board.virtualBoard[x-1][y+1] == BLACK_PIECE){
+        if(Board->virtualBoard[x-1][y+1] == BLACK_PIECE){
             return BLACK_PIECE;
         }
-        if(Board.virtualBoard[x-1][y+1] == EMPTY_PIECE){
+        if(Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
             return EMPTY_PIECE;
         }
     }
-    else{
-        return -1;
-    }
+    return -1;
 }
 
 int AI::threatCheckRight(int x, int y){
     if(x<7 && y <7){
-        if(Board.virtualBoard[x+1][y+1] == RED_PIECE){
+        if(Board->virtualBoard[x+1][y+1] == RED_PIECE){
             return RED_PIECE;
         }
-        if(Board.virtualBoard[x+1][y+1] == BLACK_PIECE){
+        if(Board->virtualBoard[x+1][y+1] == BLACK_PIECE){
             return BLACK_PIECE;
         }
-        if(Board.virtualBoard[x+1][y+1] == EMPTY_PIECE){
+        if(Board->virtualBoard[x+1][y+1] == EMPTY_PIECE){
             return EMPTY_PIECE;
         }
     }
-    else{
-        return -1;
-    }
+    return -1;
 }
 
 int AI:: checkLeft(int x, int y,int left){
-    if(x>0 && y<7 && Board.virtualBoard[x-1][y+1] == EMPTY_PIECE){
+    if(x>0 && y<7 && Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
         left = left+1;
         if(threatCheckLeft(x, y) == RED_PIECE){
             left = left-1;
@@ -66,7 +69,7 @@ int AI:: checkLeft(int x, int y,int left){
             left = left-1;
         }
     }
-    if(x<7 && y<7 && Board.virtualBoard[x+1][y+1] == EMPTY_PIECE){
+    if(x<7 && y<7 && Board->virtualBoard[x+1][y+1] == EMPTY_PIECE){
         left=left+1;
         if(threatCheckLeft(x, y) == RED_PIECE){
             left = left-1;
@@ -82,7 +85,7 @@ int AI:: checkLeft(int x, int y,int left){
 }
 
 int AI:: checkRight(int x, int y,int right){
-    if(x>0 && y<7 && Board.virtualBoard[x-1][y+1] == EMPTY_PIECE){
+    if(x>0 && y<7 && Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
         right = right+1;
         if(threatCheckLeft(x-1, y+1) == RED_PIECE){
             right = right-1;
@@ -91,7 +94,7 @@ int AI:: checkRight(int x, int y,int right){
             right = right-1;
         }
     }
-    if(x<7 && y<7 && Board.virtualBoard[x+1][y+1] == EMPTY_PIECE){
+    if(x<7 && y<7 && Board->virtualBoard[x+1][y+1] == EMPTY_PIECE){
         right = right+1;
         if(threatCheckLeft(x+1, y+1) == RED_PIECE){
             right = right-1;
@@ -163,7 +166,7 @@ void AI::moveChoose(){
         moveCheck(team[b].x, team[b].y, b);
     }
     int temp = 0;
-    int bestPice;
+    int bestPice = 0;
     for(int b=0;b<team.size();b++){
         if(team[b].probability>temp) {
             cout<< "new neo: " << team[b].x << team[b].y << "    b: " << b << endl;

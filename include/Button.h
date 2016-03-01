@@ -3,7 +3,7 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-13.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #ifndef Button_h
@@ -14,28 +14,22 @@
 #elif __APPLE__
 #include <SDL2/SDL.h>
 #endif
-#include "Player.h"
-#include "CheckersBoard.h"
 
-const int BUTTON_WIDTH = 80;
-const int BUTTON_HEIGHT = 80;
-const int TOTAL_BUTTONS = 32;
-
-class CheckersBoard;
+class Texture;
 
 class Button{
 public:
     Button();
+    ~Button();
     void setPoint(int,int);
-    bool insideButton();
+    bool insideButton(int,int);
     void render();
-    void renderBoardMember(CheckersBoard,int,int);
     int getButtonPointX();
     int getButtonPointY();
 private:
     SDL_Point buttonPoint;
 };
 
-extern Button boardButtons[TOTAL_BUTTONS];
+//extern Button boardButtons[TOTAL_BUTTONS];
 
 #endif /* Button_h */

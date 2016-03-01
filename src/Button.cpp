@@ -3,18 +3,21 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-13.
-//  Copyright © 2016 Jacky Chiu. All rights reserved.
+//  Copyright © 2016 Jacky Chiu. 
 //
 
 #include "../include/Button.h"
+#include "../include/GameState.h"
 #include "../include/Texture.h"
-#include "../include/CheckersBoard.h"
-
-Button boardButtons[TOTAL_BUTTONS];
 
 Button::Button(){
     buttonPoint.x = 0;
     buttonPoint.y = 0;
+}
+
+Button::~Button(){
+    buttonPoint.x = NULL;
+    buttonPoint.y = NULL;
 }
 
 void Button::setPoint(int x, int y){
@@ -27,26 +30,7 @@ void Button::render(){
     spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite-1]);
 }
 
-void Button::renderBoardMember(CheckersBoard Board, int x, int y){
-
-    switch (Board.virtualBoard[x][y]) {
-            
-        case RED_PIECE:
-            currentSprite = RED_PIECE;
-            render();
-            break;
-            
-        case BLACK_PIECE:
-            currentSprite = BLACK_PIECE;
-            render();
-            break;
-            
-        default:
-            break;
-    }
-}
-
-bool Button::insideButton(){
+bool Button::insideButton(int buttonHeight, int buttonWidth){
 
     int x,y;
     bool insideButton = true;
@@ -58,7 +42,7 @@ bool Button::insideButton(){
         insideButton = false;
     }
     // Under button //
-    else if (y > buttonPoint.y + BUTTON_HEIGHT){
+    else if (y > buttonPoint.y + buttonHeight){
         insideButton = false;
     }
     // Left of button //
@@ -66,7 +50,7 @@ bool Button::insideButton(){
         insideButton = false;
     }
     // Right of button //
-    else if (x > buttonPoint.x + BUTTON_WIDTH){
+    else if (x > buttonPoint.x + buttonWidth){
         insideButton = false;
     }
 
