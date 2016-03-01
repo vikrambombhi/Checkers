@@ -22,3 +22,7 @@ void Piece::setPoint (int xLocation, int yLocation) {
 bool Piece::isKing() {
     return king;
 }
+
+void Piece::makeKing() {
+    king = true;
+}

@@ -46,17 +46,18 @@ void CheckersBoard::drawBoard(){
     }
 }
 
-void CheckersBoard::printBoard(){
-    printf("========\n");
+ostream & operator << (ostream & output, CheckersBoard & boardPassed) {
+    output << "========" << endl;
     for (int y=0; y<8; y++) {
         for (int x=0; x<8; x++) {
             if ((y + x) % 2 == 1) {
-                printf("%i", virtualBoard[x][y]);
+                output << boardPassed.virtualBoard[x][y];
             }
             else {
-                printf(" ");
+                output << " ";
             }
         }
-        printf("\n");
+        output << endl;
     }
+    return output;
 }

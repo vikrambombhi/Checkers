@@ -101,7 +101,6 @@ void AI::movePiece(int neo_x, int neo_y){
                 team[b].y = bestMove.y;
                }
         }
-    Board.printBoard();
 }
 
 void AI::moveChoose(){
@@ -110,7 +109,7 @@ void AI::moveChoose(){
         team[b].probability = updateProb(team[b].x, team[b].y, 0, b);
     }
     int temp = 0;
-    int neo_x;
+    int neo_x = 0;
     int neo_y;
     for(int b=0;b<team.size();b++){
         if(team[b].probability>temp) {

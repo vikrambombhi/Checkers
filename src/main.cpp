@@ -46,6 +46,7 @@ int main( int argc, char* args[] )
                             Player2.movePiece(value, column, row, index);
                             Player1.turn  = true;
                             Player2.turn = false;
+                            cout << Board;
                             break;
                         }
                     }
@@ -58,6 +59,7 @@ int main( int argc, char* args[] )
             cout<<"AI made a move"<<endl;
             Player1.turn  = false;
             Player2.turn = true;
+            cout << Board;
         }
         // Light wood color //
         SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);

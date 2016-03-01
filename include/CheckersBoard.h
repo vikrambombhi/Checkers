@@ -10,16 +10,17 @@
 #define CheckersBoard_h
 
 #include <vector>
+#include <iostream>
 #include "Application.h"
-# include "Button.h"
+#include "Button.h"
 
 using namespace std;
 
 class CheckersBoard{
+    friend ostream & operator << (ostream &, CheckersBoard &);
 public:
     CheckersBoard();
     void drawBoard();
-    void printBoard();
     vector<vector<int> > virtualBoard; // Virtual board inexed by [x][y]
 };
 

@@ -14,6 +14,7 @@ public:
     Piece();
     void setPoint(int, int);
     bool isKing();
+    void makeKing();
     int x;
     int y;
     int probability;
