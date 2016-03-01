@@ -18,6 +18,7 @@ public:
     int x;
     int y;
     int probability;
+    int leftVright;
 private:
     bool king;
 };
