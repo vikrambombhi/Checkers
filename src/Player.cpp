@@ -26,7 +26,9 @@ Player::Player(bool topSide, CheckersBoard *board, Button buttons[]){
 Player::~Player(){
     team.clear();
     delete Board;
+    Board = NULL;
     delete boardButtons;
+    boardButtons = NULL;
 }
 
 void Player::initTeam(bool topSide) {

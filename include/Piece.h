@@ -9,6 +9,8 @@
 #ifndef Piece_h
 #define Piece_h
 
+#include "GameObjects.h"
+
 class Piece{
 public:
     Piece();

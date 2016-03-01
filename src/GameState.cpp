@@ -13,32 +13,36 @@
 #include "Button.h"
 #include "Texture.h"
 
+SpriteList currentSprite;
 const int BUTTON_WIDTH = 80;
 const int BUTTON_HEIGHT = 80;
 const int TOTAL_BUTTONS = 32;
 
 GameState::GameState(){
-    userQuit = false;
+    spriteSheetTexture = new Texture;
+    spriteClips = new SDL_Rect[TOTAL_PIECES-1];
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
     Player1 = new AI(true, Board, boardButtons);
     Player2 = new Player(false, Board, boardButtons);
+    userQuit = false;
     index = 0, column = 0, row = 0, value = 0;
 }
 
 GameState::~GameState(){
     
-    for(auto i:spriteClips){
-        i.x = NULL;
-        i.y = NULL;
-        i.w = NULL;
-        i.h = NULL;
-    }
-    
+    delete spriteSheetTexture;
+    spriteSheetTexture = NULL;
+    delete [] spriteClips;
+    spriteClips = NULL;
     delete Board;
+    Board = NULL;
     delete [] boardButtons;
+    boardButtons = NULL;
     delete Player1;
+    Player1 = NULL;
     delete Player2;
+    Player2 = NULL;
 }
 
 void GameState::stateEnter(){
@@ -62,7 +66,7 @@ void GameState::stateEvent(){
         if (event.type == SDL_MOUSEBUTTONDOWN) {
             if (Player2->selectingState == false) {
                 for (int i=0; i<TOTAL_BUTTONS; i++) {
-                    if (boardButtons[i].insideButton()) {
+                    if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
                         index = i;
                         // Player selects a piece to move //
                         Player2->selectPiece(&value, &column, &row, index);
@@ -72,7 +76,7 @@ void GameState::stateEvent(){
             }
             else{
                 for (int i=0; i<TOTAL_BUTTONS; i++) {
-                    if (boardButtons[i].insideButton()) {
+                    if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
                         index = i;
                         // Player selects where the piece should move //
                         Player2->movePiece(value, column, row, index);
@@ -96,7 +100,7 @@ void GameState::stateEvent(){
 bool GameState::loadMedia(){
     bool initSuccessfulful = true;
     
-    if (!spriteSheetTexture.loadFromFile("data/CheckerSprite.png")) {
+    if (!spriteSheetTexture->loadFromFile("data/CheckerSprite.png")) {
         printf("Could not load sprite");
         initSuccessfulful = false;
     }
@@ -128,10 +132,10 @@ bool GameState::loadMedia(){
         }
         for(int x=xStart;x<SCREEN_WIDTH;x+=2*BUTTON_WIDTH){
             boardButtons[index].setPoint(x, y);
+            boardButtons[index].setRenders(spriteSheetTexture, spriteClips);
             index++;
         }
     }
-    
     return initSuccessfulful;
 }
 

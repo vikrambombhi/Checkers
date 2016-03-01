@@ -13,11 +13,17 @@
 Button::Button(){
     buttonPoint.x = 0;
     buttonPoint.y = 0;
+    spriteSheetTexture = NULL;
+    spriteClips = NULL;
 }
 
 Button::~Button(){
     buttonPoint.x = NULL;
     buttonPoint.y = NULL;
+    delete spriteSheetTexture;
+    spriteSheetTexture = NULL;
+    delete [] spriteClips;
+    spriteClips = NULL;
 }
 
 void Button::setPoint(int x, int y){
@@ -25,12 +31,17 @@ void Button::setPoint(int x, int y){
     buttonPoint.y = y;
 }
 
-void Button::render(){
-    //Render button with spritesheet
-    spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite-1]);
+void Button::setRenders(Texture *spriteSheet, SDL_Rect *clips){
+    spriteSheetTexture = spriteSheet;
+    spriteClips = clips;
 }
 
-bool Button::insideButton(){
+void Button::render(){
+    //Render button with spritesheet
+    spriteSheetTexture->render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite-1]);
+}
+
+bool Button::insideButton(int buttonHeight, int buttonWidth){
 
     int x,y;
     bool insideButton = true;
@@ -42,7 +53,7 @@ bool Button::insideButton(){
         insideButton = false;
     }
     // Under button //
-    else if (y > buttonPoint.y + BUTTON_HEIGHT){
+    else if (y > buttonPoint.y + buttonHeight){
         insideButton = false;
     }
     // Left of button //
@@ -50,7 +61,7 @@ bool Button::insideButton(){
         insideButton = false;
     }
     // Right of button //
-    else if (x > buttonPoint.x + BUTTON_WIDTH){
+    else if (x > buttonPoint.x + buttonWidth){
         insideButton = false;
     }
 

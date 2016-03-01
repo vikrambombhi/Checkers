@@ -9,7 +9,6 @@
 #include "../include/Application.h"
 #include "ApplicationState.h"
 #include "ApplicationStateManager.h"
-#include "Texture.h"
 
 SDL_Window *gWindow;
 SDL_Renderer *gRenderer;
@@ -27,9 +26,9 @@ Application::Application(){
 }
 
 Application::~Application(){
-    if (applicationStateManager!=NULL) {
-        delete applicationStateManager;
-    }
+    delete applicationStateManager;
+    applicationStateManager = NULL;
+    
     SDL_DestroyWindow(gWindow);
     gWindow=NULL;
     

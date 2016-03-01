@@ -7,11 +7,11 @@
 //
 
 #include "../include/Texture.h"
-
+/*
 SDL_Rect spriteClips[TOTAL_PIECES-1];
 Texture spriteSheetTexture;
 SpriteList currentSprite;
-
+*/
 Texture::Texture(){
     currentTexture = NULL;
     width = 0;
@@ -69,6 +69,7 @@ void Texture::render(int x, int y, SDL_Rect *clip){
 void Texture::free(){
     if(currentTexture!=NULL){
         SDL_DestroyTexture(currentTexture);
+        currentTexture = NULL;
         width = 0;
         height = 0;
     }

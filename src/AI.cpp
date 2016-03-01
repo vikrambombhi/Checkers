@@ -7,7 +7,9 @@ AI::AI(bool topSide, CheckersBoard *board, Button *buttons): Player(topSide, boa
 
 AI::~AI(){
     delete Board;
+    Board = NULL;
     delete boardButtons;
+    boardButtons = NULL;
 }
 
 struct tempPos{
