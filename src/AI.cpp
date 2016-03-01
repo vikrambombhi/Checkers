@@ -1,5 +1,7 @@
 #include<iostream>
 #include <cstdlib>
+#include <stdlib.h>
+#include <time.h>
 #include "../include/AI.h"
 #include "../include/Texture.h"
 
@@ -108,20 +110,29 @@ int AI:: checkRight(int x, int y,int right){
 void AI::moveCheck(int x, int y, int b){
     int left;
     int right;
-    if(x>0 && y<7 && threatCheckLeft(x, y) == EMPTY_PIECE){
+    if(x>1 && y<7 && threatCheckLeft(x, y) == EMPTY_PIECE){
         left = checkLeft(x-1, y+1, left);
     }
     else{
-        left = -1;
+        left = -999999999;
     }
-    if(x<7 && y<7 && threatCheckRight(x, y) == EMPTY_PIECE){
+    if(x<6 && y<7 && threatCheckRight(x, y) == EMPTY_PIECE){
         right = checkRight(x+1, y+1, right);
     }
     else{
-        right = -1;
+        right = -999999999;
     }
+    if(x==1 && y<7){
+        right = checkRight(x+1, y+1, right);
+        left = -999999999;
+    }
+    if(x==6 && y<7){
+        left = checkLeft(x-1, y+1, left);
+        right = -999999999;
+    }
+
     cout<< "left: " << left << " " << "Right: " << right << "    b: " << b << "  position: " << team[b].x << team[b].y << endl;
-    if(left>=right){
+    if(left>right){
         team[b].probability = left;
         team[b].leftVright = 0;
     }
@@ -129,6 +140,21 @@ void AI::moveCheck(int x, int y, int b){
         team[b].probability = right;
         team[b].leftVright = 1;
     }
+    if(left==right){
+        /* initialize random seed: */
+        srand (time(NULL));
+        /* generate secret number between 1 and 2: */
+        int randNum = rand() % 3;
+        if(randNum%2==0){
+            team[b].probability = left;
+            team[b].leftVright = 0;
+        }
+        else
+        {
+            team[b].probability = right;
+            team[b].leftVright = 1;
+        }
+        }
 }
 
 void AI::moveChoose(){
