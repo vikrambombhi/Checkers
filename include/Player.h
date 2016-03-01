@@ -28,7 +28,7 @@ public:
     bool selectingState;
 protected:
     bool topSide;
-    const int TEAM_SIZE;
+    static const int TEAM_SIZE = 12;
     CheckersBoard *Board;
     Button *boardButtons;
 };

@@ -16,6 +16,8 @@ public:
     virtual void stateUpdate() = 0;
     virtual void stateRender() = 0;
     virtual bool stateExit() = 0;
+protected:
+    virtual bool loadMedia() = 0;
 };
 
 #endif /* ApplicationState_h */

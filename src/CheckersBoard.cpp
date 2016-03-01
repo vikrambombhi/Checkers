@@ -8,6 +8,7 @@
 
 #include "../include/CheckersBoard.h"
 #include "GameState.h"
+#include "Texture.h"
 
 CheckersBoard::CheckersBoard(){
     for (int y = 0; y < 8; y++)
@@ -19,6 +20,10 @@ CheckersBoard::CheckersBoard(){
         }
         virtualBoard.push_back(rowVector);
     }
+}
+
+CheckersBoard::~CheckersBoard(){
+    virtualBoard.clear();
 }
 
 void CheckersBoard::drawBoard(){
@@ -42,6 +47,25 @@ void CheckersBoard::drawBoard(){
             SDL_RenderFillRect( gRenderer, &redRect);
         }
     }
+}
+
+void CheckersBoard::drawBoardPeices(int x, int y, Button *boardButton){
+    switch (virtualBoard[x][y]) {
+            
+        case RED_PIECE:
+            currentSprite = RED_PIECE;
+            boardButton->render();
+            break;
+            
+        case BLACK_PIECE:
+            currentSprite = BLACK_PIECE;
+            boardButton->render();
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
 void CheckersBoard::printBoard(){

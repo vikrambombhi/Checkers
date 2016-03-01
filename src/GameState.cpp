@@ -27,6 +27,14 @@ GameState::GameState(){
 }
 
 GameState::~GameState(){
+    
+    for(auto i:spriteClips){
+        i.x = NULL;
+        i.y = NULL;
+        i.w = NULL;
+        i.h = NULL;
+    }
+    
     delete Board;
     delete [] boardButtons;
     delete Player1;
@@ -142,7 +150,8 @@ void GameState::stateRender(){
     for (int y=0; y<8; y++) {
         for (int x=0; x<8; x++) {
             if((y+x)%2 == 1){
-                boardButtons[index].renderBoardMember(*Board, x, y);
+                Board->drawBoardPeices(x,y,&boardButtons[index]);
+                //boardButtons[index].renderBoardMember(*Board, x, y);
                 index++;
             }
         }

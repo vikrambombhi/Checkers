@@ -18,13 +18,7 @@
 #endif
 
 #include "Application.h"
-
-enum SpriteList{
-    EMPTY_PIECE,
-    RED_PIECE,
-    BLACK_PIECE,
-    TOTAL_PIECES
-};
+#include "GameState.h" //tmep
 
 class Texture{
 public:

@@ -19,11 +19,18 @@
 
 #include "ApplicationState.h"
 
+enum SpriteList{
+    EMPTY_PIECE,
+    RED_PIECE,
+    BLACK_PIECE,
+    TOTAL_PIECES
+};
 
 class Button;
 class CheckersBoard;
 class Player;
 class AI;
+class Texture;
 
 class GameState: public ApplicationState{
 public:
@@ -43,7 +50,6 @@ private:
     bool userQuit;
     int index, column, row, value;
 };
-
 extern const int BUTTON_WIDTH;
 extern const int BUTTON_HEIGHT;
 extern const int TOTAL_BUTTONS;

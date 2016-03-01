@@ -10,7 +10,7 @@
 #include "../include/CheckersBoard.h"
 #include "Button.h"
 
-Player::Player(bool topSide, CheckersBoard *board, Button buttons[]):TEAM_SIZE(12){
+Player::Player(bool topSide, CheckersBoard *board, Button buttons[]){
     Board = board;
     boardButtons = buttons;
     initTeam(topSide);
@@ -24,6 +24,7 @@ Player::Player(bool topSide, CheckersBoard *board, Button buttons[]):TEAM_SIZE(1
 }
 
 Player::~Player(){
+    team.clear();
     delete Board;
     delete boardButtons;
 }

@@ -8,10 +8,16 @@
 
 #include "../include/Button.h"
 #include "GameState.h"
+#include "Texture.h"
 
 Button::Button(){
     buttonPoint.x = 0;
     buttonPoint.y = 0;
+}
+
+Button::~Button(){
+    buttonPoint.x = NULL;
+    buttonPoint.y = NULL;
 }
 
 void Button::setPoint(int x, int y){
@@ -22,25 +28,6 @@ void Button::setPoint(int x, int y){
 void Button::render(){
     //Render button with spritesheet
     spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite-1]);
-}
-
-void Button::renderBoardMember(CheckersBoard Board, int x, int y){
-
-    switch (Board.virtualBoard[x][y]) {
-            
-        case RED_PIECE:
-            currentSprite = RED_PIECE;
-            render();
-            break;
-            
-        case BLACK_PIECE:
-            currentSprite = BLACK_PIECE;
-            render();
-            break;
-            
-        default:
-            break;
-    }
 }
 
 bool Button::insideButton(){

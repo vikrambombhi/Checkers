@@ -11,13 +11,16 @@
 
 #include <vector>
 #include "Application.h"
+#include "Button.h"
 
 class CheckersBoard{
 public:
     CheckersBoard();
+    ~CheckersBoard();
     void drawBoard();
+    void drawBoardPeices(int, int, Button*);
     void printBoard();
-    std::vector<std::vector<int> > virtualBoard; // Virtual board inexed by [x][y]
+    std::vector<std::vector<int>> virtualBoard; // Virtual board indexed by [x][y]
 };
 
 //extern CheckersBoard Board;

@@ -14,21 +14,18 @@
 #elif __APPLE__
 #include <SDL2/SDL.h>
 #endif
-#include "Application.h"
-#include "Player.h"
-#include "CheckersBoard.h"
-#include "Texture.h"
-
+#include "GameState.h"
 
 class CheckersBoard;
+class Texture;
 
 class Button{
 public:
     Button();
+    ~Button();
     void setPoint(int,int);
     bool insideButton();
     void render();
-    void renderBoardMember(CheckersBoard,int,int);
     int getButtonPointX();
     int getButtonPointY();
 private:
