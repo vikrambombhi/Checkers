@@ -7,23 +7,17 @@
 //
 
 #include "../include/Button.h"
-#include "GameState.h"
-#include "Texture.h"
+#include "../include/GameState.h"
+#include "../include/Texture.h"
 
 Button::Button(){
     buttonPoint.x = 0;
     buttonPoint.y = 0;
-    spriteSheetTexture = NULL;
-    spriteClips = NULL;
 }
 
 Button::~Button(){
     buttonPoint.x = NULL;
     buttonPoint.y = NULL;
-    delete spriteSheetTexture;
-    spriteSheetTexture = NULL;
-    delete [] spriteClips;
-    spriteClips = NULL;
 }
 
 void Button::setPoint(int x, int y){
@@ -31,14 +25,9 @@ void Button::setPoint(int x, int y){
     buttonPoint.y = y;
 }
 
-void Button::setRenders(Texture *spriteSheet, SDL_Rect *clips){
-    spriteSheetTexture = spriteSheet;
-    spriteClips = clips;
-}
-
 void Button::render(){
     //Render button with spritesheet
-    spriteSheetTexture->render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite-1]);
+    spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite-1]);
 }
 
 bool Button::insideButton(int buttonHeight, int buttonWidth){

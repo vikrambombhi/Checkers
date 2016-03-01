@@ -22,15 +22,12 @@ public:
     Button();
     ~Button();
     void setPoint(int,int);
-    void setRenders(Texture*, SDL_Rect*);
     bool insideButton(int,int);
     void render();
     int getButtonPointX();
     int getButtonPointY();
 private:
     SDL_Point buttonPoint;
-    SDL_Rect *spriteClips;
-    Texture *spriteSheetTexture;
 };
 
 //extern Button boardButtons[TOTAL_BUTTONS];

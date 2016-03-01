@@ -6,8 +6,8 @@
 //  Copyright © 2016 Jacky Chiu. 
 //
 
-#include "ApplicationStateManager.h"
-#include "GameState.h"
+#include "../include/ApplicationStateManager.h"
+#include "../include/GameState.h"
 
 ApplicationStateManager::ApplicationStateManager(){
     currentState = new GameState;

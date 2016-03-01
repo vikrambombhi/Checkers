@@ -9,7 +9,7 @@
 #ifndef Player_h
 #define Player_h
 
-#include "GameObjects.h"
+
 #include "CheckersBoard.h"
 #include "Piece.h"
 

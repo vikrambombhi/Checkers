@@ -9,9 +9,6 @@
 #ifndef GameState_h
 #define GameState_h
 
-#include "ApplicationState.h"
-#include "GameObjects.h"
-
 #ifdef _WIN32
 #include <SDL.h>
 #include<SDL_image.h>
@@ -19,6 +16,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #endif
+
+#include "ApplicationState.h"
 
 enum SpriteList{
     EMPTY_PIECE,
@@ -48,11 +47,12 @@ private:
     Button *boardButtons;
     AI *Player1;
     Player *Player2;
-    SDL_Rect *spriteClips;
-    Texture *spriteSheetTexture;
     bool userQuit;
     int index, column, row, value;
 };
+
+extern SDL_Rect spriteClips[TOTAL_PIECES-1];
+extern Texture spriteSheetTexture;
 
 extern SpriteList currentSprite;
 extern const int BUTTON_WIDTH;

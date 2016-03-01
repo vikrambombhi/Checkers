@@ -7,8 +7,8 @@
 //
 
 #include "../include/CheckersBoard.h"
-#include "GameState.h"
-#include "Texture.h"
+#include "../include/GameState.h"
+#include "../include/Texture.h"
 
 CheckersBoard::CheckersBoard(){
     for (int y = 0; y < 8; y++)

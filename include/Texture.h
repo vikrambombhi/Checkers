@@ -33,9 +33,5 @@ private:
     int width;
     int height;
 };
-/*
-extern SDL_Rect spriteClips[TOTAL_PIECES-1];
-extern Texture spriteSheetTexture;
-extern SpriteList currentSprite;
-*/
+
 #endif /* Texture_h */

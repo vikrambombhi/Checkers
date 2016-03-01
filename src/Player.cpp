@@ -8,7 +8,7 @@
 
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
-#include "Button.h"
+#include "../include/Button.h"
 
 Player::Player(bool topSide, CheckersBoard *board, Button buttons[]){
     Board = board;

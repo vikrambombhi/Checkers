@@ -11,7 +11,7 @@
 
 #include <vector>
 #include "Application.h"
-#include "GameObjects.h"
+
 #include "Button.h"
 
 class CheckersBoard{

@@ -7,8 +7,8 @@
 //
 
 #include "../include/Application.h"
-#include "ApplicationState.h"
-#include "ApplicationStateManager.h"
+#include "../include/ApplicationState.h"
+#include "../include/ApplicationStateManager.h"
 
 SDL_Window *gWindow;
 SDL_Renderer *gRenderer;

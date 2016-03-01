@@ -6,12 +6,15 @@
 //  Copyright © 2016 Jacky Chiu. 
 //
 
-#include "GameState.h"
-#include "CheckersBoard.h"
-#include "Player.h"
-#include "AI.h"
-#include "Button.h"
-#include "Texture.h"
+#include "../include/GameState.h"
+#include "../include/CheckersBoard.h"
+#include "../include/Player.h"
+#include "../include/AI.h"
+#include "../include/Button.h"
+#include "../include/Texture.h"
+
+SDL_Rect spriteClips[TOTAL_PIECES-1];
+Texture spriteSheetTexture;
 
 SpriteList currentSprite;
 const int BUTTON_WIDTH = 80;
@@ -19,8 +22,6 @@ const int BUTTON_HEIGHT = 80;
 const int TOTAL_BUTTONS = 32;
 
 GameState::GameState(){
-    spriteSheetTexture = new Texture;
-    spriteClips = new SDL_Rect[TOTAL_PIECES-1];
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
     Player1 = new AI(true, Board, boardButtons);
@@ -30,11 +31,6 @@ GameState::GameState(){
 }
 
 GameState::~GameState(){
-    
-    delete spriteSheetTexture;
-    spriteSheetTexture = NULL;
-    delete [] spriteClips;
-    spriteClips = NULL;
     delete Board;
     Board = NULL;
     delete [] boardButtons;
@@ -100,7 +96,7 @@ void GameState::stateEvent(){
 bool GameState::loadMedia(){
     bool initSuccessfulful = true;
     
-    if (!spriteSheetTexture->loadFromFile("data/CheckerSprite.png")) {
+    if (!spriteSheetTexture.loadFromFile("data/CheckerSprite.png")) {
         printf("Could not load sprite");
         initSuccessfulful = false;
     }
@@ -132,7 +128,6 @@ bool GameState::loadMedia(){
         }
         for(int x=xStart;x<SCREEN_WIDTH;x+=2*BUTTON_WIDTH){
             boardButtons[index].setPoint(x, y);
-            boardButtons[index].setRenders(spriteSheetTexture, spriteClips);
             index++;
         }
     }
