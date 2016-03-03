@@ -45,18 +45,6 @@ int AI::threatCheckBackLeft(int x, int y){
     return -1;
 }
 
-bool AI::killCheckLeft(int x, int y){
-    if(x>0 && y<6){
-        if(Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    return false;
-}
-
 int AI::threatCheckRight(int x, int y){
     if(x<7 && y <7){
         if(Board->virtualBoard[x+1][y+1] == RED_PIECE){
@@ -85,6 +73,18 @@ int AI::threatCheckBackRight(int x, int y){
         }
     }
     return -1;
+}
+
+bool AI::killCheckLeft(int x, int y){
+    if(x>0 && y<6){
+        if(Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    return false;
 }
 
 bool AI::killCheckRight(int x, int y){
@@ -129,10 +129,10 @@ int AI:: checkLeft(int x, int y, int left){
         //Check if I can kill to left
         if(killCheckLeft(x, y) == true){
             left = left+150;
-            cout<<"TEST"<<endl;
+            //cout<<"TEST"<<endl;
         }
         if(killCheckLeft(x,y) == false){
-            cout<<"KILL ME"<<endl;
+            //cout<<"KILL ME"<<endl;
         }
     }
 
@@ -189,7 +189,7 @@ void AI::moveCheck(int b, int depth){
     int left = checkLeft(team[b].x-1, team[b].y+1, 0);
     int right = checkRight(team[b].x+1, team[b].y+1, 0);
 
-    cout<< "left: " << left << " " << "Right: " << right << "    b: " << b << "  position: " << team[b].x <<"," << team[b].y << endl;
+    //cout<< "left: " << left << " " << "Right: " << right << "    b: " << b << "  position: " << team[b].x <<"," << team[b].y << endl;
     if(left>right){
         team[b].probability = left;
         team[b].leftVright = 0;
@@ -216,7 +216,7 @@ void AI::moveCheck(int b, int depth){
 }
 
 bool AI::makeMove(SDL_Event *event){
-    cout<<"AI's Turn"<<endl;
+    //cout<<"AI's Turn"<<endl;
     for(int b=0;b<12;b++){
         moveCheck(b, 10);
     }
@@ -224,7 +224,7 @@ bool AI::makeMove(SDL_Event *event){
     int bestPice = 0;
     for(int b=0;b<team.size();b++){
         if(team[b].probability>temp) {
-            cout<< "new neo: " << team[b].x << team[b].y << "    b: " << b << endl;
+            //cout<< "new neo: " << team[b].x << team[b].y << "    b: " << b << endl;
             temp = team[b].probability;
             bestPice = b;
         }
@@ -232,28 +232,27 @@ bool AI::makeMove(SDL_Event *event){
     if(team[bestPice].leftVright == 0){
         cout<< "the chosen one: " << team[bestPice].x << "," << team[bestPice].y << "best move: " << team[bestPice].x-1 << "," << team[bestPice].y+1 << endl;
         if(Board->virtualBoard[team[bestPice].x-1][team[bestPice].y+1] == RED_PIECE){
-            cout<<"movePiece"<<endl;
             movePiece(bestPice, team[bestPice].x-2, team[bestPice].y+2);
-            cout<<"movePiece"<<endl;
+            cout<<team[bestPice].x-2<<", "<<team[bestPice].y+2<<endl;
+            return true;
+
         }
         if(Board->virtualBoard[team[bestPice].x-1][team[bestPice].y+1] == EMPTY_PIECE){
-            cout<<"movePiece"<<endl;
             movePiece(bestPice, team[bestPice].x-1, team[bestPice].y+1);
-            cout<<"movePiece"<<endl;
+            return true;
         }
     }
     else{
         cout<< "the chosen one: " << team[bestPice].x << "," << team[bestPice].y << "best move: " << team[bestPice].x+1 << "," << team[bestPice].y+1 << endl;
         if(Board->virtualBoard[team[bestPice].x+1][team[bestPice].y+1] == RED_PIECE){
-            cout<<"movePiece"<<endl;
             movePiece(bestPice, team[bestPice].x+2, team[bestPice].y+2);
-            cout<<"movePiece"<<endl;
+            cout<<team[bestPice].x+2<<", "<<team[bestPice].y+2<<endl;
+            return true;
         }
         if(Board->virtualBoard[team[bestPice].x+1][team[bestPice].y+1] == EMPTY_PIECE){
-            cout<<"movePiece"<<endl;
             movePiece(bestPice, team[bestPice].x+1, team[bestPice].y+1);
-            cout<<"movePiece"<<endl;
+            return true;
         }
     }
-    return true;
+    return false;
 }
