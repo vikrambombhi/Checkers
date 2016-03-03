@@ -222,7 +222,7 @@ void Player::killPiece(int x, int y) {
 void Player::updateTeam() {
     for(int index=0;index<teamSize;index++){
         if (Board->virtualBoard[team[index].x][team[index].y] != teamNumberOnVirtualBoard) {
-            team.erase (team.begin()+index);
+            team.erase(team.begin()+index);
             teamSize--;
             cout<<"Team:\t"<<teamNumberOnVirtualBoard<<"\thas a TeamSize:\t" << teamSize <<endl;
         }
