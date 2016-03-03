@@ -24,16 +24,12 @@ public:
     ~AI();
     bool makeMove(SDL_Event *);
 private:
-    int threatCheckLeft(int x, int y);
-    int threatCheckBackLeft(int x, int y);
-    int threatCheckRight(int x, int y);
-    int threatCheckBackRight(int x, int y);
+    int threatCheckArea(int,int,directions);
     bool killCheckLeft(int x, int y);
     bool killCheckRight(int x, int y);
     int checkLeft(int x, int y, int left);
     int checkRight(int x, int y, int right);
     void moveCheck(int b, int depth);
-
 };
 
 #endif // AI_H
