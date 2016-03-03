@@ -232,28 +232,24 @@ bool AI::makeMove(SDL_Event *event){
     if(team[bestPice].leftVright == 0){
         cout<< "the chosen one: " << team[bestPice].x << "," << team[bestPice].y << "best move: " << team[bestPice].x-1 << "," << team[bestPice].y+1 << endl;
         if(Board->virtualBoard[team[bestPice].x-1][team[bestPice].y+1] == RED_PIECE){
-            cout<<"movePiece"<<endl;
             movePiece(bestPice, team[bestPice].x-2, team[bestPice].y+2);
-            cout<<"movePiece"<<endl;
+            return true;
         }
         if(Board->virtualBoard[team[bestPice].x-1][team[bestPice].y+1] == EMPTY_PIECE){
-            cout<<"movePiece"<<endl;
             movePiece(bestPice, team[bestPice].x-1, team[bestPice].y+1);
-            cout<<"movePiece"<<endl;
+            return true;
         }
     }
     else{
         cout<< "the chosen one: " << team[bestPice].x << "," << team[bestPice].y << "best move: " << team[bestPice].x+1 << "," << team[bestPice].y+1 << endl;
         if(Board->virtualBoard[team[bestPice].x+1][team[bestPice].y+1] == RED_PIECE){
-            cout<<"movePiece"<<endl;
             movePiece(bestPice, team[bestPice].x+2, team[bestPice].y+2);
-            cout<<"movePiece"<<endl;
+            return true;
         }
         if(Board->virtualBoard[team[bestPice].x+1][team[bestPice].y+1] == EMPTY_PIECE){
-            cout<<"movePiece"<<endl;
             movePiece(bestPice, team[bestPice].x+1, team[bestPice].y+1);
-            cout<<"movePiece"<<endl;
+            return true;
         }
     }
-    return true;
+    return false;
 }
