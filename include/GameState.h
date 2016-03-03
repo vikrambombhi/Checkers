@@ -45,10 +45,9 @@ private:
     bool loadMedia();
     CheckersBoard *Board;
     Button *boardButtons;
-    AI *Player1;
+    Player *Player1;
     Player *Player2;
     bool userQuit;
-    int index, column, row, value;
 };
 
 extern SDL_Rect spriteClips[TOTAL_PIECES-1];

@@ -1,7 +1,6 @@
 #ifndef AI_H
 #define AI_H
 
-#include <iostream>
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
 

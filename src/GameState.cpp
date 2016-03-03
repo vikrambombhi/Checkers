@@ -10,6 +10,7 @@
 #include "../include/CheckersBoard.h"
 #include "../include/Player.h"
 #include "../include/AI.h"
+#include "../include/RealPlayer.h"
 #include "../include/Button.h"
 #include "../include/Texture.h"
 
@@ -25,9 +26,8 @@ GameState::GameState(){
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
     Player1 = new AI(true, Board, boardButtons);
-    Player2 = new Player(false, Board, boardButtons);
+    Player2 = new RealPlayer(false, Board, boardButtons);
     userQuit = false;
-    index = 0, column = 0, row = 0, value = 0;
 }
 
 GameState::~GameState(){
@@ -58,38 +58,21 @@ void GameState::stateEvent(){
         {
             userQuit=true;
         }
-        // Player make move //
-        if (event.type == SDL_MOUSEBUTTONDOWN) {
-            if (Player2->selectingState == false) {
-                for (int i=0; i<TOTAL_BUTTONS; i++) {
-                    if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
-                        index = i;
-                        // Player selects a piece to move //
-                        Player2->selectPiece(&value, &column, &row, index);
-                        break;
-                    }
-                }
-            }
-            else{
-                for (int i=0; i<TOTAL_BUTTONS; i++) {
-                    if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
-                        index = i;
-                        // Player selects where the piece should move //
-                        Player2->movePiece(value, column, row, index);
-                        Player1->turn  = true;
-                        Player2->turn = false;
-                        break;
-                    }
-                }
+        
+        // Player 1 turn //
+        if (Player1->turn) {
+            if(Player1->makeMove(&event)){
+            Player1->turn = false;
+            Player2->turn = true;
             }
         }
-    }
-    // MAKE AI MOVE HERE //
-    if(Player1->turn  == true){
-        Player1->moveChoose();
-        cout<<"AI made a move"<<endl;
-        Player1->turn  = false;
-        Player2->turn = true;
+        // Player 2 turn //
+        else{
+            if(Player2->makeMove(&event)){
+            Player2->turn = false;
+            Player1->turn = true;
+            }
+        }
     }
 }
 
@@ -145,12 +128,11 @@ void GameState::stateRender(){
     Board->drawBoard();
     
     // Render whole team //
-    index = 0;
+    int index = 0;
     for (int y=0; y<8; y++) {
         for (int x=0; x<8; x++) {
             if((y+x)%2 == 1){
                 Board->drawBoardPeices(x,y,&boardButtons[index]);
-                //boardButtons[index].renderBoardMember(*Board, x, y);
                 index++;
             }
         }

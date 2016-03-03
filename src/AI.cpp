@@ -24,6 +24,7 @@ void AI::movePiece(int x, int y, int newX, int newY){
             if((team[b].x == x) && (team[b].y == y)){
                 team[b].x = newX;
                 team[b].y = newY;
+                break;
                }
         }
     cout<<*Board<<endl;
@@ -134,7 +135,7 @@ void AI::moveCheck(int x, int y, int b){
         right = -999999999;
     }
 
-    cout<< "left: " << left << " " << "Right: " << right << "    b: " << b << "  position: " << team[b].x << team[b].y << endl;
+    cout<< "left: " << left << " " << "Right: " << right << "    b: " << b << "  position: " << team[b].x <<", "<< team[b].y << endl;
     if(left>right){
         team[b].probability = left;
         team[b].leftVright = 0;
