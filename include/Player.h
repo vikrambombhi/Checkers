@@ -16,14 +16,22 @@ using namespace std;
 
 class Button;
 
+enum MoveSelected{
+    MOVE_LEFT,
+    MOVE_RIGHT,
+    MOVE_BACK_LEFT,
+    MOVE_BACK_RIGHT
+};
+
 class Player{
 public:
     Player(bool,CheckersBoard*, Button*);
     ~Player();
     void initTeam(bool);
     void selectPiece(int*, int*, int*, int);
-    void movePiece(int, int, int, int);
+    void movePiece(int teamIndex, int MoveCommand);
     int pieceTeamIndexByXY(int,int);
+    void killPiece(int, int);
     vector<Piece> team;
     bool turn;
     bool selectingState;

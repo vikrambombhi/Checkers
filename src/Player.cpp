@@ -210,46 +210,41 @@ void Player::selectPiece(int *value, int *column, int *row, int index){
     }
 }
 
-void Player::movePiece(int value, int column, int row, int index){
-    // MOVE PIECE //
-    // When a piece has been selected, and the button currently selected is empty //
-    
-    int boardButtonClickedX = boardButtons[index].getButtonPointX()/80;
-    int boardButtonClickedY = boardButtons[index].getButtonPointY()/80;
-    bool canMove = false;
-    
-    switch (Board->virtualBoard[boardButtonClickedX][boardButtonClickedY]) {
-        case EMPTY_PIECE:
-            if (team[pieceTeamIndexByXY(column, row)].isKing() && (boardButtonClickedY - row) == 1) {
-                canMove = true;
-            }
-            if (!team[pieceTeamIndexByXY(column, row)].isKing() && (boardButtonClickedY - row) == -1) {
-                canMove = true;
-            }
-            if (abs(boardButtonClickedX - column) == 1 && canMove) {
-                
-                Board->virtualBoard[column][row] = Board->virtualBoard[boardButtonClickedX][boardButtonClickedY];
-                Board->virtualBoard[boardButtonClickedX][boardButtonClickedY] = value;
-                
-                team[pieceTeamIndexByXY(column, row)].x = boardButtonClickedX;
-                team[pieceTeamIndexByXY(boardButtonClickedX, row)].y = boardButtonClickedY;
-                
-                selectingState = false;
-            }
-            else {
-                cout<<"Cannot move here, out of range"<<endl;
-            }
-            break;
-        case RED_PIECE:
-            cout<<"Can't move onto team member"<<endl;
-            break;
-        case BLACK_PIECE:
-            cout<<"Can't move onto other team's member"<<endl;
-            break;
-        default:
-            break;
+void Player::movePiece(int teamIndex, int moveCommand) {
+    // Moves piece
+    int yDirectionMultiplier = 1, xDirectionMultiplier = 1, teamColor = RED_PIECE, oppositeTeamColor = BLACK_PIECE;
+    if (topSide) {
+        yDirectionMultiplier *= -1;
+        teamColor = BLACK_PIECE;
+        oppositeTeamColor = RED_PIECE;
     }
+    if (moveCommand > 1) {
+        yDirectionMultiplier *= -1;
+        moveCommand -= 2;
+    }
+    if (moveCommand == 0) {
+        xDirectionMultiplier *= -1;
+    }
+    int newY = team[teamIndex].y + yDirectionMultiplier;
+    int newX = team[teamIndex].x + xDirectionMultiplier;
+    
+    if (Board->virtualBoard[newX][newY] == oppositeTeamColor) {
+        killPiece(newX, newY);
+        newY += yDirectionMultiplier;
+        newX += xDirectionMultiplier;
+    }
+    
+    Board->virtualBoard[newX][newY] = teamColor;
+    Board->virtualBoard[team[teamIndex].x][team[teamIndex].y] = EMPTY_PIECE;
+    team[teamIndex].x = newX;
+    team[teamIndex].y = newY;
+    
 }
+
+void Player::killPiece(int x, int y) {
+    Board->virtualBoard[x][y] = 0;
+}
+
 
 int Player::pieceTeamIndexByXY(int x, int y) {
     int index=0;
