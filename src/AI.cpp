@@ -230,7 +230,7 @@ void AI::moveCheck(int b, int depth){
         }
 }
 
-void AI::makeMove(){
+bool AI::makeMove(SDL_Event *event){
     cout<<"AI's Turn"<<endl;
     for(int b=0;b<12;b++){
         moveCheck(b, 10);
@@ -252,4 +252,5 @@ void AI::makeMove(){
         cout<< "the chosen one: " << team[bestPice].x << "," << team[bestPice].y << "best move: " << team[bestPice].x+1 << "," << team[bestPice].y+1 << endl;
         movePiece(team[bestPice].x, team[bestPice].y, team[bestPice].x +1, team[bestPice].y +1);
     }
+    return true;
 }

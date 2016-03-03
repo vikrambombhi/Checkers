@@ -218,6 +218,5 @@ int Player::pieceTeamIndexByXY(int x, int y) {
             break;
         }
     }
-    cout<<index<<endl;
     return index;
 }

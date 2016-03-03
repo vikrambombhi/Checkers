@@ -43,7 +43,6 @@ bool RealPlayer::makeMove(SDL_Event* event){
                 if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
                     index = i;
                     // Player selects where the piece should move //
-                    cout<<boardButtons[i].getButtonPointX()/80<<", "<<boardButtons[i].getButtonPointY()/80<<endl;
                     movePiece(currentPieceIndex,boardButtons[i].getButtonPointX()/80,boardButtons[i].getButtonPointY()/80);
                     selectingState = false;
                     return true;
