@@ -204,13 +204,11 @@ void Player::movePiece(int teamIndex, int newX, int newY){
     Board->virtualBoard[team[teamIndex].x][team[teamIndex].y] = EMPTY_PIECE;
     team[teamIndex].x = newX;
     team[teamIndex].y = newY;
-
 }
 
 void Player::killPiece(int x, int y) {
     Board->virtualBoard[x][y] = EMPTY_PIECE;
 }
-
 
 int Player::pieceTeamIndexByXY(int x, int y) {
     int index=0;
