@@ -19,6 +19,7 @@ public:
 private:
     void selectPiece();
     bool selectingState;
+    int currentPieceIndex;
     int index, column, row, value;
 };
 

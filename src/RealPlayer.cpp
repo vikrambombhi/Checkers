@@ -12,6 +12,7 @@
 RealPlayer::RealPlayer(bool topSide, CheckersBoard *board, Button *buttons): Player(topSide, board, buttons){
     index = 0, column = 0, row = 0, value = 0;
     selectingState = false;
+    currentPieceIndex = 0;
 }
 
 RealPlayer::~RealPlayer(){
@@ -24,13 +25,14 @@ RealPlayer::~RealPlayer(){
 bool RealPlayer::makeMove(SDL_Event* event){
     
     if (event->type == SDL_MOUSEBUTTONDOWN) {
-        printf("clicked\n");
+        
         if (!selectingState) {
             for (int i=0; i<TOTAL_BUTTONS; i++) {
                 if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
                     index = i;
                     // Player selects a piece to move //
                     selectPiece();
+                    currentPieceIndex = pieceTeamIndexByXY(boardButtons[i].getButtonPointX()/80, boardButtons[i].getButtonPointY()/80);
                     selectingState = true;
                     break;
                 }
@@ -41,7 +43,8 @@ bool RealPlayer::makeMove(SDL_Event* event){
                 if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
                     index = i;
                     // Player selects where the piece should move //
-                    movePiece(value, column, row, index);
+                    cout<<boardButtons[i].getButtonPointX()/80<<", "<<boardButtons[i].getButtonPointY()/80<<endl;
+                    movePiece(currentPieceIndex,boardButtons[i].getButtonPointX()/80,boardButtons[i].getButtonPointY()/80);
                     selectingState = false;
                     return true;
                 }
@@ -50,6 +53,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
     }
     return false;
 }
+
 void RealPlayer::selectPiece(){
     // SELECT PIECE //
     // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
