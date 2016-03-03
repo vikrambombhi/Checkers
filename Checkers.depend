@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1457029457 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
+1457031905 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
 	<iostream>
 	<cstdlib>
 	<stdlib.h>
@@ -7,11 +7,11 @@
 	"../include/AI.h"
 	"../include/GameState.h"
 
-1457018913 c:\users\vikram\documents\github\checkers\include\ai.h
+1457031668 c:\users\vikram\documents\github\checkers\include\ai.h
 	"../include/Player.h"
 	"../include/CheckersBoard.h"
 
-1457018913 c:\users\vikram\documents\github\checkers\include\player.h
+1457029741 c:\users\vikram\documents\github\checkers\include\player.h
 	"CheckersBoard.h"
 	"Piece.h"
 
@@ -389,7 +389,7 @@
 1457018914 source:c:\users\vikram\documents\github\checkers\src\piece.cpp
 	"../include/Piece.h"
 
-1457021252 source:c:\users\vikram\documents\github\checkers\src\player.cpp
+1457029850 source:c:\users\vikram\documents\github\checkers\src\player.cpp
 	"../include/Player.h"
 	"../include/CheckersBoard.h"
 	"../include/Button.h"
@@ -413,7 +413,7 @@
 	"../include/ApplicationStateManager.h"
 	"../include/GameState.h"
 
-1457018914 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
+1457029741 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
 	"../include/GameState.h"
 	"../include/CheckersBoard.h"
 	"../include/Player.h"
