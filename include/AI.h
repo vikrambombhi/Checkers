@@ -4,6 +4,13 @@
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
 
+enum directions{
+    LEFT,
+    RIGHT,
+    MOVE_LEFT,
+    MOVE_RIGHT
+};
+
 class AI : public Player
 {
 public:
