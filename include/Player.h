@@ -27,15 +27,14 @@ class Player{
 public:
     Player(bool,CheckersBoard*, Button*);
     ~Player();
-    void initTeam(bool);
-    void selectPiece(int*, int*, int*, int);
-    void movePiece(int teamIndex, int MoveCommand);
-    int pieceTeamIndexByXY(int,int);
-    void killPiece(int, int);
+    virtual bool makeMove(SDL_Event *);
     vector<Piece> team;
     bool turn;
-    bool selectingState;
 protected:
+    void movePiece(int teamIndex, int MoveCommand);
+    void killPiece(int, int);
+    void initTeam(bool);
+    int pieceTeamIndexByXY(int,int);
     bool topSide;
     static const int TEAM_SIZE = 12;
     CheckersBoard *Board;

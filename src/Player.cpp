@@ -3,13 +3,13 @@
 //  CheckersProject
 //
 //  Created by Benjamin Emdon on 2016-02-13.
-//  Copyright © 2016 Ben Emdon. 
+//  Copyright © 2016 Ben Emdon.
 //
 
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
 #include "../include/Button.h"
-#include "GameState.h"
+#include "../include/GameState.h"
 
 Player::Player(bool topSide, CheckersBoard *board, Button buttons[]){
     Board = board;
@@ -21,7 +21,6 @@ Player::Player(bool topSide, CheckersBoard *board, Button buttons[]){
     else{
         turn = true;
     }
-    selectingState = false;
 }
 
 Player::~Player(){
@@ -189,25 +188,8 @@ void Player::initTeam(bool topSide) {
     }
 }
 
-void Player::selectPiece(int *value, int *column, int *row, int index){
-    // SELECT PIECE //
-    // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
-    switch (Board->virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80]) {
-        case 0:
-            cout<<"Selected button isn't a piece"<<endl;
-            break;
-        case 1:
-            *column = boardButtons[index].getButtonPointX()/80;
-            *row = boardButtons[index].getButtonPointY()/80;
-            *value = Board->virtualBoard[*column][*row];
-            selectingState = true;
-            break;
-        case 2:
-            cout<<"Piece isn't apart of your team"<<endl;
-            break;
-        default:
-            break;
-    }
+bool Player::makeMove(SDL_Event *){
+    return false;
 }
 
 void Player::movePiece(int teamIndex, int moveCommand) {
@@ -232,6 +214,7 @@ void Player::movePiece(int teamIndex, int moveCommand) {
         killPiece(newX, newY);
         newY += yDirectionMultiplier;
         newX += xDirectionMultiplier;
+
     }
     
     Board->virtualBoard[newX][newY] = teamColor;

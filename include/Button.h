@@ -30,6 +30,4 @@ private:
     SDL_Point buttonPoint;
 };
 
-//extern Button boardButtons[TOTAL_BUTTONS];
-
 #endif /* Button_h */
