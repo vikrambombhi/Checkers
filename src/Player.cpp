@@ -192,32 +192,14 @@ bool Player::makeMove(SDL_Event *){
     return false;
 }
 
-void Player::movePiece(int teamIndex, int moveCommand) {
+void Player::movePiece(int teamIndex, int newX, int newY) {
     // Moves piece
-    int yDirectionMultiplier = 1, xDirectionMultiplier = 1, teamColor = RED_PIECE, oppositeTeamColor = BLACK_PIECE;
-    if (topSide) {
-        yDirectionMultiplier *= -1;
-        teamColor = BLACK_PIECE;
-        oppositeTeamColor = RED_PIECE;
-    }
-    if (moveCommand > 1) {
-        yDirectionMultiplier *= -1;
-        moveCommand -= 2;
-    }
-    if (moveCommand == 0) {
-        xDirectionMultiplier *= -1;
-    }
-    int newY = team[teamIndex].y + yDirectionMultiplier;
-    int newX = team[teamIndex].x + xDirectionMultiplier;
     
-    if (Board->virtualBoard[newX][newY] == oppositeTeamColor) {
-        killPiece(newX, newY);
-        newY += yDirectionMultiplier;
-        newX += xDirectionMultiplier;
+    if (abs(newX - team[teamIndex].x) == 2 && abs(newY - team[teamIndex].y) == 2) {
+        killPiece(abs(newX + team[teamIndex].x)/2, abs(newY + team[teamIndex].y)/2);
 
     }
-    
-    Board->virtualBoard[newX][newY] = teamColor;
+    Board->virtualBoard[newX][newY] = Board->virtualBoard[team[teamIndex].x][team[teamIndex].y];
     Board->virtualBoard[team[teamIndex].x][team[teamIndex].y] = EMPTY_PIECE;
     team[teamIndex].x = newX;
     team[teamIndex].y = newY;
@@ -225,7 +207,7 @@ void Player::movePiece(int teamIndex, int moveCommand) {
 }
 
 void Player::killPiece(int x, int y) {
-    Board->virtualBoard[x][y] = 0;
+    Board->virtualBoard[x][y] = EMPTY_PIECE;
 }
 
 
