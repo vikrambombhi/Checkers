@@ -6,8 +6,8 @@
 //  Copyright © 2016 Jacky Chiu. All rights reserved.
 //
 
-#include "RealPlayer.h"
-#include "GameState.h"
+#include "../include/RealPlayer.h"
+#include "../include/GameState.h"
 
 RealPlayer::RealPlayer(bool topSide, CheckersBoard *board, Button *buttons): Player(topSide, board, buttons){
     index = 0, column = 0, row = 0, value = 0;
@@ -23,9 +23,9 @@ RealPlayer::~RealPlayer(){
 }
 
 bool RealPlayer::makeMove(SDL_Event* event){
-    
+
     if (event->type == SDL_MOUSEBUTTONDOWN) {
-        
+
         if (!selectingState) {
             for (int i=0; i<TOTAL_BUTTONS; i++) {
                 if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {

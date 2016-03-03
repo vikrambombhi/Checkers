@@ -48,6 +48,7 @@
 		<Unit filename="include/MenuState.h" />
 		<Unit filename="include/Piece.h" />
 		<Unit filename="include/Player.h" />
+		<Unit filename="include/RealPlayer.h" />
 		<Unit filename="include/Texture.h" />
 		<Unit filename="src/AI.cpp" />
 		<Unit filename="src/Application.cpp" />
@@ -58,6 +59,7 @@
 		<Unit filename="src/MenuState.cpp" />
 		<Unit filename="src/Piece.cpp" />
 		<Unit filename="src/Player.cpp" />
+		<Unit filename="src/RealPlayer.cpp" />
 		<Unit filename="src/Texture.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>

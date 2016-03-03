@@ -15,21 +15,6 @@ AI::~AI(){
     boardButtons = NULL;
 }
 
-void AI::movePiece(int x, int y, int newX, int newY){
-    if((Board->virtualBoard[x][y] == BLACK_PIECE) && (Board->virtualBoard[newX][newY] == EMPTY_PIECE)){
-        Board->virtualBoard[newX][newY] = BLACK_PIECE;
-        Board->virtualBoard[x][y] = EMPTY_PIECE;
-    }
-    for(int b=0;b<team.size();b++){
-            if((team[b].x == x) && (team[b].y == y)){
-                team[b].x = newX;
-                team[b].y = newY;
-                break;
-               }
-        }
-    cout<<*Board<<endl;
-}
-
 int AI::threatCheckLeft(int x, int y){
     if(x>0 && y<7){
         if(Board->virtualBoard[x-1][y+1] == RED_PIECE){
@@ -61,7 +46,7 @@ int AI::threatCheckBackLeft(int x, int y){
 }
 
 bool AI::killCheckLeft(int x, int y){
-    if(x>1 && y<6){
+    if(x>0 && y<6){
         if(Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
             return true;
         }
@@ -103,7 +88,7 @@ int AI::threatCheckBackRight(int x, int y){
 }
 
 bool AI::killCheckRight(int x, int y){
-    if(x<6 && y<6){
+    if(x<7 && y<6){
         if(Board->virtualBoard[x+1][y+1] == EMPTY_PIECE){
             return true;
         }
@@ -246,11 +231,29 @@ bool AI::makeMove(SDL_Event *event){
     }
     if(team[bestPice].leftVright == 0){
         cout<< "the chosen one: " << team[bestPice].x << "," << team[bestPice].y << "best move: " << team[bestPice].x-1 << "," << team[bestPice].y+1 << endl;
-        movePiece(team[bestPice].x, team[bestPice].y, team[bestPice].x -1, team[bestPice].y +1);
+        if(Board->virtualBoard[team[bestPice].x-1][team[bestPice].y+1] == RED_PIECE){
+            cout<<"movePiece"<<endl;
+            movePiece(bestPice, team[bestPice].x-2, team[bestPice].y+2);
+            cout<<"movePiece"<<endl;
+        }
+        if(Board->virtualBoard[team[bestPice].x-1][team[bestPice].y+1] == EMPTY_PIECE){
+            cout<<"movePiece"<<endl;
+            movePiece(bestPice, team[bestPice].x-1, team[bestPice].y+1);
+            cout<<"movePiece"<<endl;
+        }
     }
     else{
         cout<< "the chosen one: " << team[bestPice].x << "," << team[bestPice].y << "best move: " << team[bestPice].x+1 << "," << team[bestPice].y+1 << endl;
-        movePiece(team[bestPice].x, team[bestPice].y, team[bestPice].x +1, team[bestPice].y +1);
+        if(Board->virtualBoard[team[bestPice].x+1][team[bestPice].y+1] == RED_PIECE){
+            cout<<"movePiece"<<endl;
+            movePiece(bestPice, team[bestPice].x+2, team[bestPice].y+2);
+            cout<<"movePiece"<<endl;
+        }
+        if(Board->virtualBoard[team[bestPice].x+1][team[bestPice].y+1] == EMPTY_PIECE){
+            cout<<"movePiece"<<endl;
+            movePiece(bestPice, team[bestPice].x+1, team[bestPice].y+1);
+            cout<<"movePiece"<<endl;
+        }
     }
     return true;
 }

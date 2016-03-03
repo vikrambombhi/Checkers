@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1456959117 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
+1456974652 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
 	<iostream>
 	<cstdlib>
 	<stdlib.h>
@@ -7,22 +7,21 @@
 	"../include/AI.h"
 	"../include/GameState.h"
 
-1456958215 c:\users\vikram\documents\github\checkers\include\ai.h
-	<iostream>
+1456973509 c:\users\vikram\documents\github\checkers\include\ai.h
 	"../include/Player.h"
 	"../include/CheckersBoard.h"
 
-1456897211 c:\users\vikram\documents\github\checkers\include\player.h
+1456972858 c:\users\vikram\documents\github\checkers\include\player.h
 	"CheckersBoard.h"
 	"Piece.h"
 
-1456897211 c:\users\vikram\documents\github\checkers\include\checkersboard.h
+1456972858 c:\users\vikram\documents\github\checkers\include\checkersboard.h
 	<vector>
 	<iostream>
 	"Application.h"
 	"Button.h"
 
-1456897211 c:\users\vikram\documents\github\checkers\include\application.h
+1456972858 c:\users\vikram\documents\github\checkers\include\application.h
 	<stdio.h>
 	<stdlib.h>
 	<iostream>
@@ -356,75 +355,83 @@
 	"begin_code.h"
 	"close_code.h"
 
-1456897211 c:\users\vikram\documents\github\checkers\include\button.h
+1456972858 c:\users\vikram\documents\github\checkers\include\button.h
 	<SDL.h>
 	<SDL2/SDL.h>
 
-1456897211 c:\users\vikram\documents\github\checkers\include\piece.h
+1456972858 c:\users\vikram\documents\github\checkers\include\piece.h
 
-1456897211 c:\users\vikram\documents\github\checkers\include\texture.h
+1456972858 c:\users\vikram\documents\github\checkers\include\texture.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL2/SDL.h>
 	<SDL2_image/SDL_image.h>
 	"Application.h"
 
-1456897211 source:c:\users\vikram\documents\github\checkers\src\application.cpp
+1456972858 source:c:\users\vikram\documents\github\checkers\src\application.cpp
 	"../include/Application.h"
 	"../include/ApplicationState.h"
 	"../include/ApplicationStateManager.h"
 
-1456897211 source:c:\users\vikram\documents\github\checkers\src\button.cpp
+1456972858 source:c:\users\vikram\documents\github\checkers\src\button.cpp
 	"../include/Button.h"
 	"../include/GameState.h"
 	"../include/Texture.h"
 
-1456897211 source:c:\users\vikram\documents\github\checkers\src\checkersboard.cpp
+1456972858 source:c:\users\vikram\documents\github\checkers\src\checkersboard.cpp
 	"../include/CheckersBoard.h"
 	"../include/GameState.h"
 	"../include/Texture.h"
 
-1456897211 source:c:\users\vikram\documents\github\checkers\src\main.cpp
+1456972858 source:c:\users\vikram\documents\github\checkers\src\main.cpp
 	"../include/Application.h"
 
-1456897211 source:c:\users\vikram\documents\github\checkers\src\piece.cpp
+1456972858 source:c:\users\vikram\documents\github\checkers\src\piece.cpp
 	"../include/Piece.h"
 
-1456951395 source:c:\users\vikram\documents\github\checkers\src\player.cpp
+1456974197 source:c:\users\vikram\documents\github\checkers\src\player.cpp
 	"../include/Player.h"
 	"../include/CheckersBoard.h"
 	"../include/Button.h"
 	"../include/GameState.h"
 
-1456897211 source:c:\users\vikram\documents\github\checkers\src\texture.cpp
+1456972858 source:c:\users\vikram\documents\github\checkers\src\texture.cpp
 	"../include/Texture.h"
 
-1456897211 c:\users\vikram\documents\github\checkers\include\gamestate.h
+1456972858 c:\users\vikram\documents\github\checkers\include\gamestate.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL2/SDL.h>
 	<SDL2_image/SDL_image.h>
 	"ApplicationState.h"
 
-1456897211 c:\users\vikram\documents\github\checkers\include\applicationstate.h
+1456972858 c:\users\vikram\documents\github\checkers\include\applicationstate.h
 
-1456897211 c:\users\vikram\documents\github\checkers\include\applicationstatemanager.h
+1456972858 c:\users\vikram\documents\github\checkers\include\applicationstatemanager.h
 
-1456897211 source:c:\users\vikram\documents\github\checkers\src\applicationstatemanager.cpp
+1456972858 source:c:\users\vikram\documents\github\checkers\src\applicationstatemanager.cpp
 	"../include/ApplicationStateManager.h"
 	"../include/GameState.h"
 
-1456958227 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
+1456972858 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
 	"../include/GameState.h"
 	"../include/CheckersBoard.h"
 	"../include/Player.h"
 	"../include/AI.h"
+	"../include/RealPlayer.h"
 	"../include/Button.h"
 	"../include/Texture.h"
 
-1456897211 source:c:\users\vikram\documents\github\checkers\src\menustate.cpp
+1456972858 source:c:\users\vikram\documents\github\checkers\src\menustate.cpp
 	"../include/MenuState.h"
 
-1456897211 c:\users\vikram\documents\github\checkers\include\menustate.h
+1456972858 c:\users\vikram\documents\github\checkers\include\menustate.h
 	"ApplicationState.h"
+
+1456972858 c:\users\vikram\documents\github\checkers\include\realplayer.h
+	"Player.h"
+
+1456973063 source:c:\users\vikram\documents\github\checkers\src\realplayer.cpp
+	"../include/RealPlayer.h"
+	"../include/GameState.h"
 

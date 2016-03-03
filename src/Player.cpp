@@ -192,18 +192,19 @@ bool Player::makeMove(SDL_Event *){
     return false;
 }
 
-void Player::movePiece(int teamIndex, int newX, int newY) {
+void Player::movePiece(int teamIndex, int newX, int newY){
+    cout<<"enter move func"<<endl;
     // Moves piece
-    
     if (abs(newX - team[teamIndex].x) == 2 && abs(newY - team[teamIndex].y) == 2) {
         killPiece(abs(newX + team[teamIndex].x)/2, abs(newY + team[teamIndex].y)/2);
 
     }
+    cout<<team[teamIndex].x<<","<<team[teamIndex].y<<"  New place:"<<newX<<","<<newY<<endl;
     Board->virtualBoard[newX][newY] = Board->virtualBoard[team[teamIndex].x][team[teamIndex].y];
     Board->virtualBoard[team[teamIndex].x][team[teamIndex].y] = EMPTY_PIECE;
     team[teamIndex].x = newX;
     team[teamIndex].y = newY;
-    
+
 }
 
 void Player::killPiece(int x, int y) {

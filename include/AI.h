@@ -11,7 +11,6 @@ public:
     ~AI();
     bool makeMove(SDL_Event *);
 private:
-    void movePiece(int x, int y, int newX, int newY);
     int threatCheckLeft(int x, int y);
     int threatCheckBackLeft(int x, int y);
     bool killCheckLeft(int x, int y);
