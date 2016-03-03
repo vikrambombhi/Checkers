@@ -62,15 +62,18 @@ void GameState::stateEvent(){
         // Player 1 turn //
         if (Player1->turn) {
             if(Player1->makeMove(&event)){
-            Player1->turn = false;
-            Player2->turn = true;
+                Player1->updateTeam();
+                Player1->turn = false;
+                Player2->turn = true;
             }
         }
+        
         // Player 2 turn //
         else{
             if(Player2->makeMove(&event)){
-            Player2->turn = false;
-            Player1->turn = true;
+                Player2->updateTeam();
+                Player2->turn = false;
+                Player1->turn = true;
             }
         }
     }
