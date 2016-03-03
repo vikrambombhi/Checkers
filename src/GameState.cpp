@@ -3,7 +3,7 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-25.
-//  Copyright © 2016 Jacky Chiu. 
+//  Copyright © 2016 Jacky Chiu.
 //
 
 #include "../include/GameState.h"
@@ -49,10 +49,10 @@ void GameState::stateEnter(){
 
 void GameState::stateEvent(){
     SDL_Event event;
-    
+
     // Event loop //
     while(SDL_PollEvent(&event)!=0){
-        
+
         // Quits game //
         if(event.type==SDL_QUIT)
         {
@@ -78,7 +78,7 @@ void GameState::stateEvent(){
 
 bool GameState::loadMedia(){
     bool initSuccessfulful = true;
-    
+
     if (!spriteSheetTexture.loadFromFile("data/CheckerSprite.png")) {
         printf("Could not load sprite");
         initSuccessfulful = false;
@@ -94,11 +94,11 @@ bool GameState::loadMedia(){
     spriteClips[1].y = 0;
     spriteClips[1].w = BUTTON_WIDTH;
     spriteClips[1].h = BUTTON_HEIGHT;
-    
+
     int index = 0;
     bool indent = true;
     int xStart;
-    
+
     // Sets points for buttons (top left of button)
     for(int y=0;y<SCREEN_HEIGHT;y+=BUTTON_HEIGHT){
         if (indent) {
@@ -122,11 +122,11 @@ void GameState::stateUpdate(){
 }
 
 void GameState::stateRender(){
-    
+
     // Render stuff here //
-    
+
     Board->drawBoard();
-    
+
     // Render whole team //
     int index = 0;
     for (int y=0; y<8; y++) {
