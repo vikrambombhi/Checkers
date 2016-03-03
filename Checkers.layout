@@ -2,10 +2,63 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="src\AI.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\GameState.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="222" />
+			<Cursor1 position="474" topLine="0" />
 		</Cursor>
 	</File>
-	<EditorTabsLayout layout="0a57e83856d881b8000062ce00000002=*0;Checkers:src\AI.cpp@layout2|name=dummy;caption=;state=2098174;dir=3;layer=0;row=0;pos=0;prop=100000;bestw=592;besth=314;minw=592;minh=314;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=0a57e83856d881b8000062ce00000002;caption=;state=2098172;dir=5;layer=0;row=0;pos=0;prop=100000;bestw=200;besth=200;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|dock_size(5,0,0)=202|" />
+	<File name="include\Player.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="626" topLine="7" />
+		</Cursor>
+	</File>
+	<File name="src\AI.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5705" topLine="134" />
+		</Cursor>
+		<Folding>
+			<Collapse line="7" />
+			<Collapse line="10" />
+			<Collapse line="17" />
+			<Collapse line="32" />
+			<Collapse line="47" />
+			<Collapse line="59" />
+			<Collapse line="74" />
+			<Collapse line="89" />
+		</Folding>
+	</File>
+	<File name="include\AI.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="231" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="src\GameState.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="5" />
+		</Cursor>
+		<Folding>
+			<Collapse line="24" />
+			<Collapse line="32" />
+			<Collapse line="43" />
+			<Collapse line="49" />
+			<Collapse line="81" />
+			<Collapse line="122" />
+			<Collapse line="126" />
+			<Collapse line="144" />
+		</Folding>
+	</File>
+	<File name="src\Player.cpp" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7037" topLine="12" />
+		</Cursor>
+		<Folding>
+			<Collapse line="25" />
+			<Collapse line="33" />
+			<Collapse line="197" />
+			<Collapse line="201" />
+			<Collapse line="217" />
+			<Collapse line="231" />
+		</Folding>
+	</File>
+	<EditorTabsLayout layout="0a3ff42056d8860e000a4d1600000002=0;Checkers:src\AI.cpp,1;Checkers:include\AI.h,*2;Checkers:src\Player.cpp,3;Checkers:include\Player.h@layout2|name=dummy;caption=;state=2098174;dir=3;layer=0;row=0;pos=0;prop=100000;bestw=592;besth=314;minw=592;minh=314;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=0a3ff42056d8860e000a4d1600000002;caption=;state=2098172;dir=5;layer=0;row=0;pos=0;prop=100000;bestw=200;besth=200;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|dock_size(5,0,0)=202|" />
 </CodeBlocks_layout_file>

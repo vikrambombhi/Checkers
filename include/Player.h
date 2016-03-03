@@ -23,17 +23,18 @@ public:
     virtual bool makeMove(SDL_Event *);
     vector<Piece> team;
     bool turn;
+    void updateTeam();
 protected:
     void movePiece(int, int, int);
     void killPiece(int, int);
     void initTeam(bool);
     int pieceTeamIndexByXY(int,int);
     bool topSide;
-    static const int TEAM_SIZE = 12;
+    int teamSize = 12;
+    int teamNumberOnVirtualBoard;
     CheckersBoard *Board;
     Button *boardButtons;
 };
 
-//extern const int TEAM_SIZE;
 
 #endif /* Player_h */

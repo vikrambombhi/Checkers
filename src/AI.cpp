@@ -105,7 +105,7 @@ int AI:: checkLeft(int x, int y, int left){
     }
 
     if(Board->virtualBoard[x][y] == EMPTY_PIECE){
-        left += 25;
+        left += y;
 
         //Check if board exits to left
         if(threatCheckLeft(x, y) == -1){
@@ -113,7 +113,7 @@ int AI:: checkLeft(int x, int y, int left){
         }
         // Check if move will kill me
         else if(threatCheckLeft(x, y) == RED_PIECE && threatCheckBackRight(x, y) == EMPTY_PIECE){
-            left = left-75;
+            left = left + y - KILL_PIECE;
         }
 
         //Check if board exists to right
@@ -121,18 +121,14 @@ int AI:: checkLeft(int x, int y, int left){
             return left;
         }
         else if(threatCheckRight(x, y) == RED_PIECE && threatCheckBackLeft(x, y) == EMPTY_PIECE){
-            left = left-75;
+            left = left + y - KILL_PIECE;
         }
     }
 
     if(Board->virtualBoard[x][y] == RED_PIECE){
         //Check if I can kill to left
         if(killCheckLeft(x, y) == true){
-            left = left+150;
-            //cout<<"TEST"<<endl;
-        }
-        if(killCheckLeft(x,y) == false){
-            //cout<<"KILL ME"<<endl;
+            left = left + y + KILL_PIECE;
         }
     }
 
@@ -148,7 +144,7 @@ int AI:: checkRight(int x, int y,int right){
     }
 
     if(Board->virtualBoard[x][y] == EMPTY_PIECE){
-        right += 25;
+        right += y;
 
         //Check if board exits to left
         if(threatCheckLeft(x, y) == -1){
@@ -156,7 +152,7 @@ int AI:: checkRight(int x, int y,int right){
         }
         // Check if move will kill me
         else if(threatCheckLeft(x, y) == RED_PIECE && threatCheckBackRight(x, y) == EMPTY_PIECE){
-            right -= 75;
+            right = right + y - KILL_PIECE;
         }
 
         //Check if board exists to right
@@ -164,14 +160,14 @@ int AI:: checkRight(int x, int y,int right){
             return right;
         }
         else if(threatCheckRight(x, y) == RED_PIECE && threatCheckBackLeft(x, y) == EMPTY_PIECE){
-            right -= 75;
+            right = right + y - KILL_PIECE;
         }
     }
 
     if(Board->virtualBoard[x][y] == RED_PIECE){
         //Check if I can kill to right
         if(killCheckRight(x, y) == true){
-            right += 150;
+            right = right + y + KILL_PIECE;
         }
     }
 
@@ -209,15 +205,15 @@ void AI::moveCheck(int b, int depth){
         }
         else
         {
-            team[b].probability = right;
+          team[b].probability = right;
             team[b].leftVright = 1;
         }
         }
 }
 
 bool AI::makeMove(SDL_Event *event){
-    //cout<<"AI's Turn"<<endl;
-    for(int b=0;b<12;b++){
+    cout<<"AI's Turn"<<endl;
+    for(int b=0;b<team.size();b++){
         moveCheck(b, 10);
     }
     int temp = 0;

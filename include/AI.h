@@ -7,8 +7,14 @@
 enum directions{
     LEFT,
     RIGHT,
-    MOVE_LEFT,
-    MOVE_RIGHT
+    BACK_LEFT,
+    BACK_RIGHT
+};
+
+enum points{
+    NOTHING,
+    BLOCK,
+    KILL_PIECE
 };
 
 class AI : public Player
