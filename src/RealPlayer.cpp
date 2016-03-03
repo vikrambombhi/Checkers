@@ -10,7 +10,7 @@
 #include "../include/GameState.h"
 
 RealPlayer::RealPlayer(bool topSide, CheckersBoard *board, Button *buttons): Player(topSide, board, buttons){
-    index = 0, column = 0, row = 0, value = 0;
+    buttonIndex = 0, xLocation = 0, yLocation = 0;
     selectingState = false;
     currentPieceIndex = 0;
 }
@@ -27,23 +27,21 @@ bool RealPlayer::makeMove(SDL_Event* event){
     if (event->type == SDL_MOUSEBUTTONDOWN) {
 
         if (!selectingState) {
-            for (int i=0; i<TOTAL_BUTTONS; i++) {
-                if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
-                    index = i;
+            for (int index=0; index<TOTAL_BUTTONS; index++) {
+                if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
+                    buttonIndex = index;
                     // Player selects a piece to move //
-                    selectPiece();
-                    currentPieceIndex = pieceTeamIndexByXY(boardButtons[i].getButtonPointX()/80, boardButtons[i].getButtonPointY()/80);
-                    selectingState = true;
+                    selectPiece(boardButtons[buttonIndex].getButtonPointX()/80, boardButtons[buttonIndex].getButtonPointY()/80);
                     break;
                 }
             }
         }
         else{
-            for (int i=0; i<TOTAL_BUTTONS; i++) {
-                if (boardButtons[i].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
-                    index = i;
+            for (int index=0; index<TOTAL_BUTTONS; index++) {
+                if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
+                    buttonIndex = index;
                     // Player selects where the piece should move //
-                    movePiece(currentPieceIndex,boardButtons[i].getButtonPointX()/80,boardButtons[i].getButtonPointY()/80);
+                    movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                     selectingState = false;
                     return true;
                 }
@@ -53,23 +51,26 @@ bool RealPlayer::makeMove(SDL_Event* event){
     return false;
 }
 
-void RealPlayer::selectPiece(){
+void RealPlayer::selectPiece(int x, int y){
     // SELECT PIECE //
     // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
-    switch (Board->virtualBoard[boardButtons[index].getButtonPointX()/80][boardButtons[index].getButtonPointY()/80]) {
-        case 0:
+    switch (Board->virtualBoard[x][y]) {
+        case EMPTY_PIECE:
             cout<<"Selected button isn't a piece"<<endl;
             break;
-        case 1:
-            column = boardButtons[index].getButtonPointX()/80;
-            row = boardButtons[index].getButtonPointY()/80;
-            value = Board->virtualBoard[column][row];
+        case RED_PIECE:
+            xLocation = x;
+            yLocation = y;
+            currentPieceIndex = pieceTeamIndexByXY(x, y);
             selectingState = true;
             break;
-        case 2:
+        case BLACK_PIECE:
             cout<<"Piece isn't apart of your team"<<endl;
             break;
         default:
             break;
     }
+}
+
+void RealPlayer::selectLocation(int x, int y) {
 }

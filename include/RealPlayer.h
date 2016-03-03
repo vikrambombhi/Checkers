@@ -17,10 +17,11 @@ public:
     ~RealPlayer();
     bool makeMove(SDL_Event *);
 private:
-    void selectPiece();
+    void selectPiece(int, int);
+    void selectLocation(int, int);
     bool selectingState;
     int currentPieceIndex;
-    int index, column, row, value;
+    int buttonIndex, xLocation, yLocation;
 };
 
 
