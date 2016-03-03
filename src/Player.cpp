@@ -3,13 +3,13 @@
 //  CheckersProject
 //
 //  Created by Benjamin Emdon on 2016-02-13.
-//  Copyright © 2016 Ben Emdon. 
+//  Copyright © 2016 Ben Emdon.
 //
 
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
 #include "../include/Button.h"
-#include "GameState.h"
+#include "../include/GameState.h"
 
 Player::Player(bool topSide, CheckersBoard *board, Button buttons[]){
     Board = board;
@@ -213,11 +213,11 @@ void Player::selectPiece(int *value, int *column, int *row, int index){
 void Player::movePiece(int value, int column, int row, int index){
     // MOVE PIECE //
     // When a piece has been selected, and the button currently selected is empty //
-    
+
     int boardButtonClickedX = boardButtons[index].getButtonPointX()/80;
     int boardButtonClickedY = boardButtons[index].getButtonPointY()/80;
     bool canMove = false;
-    
+
     switch (Board->virtualBoard[boardButtonClickedX][boardButtonClickedY]) {
         case EMPTY_PIECE:
             if (team[pieceTeamIndexByXY(column, row)].isKing() && (boardButtonClickedY - row) == 1) {
@@ -227,13 +227,13 @@ void Player::movePiece(int value, int column, int row, int index){
                 canMove = true;
             }
             if (abs(boardButtonClickedX - column) == 1 && canMove) {
-                
+
                 Board->virtualBoard[column][row] = Board->virtualBoard[boardButtonClickedX][boardButtonClickedY];
                 Board->virtualBoard[boardButtonClickedX][boardButtonClickedY] = value;
-                
+
                 team[pieceTeamIndexByXY(column, row)].x = boardButtonClickedX;
                 team[pieceTeamIndexByXY(boardButtonClickedX, row)].y = boardButtonClickedY;
-                
+
                 selectingState = false;
             }
             else {

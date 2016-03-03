@@ -44,6 +44,33 @@ int AI::threatCheckLeft(int x, int y){
     return -1;
 }
 
+int AI::threatCheckBackLeft(int x, int y){
+    if(x>0 && y<7){
+        if(Board->virtualBoard[x-1][y-1] == RED_PIECE){
+            return RED_PIECE;
+        }
+        if(Board->virtualBoard[x-1][y-1] == BLACK_PIECE){
+            return BLACK_PIECE;
+        }
+        if(Board->virtualBoard[x-1][y-1] == EMPTY_PIECE){
+            return EMPTY_PIECE;
+        }
+    }
+    return -1;
+}
+
+bool AI::killCheckLeft(int x, int y){
+    if(x>1 && y<6){
+        if(Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    return false;
+}
+
 int AI::threatCheckRight(int x, int y){
     if(x<7 && y <7){
         if(Board->virtualBoard[x+1][y+1] == RED_PIECE){
@@ -59,82 +86,124 @@ int AI::threatCheckRight(int x, int y){
     return -1;
 }
 
-int AI:: checkLeft(int x, int y,int left){
-    if(x>0 && y<7 && Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
-        left = left+1;
-        if(threatCheckLeft(x, y) == RED_PIECE){
-            left = left-1;
+int AI::threatCheckBackRight(int x, int y){
+    if(x<7 && y <7){
+        if(Board->virtualBoard[x+1][y-1] == RED_PIECE){
+            return RED_PIECE;
         }
-        if(threatCheckRight(x, y) == RED_PIECE){
-            left = left-1;
+        if(Board->virtualBoard[x+1][y-1] == BLACK_PIECE){
+            return BLACK_PIECE;
         }
-    }
-    if(x<7 && y<7 && Board->virtualBoard[x+1][y+1] == EMPTY_PIECE){
-        left=left+1;
-        if(threatCheckLeft(x, y) == RED_PIECE){
-            left = left-1;
-        }
-        if(threatCheckRight(x, y) == RED_PIECE){
-            left = left-1;
+        if(Board->virtualBoard[x+1][y-1] == EMPTY_PIECE){
+            return EMPTY_PIECE;
         }
     }
-    else{
-        left = left-1;
+    return -1;
+}
+
+bool AI::killCheckRight(int x, int y){
+    if(x<6 && y<6){
+        if(Board->virtualBoard[x+1][y+1] == EMPTY_PIECE){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    return false;
+}
+
+int AI:: checkLeft(int x, int y, int left){
+    if(x<1 || y>8){
+        return -999999999;
+    }
+
+    if(Board->virtualBoard[x][y] == EMPTY_PIECE){
+        left += 25;
+
+        //Check if board exits to left
+        if(threatCheckLeft(x, y) == -1){
+            return left;
+        }
+        // Check if move will kill me
+        else if(threatCheckLeft(x, y) == RED_PIECE && threatCheckBackRight(x, y) == EMPTY_PIECE){
+            left = left-75;
+        }
+
+        //Check if board exists to right
+        if(threatCheckRight(x, y) == -1){
+            return left;
+        }
+        else if(threatCheckRight(x, y) == RED_PIECE && threatCheckBackLeft(x, y) == EMPTY_PIECE){
+            left = left-75;
+        }
+    }
+
+    if(Board->virtualBoard[x][y] == RED_PIECE){
+        //Check if I can kill to left
+        if(killCheckLeft(x, y) == true){
+            left = left+150;
+            cout<<"TEST"<<endl;
+        }
+        if(killCheckLeft(x,y) == false){
+            cout<<"KILL ME"<<endl;
+        }
+    }
+
+    if(Board->virtualBoard[x][y] == BLACK_PIECE){
+        left -= 999999999;
     }
     return left;
 }
 
 int AI:: checkRight(int x, int y,int right){
-    if(x>0 && y<7 && Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
-        right = right+1;
-        if(threatCheckLeft(x-1, y+1) == RED_PIECE){
-            right = right-1;
+    if(x>6 || y>8){
+        return -999999999;
+    }
+
+    if(Board->virtualBoard[x][y] == EMPTY_PIECE){
+        right += 25;
+
+        //Check if board exits to left
+        if(threatCheckLeft(x, y) == -1){
+            return right;
         }
-        if(threatCheckRight(x-1, y+1) == RED_PIECE){
-            right = right-1;
+        // Check if move will kill me
+        else if(threatCheckLeft(x, y) == RED_PIECE && threatCheckBackRight(x, y) == EMPTY_PIECE){
+            right -= 75;
+        }
+
+        //Check if board exists to right
+        if(threatCheckRight(x, y) == -1){
+            return right;
+        }
+        else if(threatCheckRight(x, y) == RED_PIECE && threatCheckBackLeft(x, y) == EMPTY_PIECE){
+            right -= 75;
         }
     }
-    if(x<7 && y<7 && Board->virtualBoard[x+1][y+1] == EMPTY_PIECE){
-        right = right+1;
-        if(threatCheckLeft(x+1, y+1) == RED_PIECE){
-            right = right-1;
-        }
-        if(threatCheckRight(x+1, y+1) == RED_PIECE){
-            right = right-1;
+
+    if(Board->virtualBoard[x][y] == RED_PIECE){
+        //Check if I can kill to right
+        if(killCheckRight(x, y) == true){
+            right += 150;
         }
     }
-    else{
-        right = right-1;
+
+    if(Board->virtualBoard[x][y] == BLACK_PIECE){
+        right -= 999999999;
     }
     return right;
 }
 
-
-void AI::moveCheck(int x, int y, int b){
-    int left;
-    int right;
-    if(x>1 && y<7 && threatCheckLeft(x, y) == EMPTY_PIECE){
-        left = checkLeft(x-1, y+1, left);
-    }
-    else{
-        left = -999999999;
-    }
-    if(x<6 && y<7 && threatCheckRight(x, y) == EMPTY_PIECE){
-        right = checkRight(x+1, y+1, right);
-    }
-    else{
-        right = -999999999;
-    }
-    if(x==1 && y<7){
-        right = checkRight(x+1, y+1, right);
-        left = -999999999;
-    }
-    if(x==6 && y<7){
-        left = checkLeft(x-1, y+1, left);
-        right = -999999999;
+void AI::moveCheck(int b, int depth){
+    if(depth == 0 || team[b].x>8 || team[b].y>8 || team[b].x<0 || team[b].y<0){
+        exit(-1);
     }
 
-    cout<< "left: " << left << " " << "Right: " << right << "    b: " << b << "  position: " << team[b].x << team[b].y << endl;
+    int left = checkLeft(team[b].x-1, team[b].y+1, 0);
+    int right = checkRight(team[b].x+1, team[b].y+1, 0);
+
+    cout<< "left: " << left << " " << "Right: " << right << "    b: " << b << "  position: " << team[b].x <<"," << team[b].y << endl;
     if(left>right){
         team[b].probability = left;
         team[b].leftVright = 0;
@@ -160,10 +229,10 @@ void AI::moveCheck(int x, int y, int b){
         }
 }
 
-void AI::moveChoose(){
+void AI::makeMove(){
     cout<<"AI's Turn"<<endl;
     for(int b=0;b<12;b++){
-        moveCheck(team[b].x, team[b].y, b);
+        moveCheck(b, 10);
     }
     int temp = 0;
     int bestPice = 0;
