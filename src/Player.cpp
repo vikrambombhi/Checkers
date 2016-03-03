@@ -105,6 +105,9 @@ void Player::initTeam(bool topSide) {
         //Vector now has 1 element @ index 11
         team[11].x = 7;
         team[11].y = 2;
+        
+        //Sets teamNumberOnVirtualBoard
+        teamNumberOnVirtualBoard = BLACK_PIECE;
     }
     else {
         //-----------------------------RED TEAM----------------------------\\
@@ -179,11 +182,15 @@ void Player::initTeam(bool topSide) {
         //Vector now has 1 element @ index 11
         team[11].x = 6;
         team[11].y = 5;
+        
+        
+        //Sets teamNumberOnVirtualBoard
+        teamNumberOnVirtualBoard = RED_PIECE;
     }
 
         // Update Virtual board after init //
 
-    for (int teamIndex = 0; teamIndex < TEAM_SIZE; teamIndex++) {
+    for (int teamIndex = 0; teamIndex < teamSize; teamIndex++) {
         Board->virtualBoard[team[teamIndex].x][team[teamIndex].y] = topSide + 1;
     }
 }
@@ -204,17 +211,29 @@ void Player::movePiece(int teamIndex, int newX, int newY){
     Board->virtualBoard[team[teamIndex].x][team[teamIndex].y] = EMPTY_PIECE;
     team[teamIndex].x = newX;
     team[teamIndex].y = newY;
-
+    
+    // Prints virtualBoard at end of move
+    cout<<*Board<<endl;
 }
 
 void Player::killPiece(int x, int y) {
     Board->virtualBoard[x][y] = EMPTY_PIECE;
 }
 
+void Player::updateTeam() {
+    for(int index=0;index<teamSize;index++){
+        if (Board->virtualBoard[team[index].x][team[index].y] != teamNumberOnVirtualBoard) {
+            team.erase (team.begin()+index);
+            teamSize--;
+            cout<<"Team:\t"<<teamNumberOnVirtualBoard<<"\thas a TeamSize:\t" << teamSize <<endl;
+        }
+    }
+}
+
 
 int Player::pieceTeamIndexByXY(int x, int y) {
     int index=0;
-    for(;index<TEAM_SIZE;index++){
+    for(;index<teamSize;index++){
         if((team[index].x == x) && (team[index].y == y)){
             break;
         }
