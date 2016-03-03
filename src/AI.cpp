@@ -45,18 +45,6 @@ int AI::threatCheckBackLeft(int x, int y){
     return -1;
 }
 
-bool AI::killCheckLeft(int x, int y){
-    if(x>0 && y<6){
-        if(Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    return false;
-}
-
 int AI::threatCheckRight(int x, int y){
     if(x<7 && y <7){
         if(Board->virtualBoard[x+1][y+1] == RED_PIECE){
@@ -85,6 +73,18 @@ int AI::threatCheckBackRight(int x, int y){
         }
     }
     return -1;
+}
+
+bool AI::killCheckLeft(int x, int y){
+    if(x>0 && y<6){
+        if(Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    return false;
 }
 
 bool AI::killCheckRight(int x, int y){
@@ -185,7 +185,7 @@ void AI::moveCheck(int b, int depth){
     int left = checkLeft(team[b].x-1, team[b].y+1, 0);
     int right = checkRight(team[b].x+1, team[b].y+1, 0);
 
-    cout<< "left: " << left << " " << "Right: " << right << "    b: " << b << "  position: " << team[b].x <<"," << team[b].y << endl;
+    //cout<< "left: " << left << " " << "Right: " << right << "    b: " << b << "  position: " << team[b].x <<"," << team[b].y << endl;
     if(left>right){
         team[b].probability = left;
         team[b].leftVright = 0;
@@ -205,7 +205,7 @@ void AI::moveCheck(int b, int depth){
         }
         else
         {
-            team[b].probability = right;
+          team[b].probability = right;
             team[b].leftVright = 1;
         }
         }
@@ -220,7 +220,7 @@ bool AI::makeMove(SDL_Event *event){
     int bestPice = 0;
     for(int b=0;b<team.size();b++){
         if(team[b].probability>temp) {
-            cout<< "new neo: " << team[b].x << team[b].y << "    b: " << b << endl;
+            //cout<< "new neo: " << team[b].x << team[b].y << "    b: " << b << endl;
             temp = team[b].probability;
             bestPice = b;
         }
