@@ -54,9 +54,6 @@ bool AI::killCheckLeft(int x, int y){
         if(Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
             return true;
         }
-        else{
-            return false;
-        }
     }
     return false;
 }
@@ -65,9 +62,6 @@ bool AI::killCheckRight(int x, int y){
     if(x<7 && y<6){
         if(Board->virtualBoard[x+1][y+1] == EMPTY_PIECE){
             return true;
-        }
-        else{
-            return false;
         }
     }
     return false;
@@ -155,7 +149,7 @@ void AI::moveCheck(int b, int depth){
     if(depth == 0 || team[b].x>8 || team[b].y>8 || team[b].x<0 || team[b].y<0){
         exit(-1);
     }
-    
+
     int left = checkLeft(team[b].x-1, team[b].y+1, 0);
     int right = checkRight(team[b].x+1, team[b].y+1, 0);
 
