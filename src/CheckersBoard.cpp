@@ -20,6 +20,9 @@ CheckersBoard::CheckersBoard(){
         }
         virtualBoard.push_back(rowVector);
     }
+    highLight = false;
+    highLightX = NULL;
+    highLightY = NULL;
 }
 
 CheckersBoard::~CheckersBoard(){
@@ -42,6 +45,16 @@ ostream & operator << (ostream & output, CheckersBoard & boardPassed) {
     return output;
 }
 
+void CheckersBoard::turnHighLightOn(int x,int y){
+    highLight = true;
+    highLightX = x;
+    highLightY = y;
+}
+
+void CheckersBoard::turnHighLightOff(){
+    highLight = false;
+}
+
 void CheckersBoard::drawBoard(){
     
     bool indent = false;
@@ -62,6 +75,12 @@ void CheckersBoard::drawBoard(){
             SDL_Rect redRect = {x, y, BUTTON_WIDTH, BUTTON_HEIGHT};
             SDL_RenderFillRect( gRenderer, &redRect);
         }
+    }
+    
+    if (highLight) {
+        SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+        SDL_Rect outLine = {highLightX, highLightY, BUTTON_WIDTH, BUTTON_HEIGHT};
+        SDL_RenderDrawRect(gRenderer, &outLine);
     }
 }
 

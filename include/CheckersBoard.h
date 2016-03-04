@@ -20,8 +20,13 @@ public:
     CheckersBoard();
     ~CheckersBoard();
     void drawBoard();
+    void turnHighLightOn(int,int);
+    void turnHighLightOff();
     vector<vector<int> > virtualBoard; // Virtual board inexed by [x][y]
     void drawBoardPeices(int, int, Button*);
+private:
+    bool highLight;
+    int highLightX, highLightY;
 };
 
 //extern CheckersBoard Board;

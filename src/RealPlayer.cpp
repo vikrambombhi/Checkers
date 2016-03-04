@@ -42,6 +42,8 @@ bool RealPlayer::makeMove(SDL_Event* event){
                     buttonIndex = index;
                     // Player selects where the piece should move //
                     movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
+                    // Tells board to turn off highlight //
+                    Board->turnHighLightOff();
                     selectingState = false;
                     return true;
                 }
@@ -59,6 +61,8 @@ void RealPlayer::selectPiece(int x, int y){
         xLocation = x;
         yLocation = y;
         currentPieceIndex = pieceTeamIndexByXY(x, y);
+        // Tells board to turn on highlight at location //
+        Board->turnHighLightOn(x * 80, y * 80);
         selectingState = true;
     }
     else{
