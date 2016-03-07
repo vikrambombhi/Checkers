@@ -69,7 +69,7 @@ bool AI::killCheckRight(int x, int y){
 
 int AI:: checkLeft(int x, int y, int left){
     if(x<1 || y>8){
-        return -999999999;
+        return OUT_OF_BOUND;
     }
 
     if(Board->virtualBoard[x][y] == EMPTY_PIECE){
@@ -101,14 +101,14 @@ int AI:: checkLeft(int x, int y, int left){
     }
 
     if(Board->virtualBoard[x][y] == BLACK_PIECE){
-        left -= 999999999;
+        left += OUT_OF_BOUND;
     }
     return left;
 }
 
 int AI:: checkRight(int x, int y,int right){
     if(x>6 || y>8){
-        return -999999999;
+        return OUT_OF_BOUND;
     }
 
     if(Board->virtualBoard[x][y] == EMPTY_PIECE){
@@ -140,7 +140,7 @@ int AI:: checkRight(int x, int y,int right){
     }
 
     if(Board->virtualBoard[x][y] == BLACK_PIECE){
-        right -= 999999999;
+        right += OUT_OF_BOUND;
     }
     return right;
 }
