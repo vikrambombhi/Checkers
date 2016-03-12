@@ -41,9 +41,15 @@ bool RealPlayer::makeMove(SDL_Event* event){
                 if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
                     buttonIndex = index;
                     // Player selects where the piece should move //
-                    movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
-                    selectingState = false;
-                    return true;
+                    if (selectedLocationIsValid(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80)) {
+                        movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
+                        selectingState = false;
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                    
                 }
             }
         }
@@ -63,6 +69,7 @@ void RealPlayer::selectPiece(int x, int y){
             yLocation = y;
             currentPieceIndex = pieceTeamIndexByXY(x, y);
             selectingState = true;
+            cout << "Selected piece is:\t(" << x << ", " << y << ")" <<endl;
             break;
         case BLACK_PIECE:
             cout<<"Piece isn't apart of your team"<<endl;
@@ -72,5 +79,50 @@ void RealPlayer::selectPiece(int x, int y){
     }
 }
 
-void RealPlayer::selectLocation(int x, int y) {
+bool RealPlayer::selectedLocationIsValid(int x, int y) {
+    cout << "Selected location is:\t(" << x << ", " << y << ")" <<endl;
+    bool locationIsValid = false;
+    // realPlayer select only works for (topside == false) //
+    if (Board->virtualBoard[x][y] == EMPTY_PIECE) {
+        
+        // case 1: moving in a 3x3 square centered at the origin //
+        if (abs(x - xLocation) == 1 && abs(y - yLocation) == 1) {
+            
+            // case 1.1: piece is a king //
+            if (team[currentPieceIndex].isKing()) {
+                locationIsValid = true;
+            }
+            
+            // case 1.2: piece isn't a king //
+            else if (yLocation - y == 1) {
+                locationIsValid = true;
+            }
+        }
+        
+        // case 2: moving in a 5x5 square centered at the origin to kill a piece //
+        else if (abs(x - xLocation) == 2 && abs(y - yLocation) == 2 && Board->virtualBoard[(x + xLocation)/2][(y + yLocation)/2] == BLACK_PIECE) {
+            
+            // case 2.1: piece is a king //
+            if (team[currentPieceIndex].isKing()) {
+                locationIsValid = true;
+            }
+            
+            // case 2.2: piece isn't a king //
+            else if (yLocation - y == 2) {
+                locationIsValid = true;
+            }
+        }
+    }
+    if (!locationIsValid) {
+        cout<<"cant move here"<<endl;
+    }
+    return locationIsValid;
 }
+
+
+
+
+
+
+
+

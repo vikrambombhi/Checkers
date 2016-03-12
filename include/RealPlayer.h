@@ -18,7 +18,7 @@ public:
     bool makeMove(SDL_Event *);
 private:
     void selectPiece(int, int);
-    void selectLocation(int, int);
+    bool selectedLocationIsValid(int, int);
     bool selectingState;
     int currentPieceIndex;
     int buttonIndex, xLocation, yLocation;
