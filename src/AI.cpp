@@ -16,24 +16,36 @@ AI::~AI(){
 }
 
 int AI::threatCheckArea(int x, int y, directions checkDirection){
-    if (x>0 && y<7) {
         switch (checkDirection) {
             case LEFT:
+                if(x>0 && y<7){
+                    return -1;
+                }
                 x -= 1;
                 y += 1;
                 break;
             case RIGHT:
+                if(x<7 && y <7){
+                    return -1;
+                }
                 x += 1;
                 y += 1;
                 break;
             case BACK_LEFT:
+                if(x>0 && y>0){
+                    return -1;
+                }
                 x -= 1;
                 y -= 1;
                 break;
             case BACK_RIGHT:
+                if(x<7 && y>0){
+                    return -1;
+                }
                 x += 1;
                 y -= 1;
             default:
+                return -1;
                 break;
         }
         if(Board->virtualBoard[x][y] == RED_PIECE){
@@ -45,7 +57,6 @@ int AI::threatCheckArea(int x, int y, directions checkDirection){
         if(Board->virtualBoard[x][y] == EMPTY_PIECE){
             return EMPTY_PIECE;
         }
-    }
     return -1;
 }
 
