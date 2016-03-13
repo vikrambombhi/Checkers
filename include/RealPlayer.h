@@ -21,7 +21,7 @@ private:
     bool selectedLocationIsValid(int, int);
     bool selectingState;
     int currentPieceIndex;
-    int buttonIndex, xLocation, yLocation;
+    int xLocation, yLocation;
 };
 
 

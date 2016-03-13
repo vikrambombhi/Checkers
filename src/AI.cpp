@@ -200,6 +200,10 @@ bool AI::makeMove(SDL_Event *event){
             bestPieceIndex = teamIndex;
         }
     }
+    // .5 second delay for the AI to start moving //
+    // OR NAH //
+    //SDL_Delay(500);
+    
     cout<< "the chosen one: " << bestPieceIndex << " -> "<< team[bestPieceIndex].x << "," << team[bestPieceIndex].y;
     if(team[bestPieceIndex].leftVright == LEFT){
         if(Board->virtualBoard[team[bestPieceIndex].x-1][team[bestPieceIndex].y+1] == RED_PIECE){
