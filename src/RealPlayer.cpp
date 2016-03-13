@@ -50,6 +50,8 @@ bool RealPlayer::makeMove(SDL_Event* event){
                         return true;
                     }
                     else {
+                        selectingState = false;
+                        Board->turnHighLightOff();
                         return false;
                     }
                 }
