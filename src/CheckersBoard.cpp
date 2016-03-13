@@ -47,8 +47,8 @@ ostream & operator << (ostream & output, CheckersBoard & boardPassed) {
 
 void CheckersBoard::turnHighLightOn(int x,int y){
     highLight = true;
-    highLightX = x;
-    highLightY = y;
+    highLightX = x * 80;
+    highLightY = y * 80;
 }
 
 void CheckersBoard::turnHighLightOff(){

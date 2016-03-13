@@ -25,7 +25,8 @@ RealPlayer::~RealPlayer(){
 bool RealPlayer::makeMove(SDL_Event* event){
 
     if (event->type == SDL_MOUSEBUTTONDOWN) {
-
+        
+        // Selecting state for inital piece //
         if (!selectingState) {
             for (int index=0; index<TOTAL_BUTTONS; index++) {
                 if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
@@ -36,6 +37,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
                 }
             }
         }
+        // Selecting for the piece to be moved //
         else{
             for (int index=0; index<TOTAL_BUTTONS; index++) {
                 if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
@@ -43,6 +45,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
                     // Player selects where the piece should move //
                     if (selectedLocationIsValid(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80)) {
                         movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
+                        Board->turnHighLightOff();
                         selectingState = false;
                         return true;
                     }
@@ -67,6 +70,7 @@ void RealPlayer::selectPiece(int x, int y){
             xLocation = x;
             yLocation = y;
             currentPieceIndex = pieceTeamIndexByXY(x, y);
+            Board->turnHighLightOn(x, y);
             selectingState = true;
             cout << "Selected piece is:\t(" << x << ", " << y << ")" <<endl;
             break;
