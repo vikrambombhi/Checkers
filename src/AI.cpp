@@ -108,84 +108,72 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection){
     return false;
 }
 
-int AI:: checkLeft(int x, int y, int left){
+int AI::checkArea(int x, int y, Directions checkDirection){
+    int side = 0;
+    
     if(x<0 || y<0 || y>7 || x>7){
         return OUT_OF_BOUND;
     }
-
-    if(Board->virtualBoard[x][y] == EMPTY_PIECE){
-        left += extentValue(y);
-        //Check if board exits to left
-        if(threatCheckArea(x, y, LEFT) != -1){
-
-        // Check if move will kill me
-            if(threatCheckArea(x, y, LEFT) == ENEMY_TEAM_NUMBER){
-                left = left + extentValue(y) - KILL_PIECE;
+    
+    switch (checkDirection) {
+        case LEFT:
+            if(Board->virtualBoard[x][y] == EMPTY_PIECE){
+                side += extentValue(y);
+                //Check if board exits to left
+                if(threatCheckArea(x, y, LEFT) != -1){
+                    // Check if move will kill me
+                    if(threatCheckArea(x, y, LEFT) == ENEMY_TEAM_NUMBER){
+                        side = side + extentValue(y) - KILL_PIECE;
+                    }
+                }
+                
+                //Check if board exists to right
+                if(threatCheckArea(x, y, RIGHT) != -1){
+                    if(threatCheckArea(x, y, RIGHT) == ENEMY_TEAM_NUMBER && threatCheckArea(x, y, BACK_LEFT) == EMPTY_PIECE){
+                        side = side + extentValue(y) - KILL_PIECE;
+                    }
+                }
             }
-        }
-
-        //Check if board exists to right
-        if(threatCheckArea(x, y, RIGHT) != -1){
-            if(threatCheckArea(x, y, RIGHT) == ENEMY_TEAM_NUMBER && threatCheckArea(x, y, BACK_LEFT) == EMPTY_PIECE){
-                left = left + extentValue(y) - KILL_PIECE;
+            break;
+            
+        case RIGHT:
+            if(Board->virtualBoard[x][y] == EMPTY_PIECE){
+                side += extentValue(y);
+                
+                //Check if board exits to left
+                if(threatCheckArea(x, y, LEFT) != -1){
+                    // Check if move will kill me
+                    if(threatCheckArea(x, y, LEFT) == ENEMY_TEAM_NUMBER && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
+                        side = side + extentValue(y) - KILL_PIECE;
+                    }
+                }
+                
+                //Check if board exists to right
+                if(threatCheckArea(x, y, RIGHT) != -1){
+                    if(threatCheckArea(x, y, RIGHT) == ENEMY_TEAM_NUMBER){
+                        side = side + extentValue(y) - KILL_PIECE;
+                    }
+                }
             }
-        }
+            break;
+            
+        default:
+            break;
     }
-
+    
     if(Board->virtualBoard[x][y] == ENEMY_TEAM_NUMBER){
         //Check if I can kill to left
-        if(killCheckArea(x, y, LEFT) == true){
-            left = left + extentValue(y) + KILL_PIECE;
+        if(killCheckArea(x, y, checkDirection) == true){
+            side = side + extentValue(y) + KILL_PIECE;
         }
         else{
-            left = OUT_OF_BOUND;
+            side = OUT_OF_BOUND;
         }
     }
-
     if(Board->virtualBoard[x][y] == TEAM_NUMBER){
-        left = OUT_OF_BOUND;
+        side = OUT_OF_BOUND;
     }
-    return left;
-}
-
-int AI:: checkRight(int x, int y,int right){
-    if(x<0 || y<0 || y>7 || x>7){
-        return OUT_OF_BOUND;
-    }
-
-    if(Board->virtualBoard[x][y] == EMPTY_PIECE){
-        right += extentValue(y);
-        
-        //Check if board exits to left
-        if(threatCheckArea(x, y, LEFT) != -1){
-        // Check if move will kill me
-            if(threatCheckArea(x, y, LEFT) == ENEMY_TEAM_NUMBER && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
-                right = right + extentValue(y) - KILL_PIECE;
-            }
-        }
-
-        //Check if board exists to right
-        if(threatCheckArea(x, y, RIGHT) != -1){
-            if(threatCheckArea(x, y, RIGHT) == ENEMY_TEAM_NUMBER){
-                right = right + extentValue(y) - KILL_PIECE;
-            }
-        }
-    }
-
-    if(Board->virtualBoard[x][y] == ENEMY_TEAM_NUMBER){
-        //Check if I can kill to right
-        if(killCheckArea(x, y, RIGHT) == true){
-            right = right + extentValue(y) + KILL_PIECE;
-        }
-        else{
-            right = OUT_OF_BOUND;
-        }
-    }
-
-    if(Board->virtualBoard[x][y] == TEAM_NUMBER){
-        right = OUT_OF_BOUND;
-    }
-    return right;
+    return side;
 }
 
 void AI::moveCheck(int index, int depth){
@@ -193,8 +181,8 @@ void AI::moveCheck(int index, int depth){
         exit(-1);
     }
 
-    int left = checkLeft(team[index].x-1, team[index].y+ONE, 0);
-    int right = checkRight(team[index].x+1, team[index].y+ONE, 0);
+    int left = checkArea(team[index].x-1, team[index].y+ONE, LEFT);
+    int right = checkArea(team[index].x+1, team[index].y+ONE, RIGHT);
 
     cout<< "index: " << index<< " left: " << left << " " << "Right: " << right  << "  position: " << team[index].x <<"," << team[index].y << endl;
     if(left>right){
