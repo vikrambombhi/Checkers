@@ -10,7 +10,7 @@
 #include "../include/GameState.h"
 
 RealPlayer::RealPlayer(bool topSide, CheckersBoard *board, Button *buttons): Player(topSide, board, buttons){
-    buttonIndex = 0, xLocation = 0, yLocation = 0;
+    xLocation = 0, yLocation = 0;
     selectingState = false;
     currentPieceIndex = 0;
 }
@@ -30,9 +30,8 @@ bool RealPlayer::makeMove(SDL_Event* event){
         if (!selectingState) {
             for (int index=0; index<TOTAL_BUTTONS; index++) {
                 if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
-                    buttonIndex = index;
                     // Player selects a piece to move //
-                    selectPiece(boardButtons[buttonIndex].getButtonPointX()/80, boardButtons[buttonIndex].getButtonPointY()/80);
+                    selectPiece(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                     break;
                 }
             }
@@ -41,12 +40,11 @@ bool RealPlayer::makeMove(SDL_Event* event){
         else{
             for (int index=0; index<TOTAL_BUTTONS; index++) {
                 if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
-                    buttonIndex = index;
+                    //buttonIndex = index;
                     // Player selects where the piece should move //
                     if (selectedLocationIsValid(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80)) {
                         movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                         Board->turnHighLightOff();
-                        selectingState = false;
                         return true;
                     }
                     else {
@@ -118,8 +116,16 @@ bool RealPlayer::selectedLocationIsValid(int x, int y) {
             }
         }
     }
+    // case 3: selects own piece to switch selection //
+    else if(Board->virtualBoard[x][y] == RED_PIECE){
+        selectPiece(x, y);
+        locationIsValid = false;
+    }
     if (!locationIsValid) {
         cout<<"cant move here"<<endl;
+    }
+    else{
+        selectingState = false;
     }
     return locationIsValid;
 }

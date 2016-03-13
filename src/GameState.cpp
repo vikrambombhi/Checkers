@@ -65,6 +65,8 @@ void GameState::stateEvent(){
             if(Player1->makeMove(&event)){
                 Player1->turn = false;
                 Player2->turn = true;
+                // Breaks to continue in main loop //
+                break;
             }
         }
         
@@ -74,6 +76,8 @@ void GameState::stateEvent(){
             if(Player2->makeMove(&event)){
                 Player2->turn = false;
                 Player1->turn = true;
+                // Breaks to continue in main loop //
+                break;
             }
         }
     }
