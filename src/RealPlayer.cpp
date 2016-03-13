@@ -48,7 +48,6 @@ bool RealPlayer::makeMove(SDL_Event* event){
                         return true;
                     }
                     else {
-                        selectingState = false;
                         return false;
                     }
                 }
@@ -122,6 +121,9 @@ bool RealPlayer::selectedLocationIsValid(int x, int y) {
     }
     if (!locationIsValid) {
         cout<<"cant move here"<<endl;
+    }
+    else{
+        selectingState = false;
     }
     return locationIsValid;
 }
