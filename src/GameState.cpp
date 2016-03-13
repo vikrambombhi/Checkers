@@ -61,10 +61,11 @@ void GameState::stateEvent(){
         
         // Player 1 turn //
         if (Player1->turn) {
-            Player1->updateTeam();
             if(Player1->makeMove(&event)){
+                Player1->updateKings();
                 Player1->turn = false;
                 Player2->turn = true;
+                Player2->updateTeam();
                 // Breaks to continue in main loop //
                 break;
             }
@@ -72,10 +73,11 @@ void GameState::stateEvent(){
         
         // Player 2 turn //
         else{
-            Player2->updateTeam();
             if(Player2->makeMove(&event)){
+                Player2->updateKings();
                 Player2->turn = false;
                 Player1->turn = true;
+                Player1->updateTeam();
                 // Breaks to continue in main loop //
                 break;
             }

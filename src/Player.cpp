@@ -225,18 +225,33 @@ void Player::killPiece(int x, int y) {
 }
 
 void Player::updateTeam() {
-    int yToMakeKing = 7 * topSide;
+    bool updateMade = false;
     for(int index=0;index<teamSize;index++){
         if (Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER) {
             team.erase(team.begin()+index);
             teamSize--;
             index--;
+            updateMade = true;
             cout<<"Team:\t"<<TEAM_NUMBER<<"\thas a TeamSize:\t" << teamSize <<endl;
         }
+    }
+    if (updateMade) {
+        cout<<"*Team updated"<<endl;
+    }
+}
+
+void Player::updateKings() {
+    int yToMakeKing = 7 * topSide;
+    bool updateMade = false;
+    for(int index=0;index<teamSize;index++){
         if (team[index].y == yToMakeKing) {
             team[index].makeKing();
             Board->virtualBoard[team[index].x][team[index].y] += 2;
+            updateMade = true;
         }
+    }
+    if (updateMade) {
+        cout<<"*Kings updated"<<endl;
     }
 }
 

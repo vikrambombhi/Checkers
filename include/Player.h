@@ -24,6 +24,7 @@ public:
     vector<Piece> team;
     bool turn;
     void updateTeam();
+    void updateKings();
 protected:
     void movePiece(int, int, int);
     void killPiece(int, int);
