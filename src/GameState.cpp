@@ -25,7 +25,7 @@ const int TOTAL_BUTTONS = 32;
 GameState::GameState(){
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
-    Player1 = new AI(true, Board, boardButtons);
+    Player1 = new RealPlayer(true, Board, boardButtons);
     Player2 = new RealPlayer(false, Board, boardButtons);
     userQuit = false;
 }
@@ -86,7 +86,7 @@ void GameState::stateEvent(){
 bool GameState::loadMedia(){
     bool initSuccessfulful = true;
 
-    if (!spriteSheetTexture.loadFromFile("data/CheckerSprite.png")) {
+    if (!spriteSheetTexture.loadFromFile("data/CheckerSprites.png")) {
         printf("Could not load sprite");
         initSuccessfulful = false;
     }
@@ -101,6 +101,16 @@ bool GameState::loadMedia(){
     spriteClips[1].y = 0;
     spriteClips[1].w = BUTTON_WIDTH;
     spriteClips[1].h = BUTTON_HEIGHT;
+    // Red king Piece //
+    spriteClips[2].x = BUTTON_WIDTH * 2;
+    spriteClips[2].y = 0;
+    spriteClips[2].w = BUTTON_WIDTH;
+    spriteClips[2].h = BUTTON_HEIGHT;
+    // Black king Piece //
+    spriteClips[3].x = BUTTON_WIDTH * 3;
+    spriteClips[3].y = 0;
+    spriteClips[3].w = BUTTON_WIDTH;
+    spriteClips[3].h = BUTTON_HEIGHT;
 
     int index = 0;
     bool indent = true;

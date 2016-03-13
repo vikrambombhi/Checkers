@@ -16,9 +16,11 @@ Player::Player(bool topSide, CheckersBoard *board, Button buttons[]){
     boardButtons = buttons;
     initTeam(topSide);
     if (topSide) {
+        ONE = 1;
         turn = false;
     }
     else{
+        ONE = -1;
         turn = true;
     }
 }
@@ -106,8 +108,9 @@ void Player::initTeam(bool topSide) {
         team[11].x = 7;
         team[11].y = 2;
 
-        //Sets teamNumberOnVirtualBoard
-        teamNumberOnVirtualBoard = BLACK_PIECE;
+        //Sets TEAM_NUMBER
+        TEAM_NUMBER = BLACK_PIECE;
+        ENEMY_TEAM_NUMBER = RED_PIECE;
     }
     else {
         //-----------------------------RED TEAM----------------------------\\
@@ -184,8 +187,9 @@ void Player::initTeam(bool topSide) {
         team[11].y = 5;
 
 
-        //Sets teamNumberOnVirtualBoard
-        teamNumberOnVirtualBoard = RED_PIECE;
+        //Sets TEAM_NUMBER
+        TEAM_NUMBER = RED_PIECE;
+        ENEMY_TEAM_NUMBER = BLACK_PIECE;
     }
 
         // Update Virtual board after init //
@@ -221,11 +225,11 @@ void Player::killPiece(int x, int y) {
 
 void Player::updateTeam() {
     for(int index=0;index<teamSize;index++){
-        if (Board->virtualBoard[team[index].x][team[index].y] != teamNumberOnVirtualBoard) {
+        if (Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER) {
             team.erase(team.begin()+index);
             teamSize--;
             index--;
-            cout<<"Team:\t"<<teamNumberOnVirtualBoard<<"\thas a TeamSize:\t" << teamSize <<endl;
+            cout<<"Team:\t"<<TEAM_NUMBER<<"\thas a TeamSize:\t" << teamSize <<endl;
         }
     }
 }

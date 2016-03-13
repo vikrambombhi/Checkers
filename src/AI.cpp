@@ -15,6 +15,15 @@ AI::~AI(){
     boardButtons = NULL;
 }
 
+int AI::extentValue(int y){
+    if (topSide) {
+        return y;
+    }
+    else{
+        return 7-y;
+    }
+}
+
 int AI::threatCheckArea(int x, int y, directions checkDirection){
         switch (checkDirection) {
             case LEFT:
@@ -22,28 +31,28 @@ int AI::threatCheckArea(int x, int y, directions checkDirection){
                     return -1;
                 }
                 x -= 1;
-                y += 1;
+                y += ONE;
                 break;
             case RIGHT:
                 if(x>=7 || y>=7){
                     return -1;
                 }
                 x += 1;
-                y += 1;
+                y += ONE;
                 break;
             case BACK_LEFT:
                 if(x<=0 || y<=0){
                     return -1;
                 }
                 x -= 1;
-                y -= 1;
+                y -= ONE;
                 break;
             case BACK_RIGHT:
                 if(x>=7 || y<=0){
                     return -1;
                 }
                 x += 1;
-                y -= 1;
+                y -= ONE;
             default:
                 return -1;
                 break;
@@ -62,7 +71,7 @@ int AI::threatCheckArea(int x, int y, directions checkDirection){
 
 bool AI::killCheckLeft(int x, int y){
     if(x>0 && y<7){
-        if(Board->virtualBoard[x-1][y+1] == EMPTY_PIECE){
+        if(Board->virtualBoard[x-1][y+ONE] == EMPTY_PIECE){
             return true;
         }
     }
@@ -71,7 +80,7 @@ bool AI::killCheckLeft(int x, int y){
 
 bool AI::killCheckRight(int x, int y){
     if(x<7 && y<7){
-        if(Board->virtualBoard[x+1][y+1] == EMPTY_PIECE){
+        if(Board->virtualBoard[x+1][y+ONE] == EMPTY_PIECE){
             return true;
         }
     }
@@ -84,35 +93,35 @@ int AI:: checkLeft(int x, int y, int left){
     }
 
     if(Board->virtualBoard[x][y] == EMPTY_PIECE){
-        left += y;
+        left += extentValue(y);
         //Check if board exits to left
         if(threatCheckArea(x, y, LEFT) != -1){
 
         // Check if move will kill me
-            if(threatCheckArea(x, y, LEFT) == RED_PIECE){
-                left = left + y - KILL_PIECE;
+            if(threatCheckArea(x, y, LEFT) == ENEMY_TEAM_NUMBER){
+                left = left + extentValue(y) - KILL_PIECE;
             }
         }
 
         //Check if board exists to right
         if(threatCheckArea(x, y, RIGHT) != -1){
-            if(threatCheckArea(x, y, RIGHT) == RED_PIECE && threatCheckArea(x, y, BACK_LEFT) == EMPTY_PIECE){
-                left = left + y - KILL_PIECE;
+            if(threatCheckArea(x, y, RIGHT) == ENEMY_TEAM_NUMBER && threatCheckArea(x, y, BACK_LEFT) == EMPTY_PIECE){
+                left = left + extentValue(y) - KILL_PIECE;
             }
         }
     }
 
-    if(Board->virtualBoard[x][y] == RED_PIECE){
+    if(Board->virtualBoard[x][y] == ENEMY_TEAM_NUMBER){
         //Check if I can kill to left
         if(killCheckLeft(x, y) == true){
-            left = left + y + KILL_PIECE;
+            left = left + extentValue(y) + KILL_PIECE;
         }
         else{
             left = OUT_OF_BOUND;
         }
     }
 
-    if(Board->virtualBoard[x][y] == BLACK_PIECE){
+    if(Board->virtualBoard[x][y] == TEAM_NUMBER){
         left = OUT_OF_BOUND;
     }
     return left;
@@ -124,36 +133,35 @@ int AI:: checkRight(int x, int y,int right){
     }
 
     if(Board->virtualBoard[x][y] == EMPTY_PIECE){
-        right += y;
-
+        right += extentValue(y);
         //Check if board exits to left
         if(threatCheckArea(x, y, LEFT) != -1){
 
         // Check if move will kill me
-            if(threatCheckArea(x, y, LEFT) == RED_PIECE && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
-                right = right + y - KILL_PIECE;
+            if(threatCheckArea(x, y, LEFT) == ENEMY_TEAM_NUMBER && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
+                right = right + extentValue(y) - KILL_PIECE;
             }
         }
 
         //Check if board exists to right
         if(threatCheckArea(x, y, RIGHT) != -1){
-            if(threatCheckArea(x, y, RIGHT) == RED_PIECE){
-                right = right + y - KILL_PIECE;
+            if(threatCheckArea(x, y, RIGHT) == ENEMY_TEAM_NUMBER){
+                right = right + extentValue(y) - KILL_PIECE;
             }
         }
     }
 
-    if(Board->virtualBoard[x][y] == RED_PIECE){
+    if(Board->virtualBoard[x][y] == ENEMY_TEAM_NUMBER){
         //Check if I can kill to right
         if(killCheckRight(x, y) == true){
-            right = right + y + KILL_PIECE;
+            right = right + extentValue(y) + KILL_PIECE;
         }
         else{
             right = OUT_OF_BOUND;
         }
     }
 
-    if(Board->virtualBoard[x][y] == BLACK_PIECE){
+    if(Board->virtualBoard[x][y] == TEAM_NUMBER){
         right = OUT_OF_BOUND;
     }
     return right;
@@ -164,8 +172,8 @@ void AI::moveCheck(int index, int depth){
         exit(-1);
     }
 
-    int left = checkLeft(team[index].x-1, team[index].y+1, 0);
-    int right = checkRight(team[index].x+1, team[index].y+1, 0);
+    int left = checkLeft(team[index].x-1, team[index].y+ONE, 0);
+    int right = checkRight(team[index].x+1, team[index].y+ONE, 0);
 
     cout<< "index: " << index<< " left: " << left << " " << "Right: " << right  << "  position: " << team[index].x <<"," << team[index].y << endl;
     if(left>right){
@@ -212,26 +220,26 @@ bool AI::makeMove(SDL_Event *event){
     
     cout<< "the chosen one: " << bestPieceIndex << " -> "<< team[bestPieceIndex].x << "," << team[bestPieceIndex].y;
     if(team[bestPieceIndex].leftVright == LEFT){
-        if(Board->virtualBoard[team[bestPieceIndex].x-1][team[bestPieceIndex].y+1] == RED_PIECE){
-            cout<< " best move: " << team[bestPieceIndex].x-2 << "," << team[bestPieceIndex].y+2 << endl;
-            movePiece(bestPieceIndex, team[bestPieceIndex].x-2, team[bestPieceIndex].y+2);
+        if(Board->virtualBoard[team[bestPieceIndex].x-1][team[bestPieceIndex].y+ONE] == ENEMY_TEAM_NUMBER){
+            cout<< " best move: " << team[bestPieceIndex].x-2 << "," << team[bestPieceIndex].y+2*ONE << endl;
+            movePiece(bestPieceIndex, team[bestPieceIndex].x-2, team[bestPieceIndex].y+2*ONE);
             return true;
         }
-        if(Board->virtualBoard[team[bestPieceIndex].x-1][team[bestPieceIndex].y+1] == EMPTY_PIECE){
-            cout<< " best move: " << team[bestPieceIndex].x-1 << "," << team[bestPieceIndex].y+1 << endl;
-            movePiece(bestPieceIndex, team[bestPieceIndex].x-1, team[bestPieceIndex].y+1);
+        if(Board->virtualBoard[team[bestPieceIndex].x-1][team[bestPieceIndex].y+ONE] == EMPTY_PIECE){
+            cout<< " best move: " << team[bestPieceIndex].x-1 << "," << team[bestPieceIndex].y+ONE << endl;
+            movePiece(bestPieceIndex, team[bestPieceIndex].x-1, team[bestPieceIndex].y+ONE);
             return true;
         }
     }
     else{
-        if(Board->virtualBoard[team[bestPieceIndex].x+1][team[bestPieceIndex].y+1] == RED_PIECE){
+        if(Board->virtualBoard[team[bestPieceIndex].x+1][team[bestPieceIndex].y+ONE] == ENEMY_TEAM_NUMBER){
             cout<< " best move: " << team[bestPieceIndex].x+2 << "," << team[bestPieceIndex].y+2 << endl;
-            movePiece(bestPieceIndex, team[bestPieceIndex].x+2, team[bestPieceIndex].y+2);
+            movePiece(bestPieceIndex, team[bestPieceIndex].x+2, team[bestPieceIndex].y+2*ONE);
             return true;
         }
-        if(Board->virtualBoard[team[bestPieceIndex].x+1][team[bestPieceIndex].y+1] == EMPTY_PIECE){
-            cout<< " best move: " << team[bestPieceIndex].x+1 << "," << team[bestPieceIndex].y+1 << endl;
-            movePiece(bestPieceIndex, team[bestPieceIndex].x+1, team[bestPieceIndex].y+1);
+        if(Board->virtualBoard[team[bestPieceIndex].x+1][team[bestPieceIndex].y+ONE] == EMPTY_PIECE){
+            cout<< " best move: " << team[bestPieceIndex].x+1 << "," << team[bestPieceIndex].y+ONE << endl;
+            movePiece(bestPieceIndex, team[bestPieceIndex].x+1, team[bestPieceIndex].y+ONE);
             return true;
         }
     }

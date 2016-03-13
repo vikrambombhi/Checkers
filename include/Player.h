@@ -30,8 +30,10 @@ protected:
     void initTeam(bool);
     int pieceTeamIndexByXY(int,int);
     bool topSide;
+    int ONE;
     int teamSize = 12;
-    int teamNumberOnVirtualBoard;
+    int TEAM_NUMBER;
+    int ENEMY_TEAM_NUMBER;
     CheckersBoard *Board;
     Button *boardButtons;
 };
