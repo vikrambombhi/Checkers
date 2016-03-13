@@ -4,7 +4,7 @@
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
 
-enum directions{
+enum Directions{
     LEFT,
     RIGHT,
     BACK_LEFT,
@@ -18,10 +18,9 @@ public:
     ~AI();
     bool makeMove(SDL_Event *);
 private:
-    int threatCheckArea(int,int,directions);
+    int threatCheckArea(int,int,Directions);
     int extentValue(int);
-    bool killCheckLeft(int x, int y);
-    bool killCheckRight(int x, int y);
+    bool killCheckArea(int,int,Directions);
     int checkLeft(int x, int y, int left);
     int checkRight(int x, int y, int right);
     void moveCheck(int b, int depth);
