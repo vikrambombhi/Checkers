@@ -107,6 +107,9 @@ int AI:: checkLeft(int x, int y, int left){
         if(killCheckLeft(x, y) == true){
             left = left + y + KILL_PIECE;
         }
+        else{
+            left = OUT_OF_BOUND;
+        }
     }
 
     if(Board->virtualBoard[x][y] == BLACK_PIECE){
@@ -145,10 +148,13 @@ int AI:: checkRight(int x, int y,int right){
         if(killCheckRight(x, y) == true){
             right = right + y + KILL_PIECE;
         }
+        else{
+            right = OUT_OF_BOUND;
+        }
     }
 
     if(Board->virtualBoard[x][y] == BLACK_PIECE){
-        right += OUT_OF_BOUND;
+        right = OUT_OF_BOUND;
     }
     return right;
 }
