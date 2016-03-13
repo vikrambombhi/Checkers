@@ -224,12 +224,17 @@ void Player::killPiece(int x, int y) {
 }
 
 void Player::updateTeam() {
+    int yToMakeKing = 8 * !topSide;
     for(int index=0;index<teamSize;index++){
         if (Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER) {
             team.erase(team.begin()+index);
             teamSize--;
             index--;
             cout<<"Team:\t"<<TEAM_NUMBER<<"\thas a TeamSize:\t" << teamSize <<endl;
+        }
+        if (team[index].y == yToMakeKing) {
+            team[index].makeKing();
+            Board->virtualBoard[team[index].x][team[index].y] += 2;
         }
     }
 }
