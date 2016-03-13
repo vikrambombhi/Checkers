@@ -18,28 +18,28 @@ AI::~AI(){
 int AI::threatCheckArea(int x, int y, directions checkDirection){
         switch (checkDirection) {
             case LEFT:
-                if(x>0 && y<7){
+                if(x>=0 && y<=7){
                     return -1;
                 }
                 x -= 1;
                 y += 1;
                 break;
             case RIGHT:
-                if(x<7 && y <7){
+                if(x<=7 && y <=7){
                     return -1;
                 }
                 x += 1;
                 y += 1;
                 break;
             case BACK_LEFT:
-                if(x>0 && y>0){
+                if(x>=0 && y>=0){
                     return -1;
                 }
                 x -= 1;
                 y -= 1;
                 break;
             case BACK_RIGHT:
-                if(x<7 && y>0){
+                if(x<=7 && y>=0){
                     return -1;
                 }
                 x += 1;
@@ -124,7 +124,7 @@ int AI:: checkLeft(int x, int y, int left){
 }
 
 int AI:: checkRight(int x, int y,int right){
-    if(x>6 || y>7){
+    if(x>7 || y>7){
         return -999999999;
     }
 
