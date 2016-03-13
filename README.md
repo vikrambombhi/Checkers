@@ -10,11 +10,12 @@ A simple checkers game created in C++ using SDL2's frameworks. That is planned t
 ![alt tag](https://raw.githubusercontent.com/VikramBombhi/Checkers/master/data/CheckersBoard.png)
 
 ## Current Features
-- A board with all initial pieces placed
+- Movable pieces, along with being able to kill an opponents piece
+- AI Player to play against
+- Scalability with code structure
+- Can be multiplayer (with a simple switch of a object call in GameState.cpp, but will eventually become a mode)
 
 ## Planned Features
-- AI Player to play against
-- Multiplayer 
 - Different levels to the AI
 - Menu
 
@@ -34,6 +35,15 @@ SDL2 Library: https://www.libsdl.org/download-2.0.php
 SDL2 Image: https://www.libsdl.org/projects/SDL_image/
 
 ## Project Progress
+(Update Mar 2)
+Pieces can now be killed.
+
+(Update Feb 29)
+Restructured entire appication to allow for better scalability with future features.
+
+(Update Feb 25)
+AI can now move on its own.
+
 (Updated Feb 19)
 The pieces are now movable by selecting piece then selecting position.
 

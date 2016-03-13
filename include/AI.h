@@ -11,11 +11,10 @@ enum directions{
     BACK_RIGHT
 };
 
-enum points{
-    NOTHING,
-    BLOCK,
-    KILL_PIECE
-};
+const int NOTHING = 0;
+const int BLOCK = 25;
+const int KILL_PIECE = 100;
+const int OUT_OF_BOUND = -999999999;
 
 class AI : public Player
 {
