@@ -78,8 +78,11 @@ void CheckersBoard::drawBoard(){
     }
     
     if (highLight) {
+        // Set to white //
         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+        // Create the outline rect //
         SDL_Rect outLine = {highLightX, highLightY, BUTTON_WIDTH, BUTTON_HEIGHT};
+        // Call to render //
         SDL_RenderDrawRect(gRenderer, &outLine);
     }
 }
