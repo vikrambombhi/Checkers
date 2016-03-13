@@ -24,7 +24,7 @@ private:
     int checkArea(int x, int y, Directions);
     void moveCheck(int b, int depth);
     const int NOTHING = 0;
-    const int BLOCK = 25;
+    const int BLOCK = 50;
     const int KILL_PIECE = 100;
     const int OUT_OF_BOUND = -999999999;
 };
