@@ -5,7 +5,7 @@
 #include "../include/AI.h"
 #include "../include/GameState.h"
 
-AI::AI(bool topSide, CheckersBoard *board, Button *buttons): Player(topSide, board, buttons){
+AI::AI(bool topSideOfBoard, CheckersBoard *board, Button *buttons): Player(topSideOfBoard, board, buttons){
 }
 
 AI::~AI(){
@@ -187,11 +187,11 @@ void AI::moveCheck(int index, int depth){
     cout<< "index: " << index<< " left: " << left << " " << "Right: " << right  << "  position: " << team[index].x <<"," << team[index].y << endl;
     if(left>right){
         team[index].probability = left;
-        team[index].leftVright = 0;
+        team[index].bestDirection = LEFT;
     }
     if(right>left){
         team[index].probability = right;
-        team[index].leftVright = 1;
+        team[index].bestDirection = RIGHT;
     }
     if(left==right){
         /* initialize random seed: */
@@ -200,11 +200,11 @@ void AI::moveCheck(int index, int depth){
         int randNum = rand() % 3;
         if(randNum%2==0){
             team[index].probability = left;
-            team[index].leftVright = 0;
+            team[index].bestDirection = LEFT;
         }
         else{
             team[index].probability = right;
-            team[index].leftVright = 1;
+            team[index].bestDirection = RIGHT;
         }
     }
 }
@@ -228,7 +228,7 @@ bool AI::makeMove(SDL_Event *event){
     //SDL_Delay(500);
     
     cout<< "the chosen one: " << bestPieceIndex << " -> "<< team[bestPieceIndex].x << "," << team[bestPieceIndex].y;
-    if(team[bestPieceIndex].leftVright == LEFT){
+    if(team[bestPieceIndex].bestDirection == LEFT){
         if(Board->virtualBoard[team[bestPieceIndex].x-1][team[bestPieceIndex].y+ONE] == ENEMY_TEAM_NUMBER){
             cout<< " best move: " << team[bestPieceIndex].x-2 << "," << team[bestPieceIndex].y+2*ONE << endl;
             movePiece(bestPieceIndex, team[bestPieceIndex].x-2, team[bestPieceIndex].y+2*ONE);

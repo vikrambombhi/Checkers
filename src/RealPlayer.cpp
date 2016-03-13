@@ -9,7 +9,7 @@
 #include "../include/RealPlayer.h"
 #include "../include/GameState.h"
 
-RealPlayer::RealPlayer(bool topSide, CheckersBoard *board, Button *buttons): Player(topSide, board, buttons){
+RealPlayer::RealPlayer(bool topSideOfBoard, CheckersBoard *board, Button *buttons): Player(topSideOfBoard, board, buttons){
     xLocation = 0, yLocation = 0;
     selectingState = false;
     currentPieceIndex = 0;

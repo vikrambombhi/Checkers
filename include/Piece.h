@@ -20,7 +20,7 @@ public:
     int x;
     int y;
     int probability;
-    int leftVright;
+    int bestDirection;
 private:
     bool king;
 };

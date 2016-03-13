@@ -11,11 +11,12 @@
 #include "../include/Button.h"
 #include "../include/GameState.h"
 
-Player::Player(bool topSide, CheckersBoard *board, Button buttons[]){
+Player::Player(bool topSideOfBoard, CheckersBoard *board, Button buttons[]){
     Board = board;
     boardButtons = buttons;
-    initTeam(topSide);
-    if (topSide) {
+    topSide = topSideOfBoard;
+    initTeam();
+    if (topSideOfBoard) {
         ONE = 1;
         turn = false;
     }
@@ -33,7 +34,7 @@ Player::~Player(){
     boardButtons = NULL;
 }
 
-void Player::initTeam(bool topSide) {
+void Player::initTeam() {
     if (topSide) {
         //----------------------------BLACK TEAM----------------------------\\
         //Push back new chip created with default constructor.

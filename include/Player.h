@@ -27,7 +27,7 @@ public:
 protected:
     void movePiece(int, int, int);
     void killPiece(int, int);
-    void initTeam(bool);
+    void initTeam();
     int pieceTeamIndexByXY(int,int);
     bool topSide;
     int ONE;
