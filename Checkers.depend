@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1457334702 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
+1457844216 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
 	<iostream>
 	<cstdlib>
 	<stdlib.h>
@@ -7,7 +7,7 @@
 	"../include/AI.h"
 	"../include/GameState.h"
 
-1457334702 c:\users\vikram\documents\github\checkers\include\ai.h
+1457841978 c:\users\vikram\documents\github\checkers\include\ai.h
 	"../include/Player.h"
 	"../include/CheckersBoard.h"
 
@@ -378,7 +378,7 @@
 	"../include/GameState.h"
 	"../include/Texture.h"
 
-1457120475 source:c:\users\vikram\documents\github\checkers\src\checkersboard.cpp
+1457839301 source:c:\users\vikram\documents\github\checkers\src\checkersboard.cpp
 	"../include/CheckersBoard.h"
 	"../include/GameState.h"
 	"../include/Texture.h"

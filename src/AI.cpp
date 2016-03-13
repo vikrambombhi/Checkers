@@ -85,22 +85,20 @@ int AI:: checkLeft(int x, int y, int left){
 
     if(Board->virtualBoard[x][y] == EMPTY_PIECE){
         left += y;
-
         //Check if board exits to left
-        if(threatCheckArea(x, y, LEFT) == -1){
-            return OUT_OF_BOUND;
-        }
+        if(threatCheckArea(x, y, LEFT) != -1){
+
         // Check if move will kill me
-        else if(threatCheckArea(x, y, LEFT) == RED_PIECE && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
-            left = left + y - KILL_PIECE;
+            if(threatCheckArea(x, y, LEFT) == RED_PIECE){
+                left = left + y - KILL_PIECE;
+            }
         }
 
         //Check if board exists to right
-        if(threatCheckArea(x, y, RIGHT) == -1){
-            return left;
-        }
-        else if(threatCheckArea(x, y, RIGHT) == RED_PIECE && threatCheckArea(x, y, BACK_LEFT) == EMPTY_PIECE){
-            left = left + y - KILL_PIECE;
+        if(threatCheckArea(x, y, RIGHT) != -1){
+            if(threatCheckArea(x, y, RIGHT) == RED_PIECE && threatCheckArea(x, y, BACK_LEFT) == EMPTY_PIECE){
+                left = left + y - KILL_PIECE;
+            }
         }
     }
 
@@ -112,7 +110,7 @@ int AI:: checkLeft(int x, int y, int left){
     }
 
     if(Board->virtualBoard[x][y] == BLACK_PIECE){
-        left += OUT_OF_BOUND;
+        left = OUT_OF_BOUND;
     }
     return left;
 }
@@ -126,20 +124,19 @@ int AI:: checkRight(int x, int y,int right){
         right += y;
 
         //Check if board exits to left
-        if(threatCheckArea(x, y, LEFT) == -1){
-            return OUT_OF_BOUND;
-        }
+        if(threatCheckArea(x, y, LEFT) != -1){
+
         // Check if move will kill me
-        else if(threatCheckArea(x, y, LEFT) == RED_PIECE && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
-            right = right + y - KILL_PIECE;
+            if(threatCheckArea(x, y, LEFT) == RED_PIECE && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
+                right = right + y - KILL_PIECE;
+            }
         }
 
         //Check if board exists to right
-        if(threatCheckArea(x, y, RIGHT) == -1){
-            return right;
-        }
-        else if(threatCheckArea(x, y, RIGHT) == RED_PIECE && threatCheckArea(x, y, BACK_LEFT) == EMPTY_PIECE){
-            right = right + y - KILL_PIECE;
+        if(threatCheckArea(x, y, RIGHT) != -1){
+            if(threatCheckArea(x, y, RIGHT) == RED_PIECE){
+                right = right + y - KILL_PIECE;
+            }
         }
     }
 
