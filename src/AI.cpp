@@ -233,7 +233,7 @@ bool AI::makeMove(SDL_Event *event){
     }
     else{
         if(Board->virtualBoard[team[bestPieceIndex].x+1][team[bestPieceIndex].y+ONE] == ENEMY_TEAM_NUMBER){
-            cout<< " best move: " << team[bestPieceIndex].x+2 << "," << team[bestPieceIndex].y+2 << endl;
+            cout<< " best move: " << team[bestPieceIndex].x+2 << "," << team[bestPieceIndex].y+2*ONE << endl;
             movePiece(bestPieceIndex, team[bestPieceIndex].x+2, team[bestPieceIndex].y+2*ONE);
             return true;
         }

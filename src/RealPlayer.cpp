@@ -75,7 +75,6 @@ void RealPlayer::selectPiece(int x, int y){
 bool RealPlayer::selectedLocationIsValid(int x, int y) {
     cout << "Selected location is:\t(" << x << ", " << y << ")" <<endl;
     bool locationIsValid = false;
-    // realPlayer select only works for (topside == false) //
     if (Board->virtualBoard[x][y] == EMPTY_PIECE) {
 
         // case 1: moving in a 3x3 square centered at the origin //
