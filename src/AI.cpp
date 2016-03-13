@@ -164,7 +164,7 @@ void AI::moveCheck(int b, int depth){
     }
     if(left==right){
         /* initialize random seed: */
-        srand (time(NULL));
+        srand(static_cast<unsigned int>(time(NULL)));
         /* generate secret number between 1 and 2: */
         int randNum = rand() % 3;
         if(randNum%2==0){

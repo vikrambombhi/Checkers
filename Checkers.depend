@@ -7,7 +7,7 @@
 	"../include/AI.h"
 	"../include/GameState.h"
 
-1457038425 c:\users\vikram\documents\github\checkers\include\ai.h
+1457846287 c:\users\vikram\documents\github\checkers\include\ai.h
 	"../include/Player.h"
 	"../include/CheckersBoard.h"
 
@@ -15,7 +15,7 @@
 	"CheckersBoard.h"
 	"Piece.h"
 
-1457018913 c:\users\vikram\documents\github\checkers\include\checkersboard.h
+1457120475 c:\users\vikram\documents\github\checkers\include\checkersboard.h
 	<vector>
 	<iostream>
 	"Application.h"
@@ -378,7 +378,7 @@
 	"../include/GameState.h"
 	"../include/Texture.h"
 
-1457018914 source:c:\users\vikram\documents\github\checkers\src\checkersboard.cpp
+1457846287 source:c:\users\vikram\documents\github\checkers\src\checkersboard.cpp
 	"../include/CheckersBoard.h"
 	"../include/GameState.h"
 	"../include/Texture.h"
@@ -389,7 +389,7 @@
 1457018914 source:c:\users\vikram\documents\github\checkers\src\piece.cpp
 	"../include/Piece.h"
 
-1457038467 source:c:\users\vikram\documents\github\checkers\src\player.cpp
+1457120475 source:c:\users\vikram\documents\github\checkers\src\player.cpp
 	"../include/Player.h"
 	"../include/CheckersBoard.h"
 	"../include/Button.h"
@@ -413,7 +413,7 @@
 	"../include/ApplicationStateManager.h"
 	"../include/GameState.h"
 
-1457038467 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
+1457120475 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
 	"../include/GameState.h"
 	"../include/CheckersBoard.h"
 	"../include/Player.h"
@@ -428,7 +428,7 @@
 1457018913 c:\users\vikram\documents\github\checkers\include\menustate.h
 	"ApplicationState.h"
 
-1457038467 c:\users\vikram\documents\github\checkers\include\realplayer.h
+1457846296 c:\users\vikram\documents\github\checkers\include\realplayer.h
 	"Player.h"
 
 1457042681 source:c:\users\vikram\documents\github\checkers\src\realplayer.cpp

@@ -2,10 +2,24 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="src\AI.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\AI.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="186" />
+			<Cursor1 position="296" topLine="1" />
 		</Cursor>
 	</File>
-	<EditorTabsLayout layout="0a4704f056d9e478000045b600000002=*0;Checkers:src\AI.cpp@layout2|name=dummy;caption=;state=2098174;dir=3;layer=0;row=0;pos=0;prop=100000;bestw=592;besth=314;minw=592;minh=314;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=0a4704f056d9e478000045b600000002;caption=;state=2098172;dir=5;layer=0;row=0;pos=0;prop=100000;bestw=200;besth=200;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|dock_size(5,0,0)=202|" />
+	<File name="src\AI.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6299" topLine="22" />
+		</Cursor>
+		<Folding>
+			<Collapse line="7" />
+			<Collapse line="10" />
+			<Collapse line="17" />
+			<Collapse line="62" />
+			<Collapse line="71" />
+			<Collapse line="80" />
+			<Collapse line="116" />
+		</Folding>
+	</File>
+	<EditorTabsLayout layout="0a31bd2856e4e5e30001480400000002=*0;Checkers:src\AI.cpp,1;Checkers:include\AI.h@layout2|name=dummy;caption=;state=2098174;dir=3;layer=0;row=0;pos=0;prop=100000;bestw=680;besth=314;minw=680;minh=314;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=0a31bd2856e4e5e30001480400000002;caption=;state=2098172;dir=5;layer=0;row=0;pos=0;prop=100000;bestw=200;besth=200;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|dock_size(5,0,0)=202|" />
 </CodeBlocks_layout_file>
