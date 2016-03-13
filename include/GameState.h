@@ -23,6 +23,8 @@ enum SpriteList{
     EMPTY_PIECE,
     RED_PIECE,
     BLACK_PIECE,
+    RED_KING,
+    BLACK_KING,
     TOTAL_PIECES
 };
 
