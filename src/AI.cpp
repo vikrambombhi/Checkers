@@ -87,6 +87,7 @@ int AI:: checkLeft(int x, int y, int left){
         left += y;
         //Check if board exits to left
         if(threatCheckArea(x, y, LEFT) != -1){
+
         // Check if move will kill me
             if(threatCheckArea(x, y, LEFT) == RED_PIECE){
                 left = left + y - KILL_PIECE;
@@ -124,6 +125,7 @@ int AI:: checkRight(int x, int y,int right){
 
         //Check if board exits to left
         if(threatCheckArea(x, y, LEFT) != -1){
+
         // Check if move will kill me
             if(threatCheckArea(x, y, LEFT) == RED_PIECE && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
                 right = right + y - KILL_PIECE;
@@ -177,9 +179,8 @@ void AI::moveCheck(int index, int depth){
             team[index].probability = left;
             team[index].leftVright = 0;
         }
-        else
-        {
-          team[index].probability = right;
+        else{
+            team[index].probability = right;
             team[index].leftVright = 1;
         }
     }
@@ -187,15 +188,14 @@ void AI::moveCheck(int index, int depth){
 
 bool AI::makeMove(SDL_Event *event){
     cout<<"AI's Turn"<<endl;
-    for(int b=0;b<team.size();b++){
-        moveCheck(b, 10);
+    for(int index=0;index<team.size();index++){
+        moveCheck(index, 10);
     }
-    int temp = 0;
     int bestPieceIndex = 0;
+    int temp = team[bestPieceIndex].probability;
     for(int teamIndex=0;teamIndex<team.size();teamIndex++){
         // If probability is the same, will stick with the first index
         if(team[teamIndex].probability>temp) {
-            //cout<< "new neo: " << team[b].x << team[b].y << "    b: " << b << endl;
             temp = team[teamIndex].probability;
             bestPieceIndex = teamIndex;
         }
