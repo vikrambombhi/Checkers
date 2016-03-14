@@ -92,7 +92,7 @@ bool RealPlayer::selectedLocationIsValid(int x, int y) {
         }
 
         // case 2: moving in a 5x5 square centered at the origin to kill a piece //
-        else if (abs(x - xLocation) == 2 && abs(y - yLocation) == 2 && Board->virtualBoard[(x + xLocation)/2][(y + yLocation)/2] == ENEMY_TEAM_NUMBER) {
+        else if (abs(x - xLocation) == 2 && abs(y - yLocation) == 2 && Board->virtualBoard[(x + xLocation)/2][(y + yLocation)/2] % ENEMY_TEAM_NUMBER == 0) {
 
             // case 2.1: piece is a king //
             if (team[currentPieceIndex].isKing()) {
