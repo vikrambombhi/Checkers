@@ -31,10 +31,16 @@ A simple checkers game created in C++ using SDL2's frameworks. That is planned t
 - Run project!
 
 Reference for help: http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php
+
 SDL2 Library: https://www.libsdl.org/download-2.0.php
+
 SDL2 Image: https://www.libsdl.org/projects/SDL_image/
 
 ## Project Progress
+(Update Mar 13)
+AI is now smarter and better. 
+King piece has been somewhat implimented. 
+
 (Update Mar 2)
 Pieces can now be killed.
 
