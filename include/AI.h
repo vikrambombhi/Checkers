@@ -24,7 +24,8 @@ private:
     bool changeWithDirection(int*,int*,Directions);
     bool killCheckArea(int,int,Directions);
     int checkArea(int x, int y, Directions, int points);
-    void moveCheck(int b, int depth);
+    void moveCheck(int index, int depth);
+    int bestPieceIndex;
     const int NOTHING = 0;
     const int BLOCK = 50;
     const int KILL_PIECE = 100;
