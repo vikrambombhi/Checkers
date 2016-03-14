@@ -126,7 +126,7 @@ int AI::checkArea(int x, int y, Directions checkDirection){
                         side = side + extentValue(y) - KILL_PIECE;
                     }
                     //Check if move will block my team from killing me
-                    if(threatCheckArea(x, y, LEFT) == TEAM_NUMBER && threatCheckArea(x+1, y+ONE, LEFT) == ENEMY_TEAM_NUMBER){
+                    if(threatCheckArea(x, y, LEFT) == TEAM_NUMBER && threatCheckArea(x-1, y+ONE, LEFT) == ENEMY_TEAM_NUMBER){
                         side = side + extentValue(y) + BLOCK;
                     }
                 }
@@ -138,7 +138,7 @@ int AI::checkArea(int x, int y, Directions checkDirection){
                         side = side + extentValue(y) - KILL_PIECE;
                     }
                     //Check if move will block my team from killing me
-                    if(threatCheckArea(x, y, RIGHT) == TEAM_NUMBER && threatCheckArea(x-1, y+ONE, RIGHT) == ENEMY_TEAM_NUMBER){
+                    if(threatCheckArea(x, y, RIGHT) == TEAM_NUMBER && threatCheckArea(x+1, y+ONE, RIGHT) == ENEMY_TEAM_NUMBER){
                         side = side + extentValue(y) + BLOCK;
                     }
                 }
@@ -156,7 +156,7 @@ int AI::checkArea(int x, int y, Directions checkDirection){
                         side = side + extentValue(y) - KILL_PIECE;
                     }
                     //Check if move will block my team from killing me
-                    if(threatCheckArea(x, y, LEFT) == TEAM_NUMBER && threatCheckArea(x+1, y+ONE, LEFT) == ENEMY_TEAM_NUMBER){
+                    if(threatCheckArea(x, y, LEFT) == TEAM_NUMBER && threatCheckArea(x-1, y+ONE, LEFT) == ENEMY_TEAM_NUMBER){
                         side = side + extentValue(y) + BLOCK;
                     }
                 }
@@ -168,7 +168,7 @@ int AI::checkArea(int x, int y, Directions checkDirection){
                         side = side + extentValue(y) - KILL_PIECE;
                     }
                     //Check if move will block my team from killing me
-                    if(threatCheckArea(x, y, LEFT) == TEAM_NUMBER && threatCheckArea(x+1, y+ONE, LEFT) == ENEMY_TEAM_NUMBER){
+                    if(threatCheckArea(x, y, RIGHT) == TEAM_NUMBER && threatCheckArea(x+1, y+ONE, RIGHT) == ENEMY_TEAM_NUMBER){
                         side = side + extentValue(y) + BLOCK;
                     }
                 }
