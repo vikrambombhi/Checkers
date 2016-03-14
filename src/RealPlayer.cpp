@@ -59,7 +59,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
 void RealPlayer::selectPiece(int x, int y){
     // SELECT PIECE //
     // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
-    if(Board->virtualBoard[x][y]==TEAM_NUMBER){
+    if(Board->virtualBoard[x][y]==TEAM_NUMBER || Board->virtualBoard[x][y]==TEAM_NUMBER+2 ){
             xLocation = x;
             yLocation = y;
             currentPieceIndex = pieceTeamIndexByXY(x, y);

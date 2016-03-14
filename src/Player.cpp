@@ -227,7 +227,7 @@ void Player::killPiece(int x, int y) {
 void Player::updateTeam() {
     bool updateMade = false;
     for(int index=0;index<teamSize;index++){
-        if (Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER) {
+        if (Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER && Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER + 2) {
             team.erase(team.begin()+index);
             teamSize--;
             index--;
@@ -244,7 +244,7 @@ void Player::updateKings() {
     int yToMakeKing = 7 * topSide;
     bool updateMade = false;
     for(int index=0;index<teamSize;index++){
-        if (team[index].y == yToMakeKing) {
+        if (team[index].y == yToMakeKing && !team[index].isKing()) {
             team[index].makeKing();
             Board->virtualBoard[team[index].x][team[index].y] += 2;
             updateMade = true;
