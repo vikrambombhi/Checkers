@@ -25,7 +25,7 @@ const int TOTAL_BUTTONS = 32;
 GameState::GameState(){
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
-    Player1 = new RealPlayer(true, Board, boardButtons);
+    Player1 = new AI(true, Board, boardButtons);
     Player2 = new RealPlayer(false, Board, boardButtons);
     userQuit = false;
 }

@@ -106,7 +106,7 @@ bool RealPlayer::selectedLocationIsValid(int x, int y) {
         }
     }
     // case 3: selects own piece to switch selection //
-    else if(Board->virtualBoard[x][y] == TEAM_NUMBER){
+    else if(Board->virtualBoard[x][y] % TEAM_NUMBER == 0){
         selectPiece(x, y);
         locationIsValid = false;
     }
