@@ -27,80 +27,55 @@ int AI::extentValue(int y){
 int AI::threatCheckArea(int x, int y, Directions checkDirection){
         switch (checkDirection) {
             case LEFT:
-                if(x<=0 || y>=7){
-                    return -1;
-                }
                 x -= 1;
                 y += ONE;
                 break;
             case RIGHT:
-                if(x>=7 || y>=7){
-                    return -1;
-                }
                 x += 1;
                 y += ONE;
                 break;
             case BACK_LEFT:
-                if(x<=0 || y<=0){
-                    return -1;
-                }
                 x -= 1;
                 y -= ONE;
                 break;
             case BACK_RIGHT:
-                if(x>=7 || y<=0){
-                    return -1;
-                }
                 x += 1;
                 y -= ONE;
+                break;
             default:
                 return -1;
                 break;
         }
-        if(Board->virtualBoard[x][y] == RED_PIECE){
-            return RED_PIECE;
+        if(x<0 || y<0 || y>7 || x>7){
+            return -1;
         }
-        if(Board->virtualBoard[x][y] == BLACK_PIECE){
-            return BLACK_PIECE;
-        }
-        if(Board->virtualBoard[x][y] == EMPTY_PIECE){
-            return EMPTY_PIECE;
-        }
-    return -1;
+    return Board->virtualBoard[x][y];
 }
 
 bool AI::killCheckArea(int x, int y, Directions checkDirection){
     switch (checkDirection) {
         case LEFT:
-            if(x<=0 || y>=7){
-                return false;
-            }
             x -= 1;
             y += ONE;
             break;
         case RIGHT:
-            if(x>=7 || y>=7){
-                return false;
-            }
             x += 1;
             y += ONE;
             break;
         case BACK_LEFT:
-            if(x<=0 || y<=0){
-                return false;
-            }
             x -= 1;
             y -= ONE;
             break;
         case BACK_RIGHT:
-            if(x>=7 || y<=0){
-                return false;
-            }
             x += 1;
             y -= ONE;
+            break;
         default:
             return false;
             break;
+    }
+    if(x<0 || y<0 || y>7 || x>7){
+        return false;
     }
     if(Board->virtualBoard[x][y] == EMPTY_PIECE){
         return true;
@@ -143,6 +118,7 @@ int AI::checkArea(int x, int y, Directions checkDirection){
                 //Check if board exits to left
                 if(threatCheckArea(x, y, LEFT) != -1){
                     // Check if move will kill me
+                    cout<<"threatcheck back right:  "<<threatCheckArea(x,y,BACK_RIGHT)<<endl;
                     if(threatCheckArea(x, y, LEFT) == ENEMY_TEAM_NUMBER && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
                         side = side + extentValue(y) - KILL_PIECE;
                     }
