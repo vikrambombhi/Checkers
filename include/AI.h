@@ -21,7 +21,7 @@ private:
     int threatCheckArea(int,int,Directions);
     int extentValue(int);
     bool killCheckArea(int,int,Directions);
-    int checkArea(int x, int y, Directions);
+    int checkArea(int x, int y, Directions, int points);
     void moveCheck(int b, int depth);
     const int NOTHING = 0;
     const int BLOCK = 50;
