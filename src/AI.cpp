@@ -53,15 +53,6 @@ bool AI::changeWithDirection(int *x, int *y, Directions direction){
     return true;
 }
 
-bool AI::sameTeam(int value1, int value2){
-    if (value1 != EMPTY_PIECE) {
-        if (value1%2 == value2%2) {
-            return true;
-        }
-    }
-    return false;
-}
-
 int AI::threatCheckArea(int x, int y, Directions checkDirection){
     if(!changeWithDirection(&x, &y, checkDirection)){
         return -1;

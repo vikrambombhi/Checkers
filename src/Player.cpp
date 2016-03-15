@@ -204,6 +204,15 @@ bool Player::makeMove(SDL_Event *){
     return false;
 }
 
+bool Player::sameTeam(int value1, int value2){
+    if (value1 != EMPTY_PIECE) {
+        if (value1%2 == value2%2) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void Player::movePiece(int teamIndex, int newX, int newY){
     //cout<<"enter move func"<<endl;
     // Moves piece

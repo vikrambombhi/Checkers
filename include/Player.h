@@ -29,6 +29,7 @@ protected:
     void movePiece(int, int, int);
     void killPiece(int, int);
     void initTeam();
+    bool sameTeam(int,int);
     int pieceTeamIndexByXY(int,int);
     bool topSide;
     int ONE;

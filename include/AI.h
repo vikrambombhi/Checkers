@@ -20,7 +20,6 @@ public:
 private:
     int threatCheckArea(int,int,Directions);
     int extentValue(int);
-    bool sameTeam(int,int);
     bool changeWithDirection(int*,int*,Directions);
     bool killCheckArea(int,int,Directions);
     int checkArea(int x, int y, Directions, int points);

@@ -92,7 +92,7 @@ bool RealPlayer::selectedLocationIsValid(int x, int y) {
         }
 
         // case 2: moving in a 5x5 square centered at the origin to kill a piece //
-        else if (abs(x - xLocation) == 2 && abs(y - yLocation) == 2 && Board->virtualBoard[(x + xLocation)/2][(y + yLocation)/2] % ENEMY_TEAM_NUMBER == 0) {
+        else if (abs(x - xLocation) == 2 && abs(y - yLocation) == 2 && sameTeam(Board->virtualBoard[(x + xLocation)/2][(y + yLocation)/2],ENEMY_TEAM_NUMBER)) {
 
             // case 2.1: piece is a king //
             if (team[currentPieceIndex].isKing()) {
@@ -106,7 +106,7 @@ bool RealPlayer::selectedLocationIsValid(int x, int y) {
         }
     }
     // case 3: selects own piece to switch selection //
-    else if(Board->virtualBoard[x][y] % TEAM_NUMBER == 0){
+    else if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
         selectPiece(x, y);
         locationIsValid = false;
     }
