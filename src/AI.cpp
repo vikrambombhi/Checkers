@@ -6,7 +6,7 @@
 #include "../include/GameState.h"
 
 AI::AI(bool topSideOfBoard, CheckersBoard *board, Button *buttons): Player(topSideOfBoard, board, buttons){
-    bestPieceIndex = 0;
+    currentIndex = 0;
 }
 
 AI::~AI(){
@@ -17,7 +17,7 @@ AI::~AI(){
 }
 
 int AI::extentValue(int y){
-    if (team[bestPieceIndex].isKing()) {
+    if (team[currentIndex].isKing()) {
         return 0;
     }
     if (topSide) {
@@ -336,9 +336,10 @@ bool AI::makeMove(SDL_Event *event){
     cout<<"AI's Turn"<<endl;
     
     for(int index=0;index<team.size();index++){
+        currentIndex = index;
         moveCheck(index, 10);
     }
-    
+    int bestPieceIndex = 0;
     int temp = team[bestPieceIndex].probability;
     
     for(int teamIndex=0;teamIndex<team.size();teamIndex++){
