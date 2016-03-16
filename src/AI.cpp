@@ -76,7 +76,8 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection){
     return false;
 }
 
-int AI::checkArea(int x, int y, Directions checkDirection, int points){
+int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth){
+
     if(x<0 || y<0 || y>7 || x>7){
         return OUT_OF_BOUND;
     }
@@ -210,7 +211,6 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points){
             }
             break;
 
-
         default:
             break;
     }
@@ -225,9 +225,39 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points){
         }
     }
     if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
-        points = OUT_OF_BOUND;
+        return OUT_OF_BOUND;
     }
-    return points;
+    
+    if (depth == 0) {
+        return points;
+    }
+    else{
+        return points += returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth-1),checkArea(x+1,y+ONE, RIGHT, points, depth-1));
+    }
+    return 0;
+}
+
+int AI::returnBigger(int left, int right){
+    int biggest = 0;
+    if(left>right){
+        biggest = left;
+    }
+    if(right>left){
+        biggest = right;
+    }
+    if(left==right){
+        /* initialize random seed: */
+        srand(static_cast<unsigned int>(time(NULL)));
+        /* generate secret number between 1 and 2: */
+        int randNum = rand() % 4;
+        if(randNum%2==0){
+            biggest = left;
+        }
+        else{
+            biggest = right;
+        }
+    }
+    return biggest;
 }
 
 void AI::moveCheck(int index, int depth){
@@ -240,14 +270,14 @@ void AI::moveCheck(int index, int depth){
     int backLeft = 0;
     int backRight = 0;
     
-    left = checkArea(team[index].x-1, team[index].y+ONE, LEFT, left);
-    right = checkArea(team[index].x+1, team[index].y+ONE, RIGHT, right);
+    left = checkArea(team[index].x-1, team[index].y+ONE, LEFT, left, depth);
+    right = checkArea(team[index].x+1, team[index].y+ONE, RIGHT, right, depth);
     
     // Case 1: King piece, need to check every direction //
     if (team[index].isKing()) {
         
-        backLeft = checkArea(team[index].x-1, team[index].y-ONE, BACK_LEFT, backLeft);
-        backRight = checkArea(team[index].x+1, team[index].y-ONE, BACK_RIGHT, backRight);
+        backLeft = checkArea(team[index].x-1, team[index].y-ONE, BACK_LEFT, backLeft, depth);
+        backRight = checkArea(team[index].x+1, team[index].y-ONE, BACK_RIGHT, backLeft, depth);
         
         int largest = left;
         int bestDirection = LEFT;
@@ -328,7 +358,7 @@ bool AI::makeMove(SDL_Event *event){
     
     for(int index=0;index<team.size();index++){
         currentIndex = index;
-        moveCheck(index, 10);
+        moveCheck(index, 2);
     }
     int bestPieceIndex = 0;
     int temp = team[bestPieceIndex].probability;
