@@ -21,8 +21,8 @@ CheckersBoard::CheckersBoard(){
         virtualBoard.push_back(rowVector);
     }
     highLight = false;
-    highLightX = NULL;
-    highLightY = NULL;
+    highLightSelected.x = NULL;
+    highLightSelected.y = NULL;
 }
 
 CheckersBoard::~CheckersBoard(){
@@ -47,12 +47,13 @@ ostream & operator << (ostream & output, CheckersBoard & boardPassed) {
 
 void CheckersBoard::turnHighLightOn(int x,int y){
     highLight = true;
-    highLightX = x * 80;
-    highLightY = y * 80;
+    highLightSelected.x = x * 80;
+    highLightSelected.y = y * 80;
 }
 
 void CheckersBoard::turnHighLightOff(){
     highLight = false;
+    validLocations.clear();
 }
 
 void CheckersBoard::drawBoard(){
@@ -76,14 +77,27 @@ void CheckersBoard::drawBoard(){
             SDL_RenderFillRect( gRenderer, &redRect);
         }
     }
+    drawHighlights();
     
+}
+
+void CheckersBoard::drawHighlights() {
     if (highLight) {
         // Set to white //
         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         // Create the outline rect //
-        SDL_Rect outLine = {highLightX, highLightY, BUTTON_WIDTH, BUTTON_HEIGHT};
+        SDL_Rect outLine = {highLightSelected.x, highLightSelected.y, BUTTON_WIDTH, BUTTON_HEIGHT};
         // Call to render //
         SDL_RenderDrawRect(gRenderer, &outLine);
+        
+        // Set to white //
+        SDL_SetRenderDrawColor( gRenderer, 0x55, 0xFF, 0x55, 0xFF );
+        
+        for (int indexOfValidMoves = 0; indexOfValidMoves < validLocations.size(); indexOfValidMoves++) {
+            SDL_Rect outLineValid = {validLocations[indexOfValidMoves].x * 80, validLocations[indexOfValidMoves].y * 80, BUTTON_WIDTH, BUTTON_HEIGHT};
+            // Call to render //
+            SDL_RenderDrawRect(gRenderer, &outLineValid);
+        }
     }
 }
 
