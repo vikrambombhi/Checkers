@@ -14,19 +14,28 @@
 #include "Application.h"
 #include "Button.h"
 
+struct pointXY {
+    int x;
+    int y;
+};
+
+
 class CheckersBoard{
     friend ostream & operator << (ostream &, CheckersBoard &);
 public:
     CheckersBoard();
     ~CheckersBoard();
     void drawBoard();
+    void drawHighlights();
     void turnHighLightOn(int,int);
     void turnHighLightOff();
     vector<vector<int> > virtualBoard; // Virtual board inexed by [x][y]
     void drawBoardPeices(int, int, Button*);
+    vector<pointXY> validLocations;
 private:
     bool highLight;
-    int highLightX, highLightY;
+    pointXY highLightSelected;
+    
 };
 
 //extern CheckersBoard Board;

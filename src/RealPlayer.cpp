@@ -41,7 +41,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
             for (int index=0; index<TOTAL_BUTTONS; index++) {
                 if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
                     // Player selects where the piece should move //
-                    if (selectedLocationIsValid(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80)) {
+                    if (selectedLocationIsValid(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
                         movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                         Board->turnHighLightOff();
                         return true;
@@ -64,6 +64,7 @@ void RealPlayer::selectPiece(int x, int y){
             yLocation = y;
             currentPieceIndex = pieceTeamIndexByXY(x, y);
             Board->turnHighLightOn(x, y);
+            highlightValidMoves();
             selectingState = true;
             cout << "Selected piece is:\t(" << x << ", " << y << ")" <<endl;
     }
@@ -72,7 +73,7 @@ void RealPlayer::selectPiece(int x, int y){
     }
 }
 
-bool RealPlayer::selectedLocationIsValid(int x, int y) {
+bool RealPlayer::selectedLocationIsValid(int x, int y, bool forHighlight) {
     cout << "Selected location is:\t(" << x << ", " << y << ")" <<endl;
     bool locationIsValid = false;
     if (Board->virtualBoard[x][y] == EMPTY_PIECE) {
@@ -106,7 +107,8 @@ bool RealPlayer::selectedLocationIsValid(int x, int y) {
         }
     }
     // case 3: selects own piece to switch selection //
-    else if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
+    else if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER) && !forHighlight){
+        Board->validLocations.clear();
         selectPiece(x, y);
         locationIsValid = false;
     }
@@ -118,3 +120,25 @@ bool RealPlayer::selectedLocationIsValid(int x, int y) {
     }
     return locationIsValid;
 }
+
+void RealPlayer::highlightValidMoves() {
+    int x, y;
+    for (int i = -2; i <=2; i++){
+        x = xLocation + i;
+        for (int j = -2; j <=2; j++){
+            y = yLocation + j;
+            
+            if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                if (selectedLocationIsValid(x, y, true)) {
+                    pointXY pointToHighlight = {x,y};
+                    Board->validLocations.push_back(pointToHighlight);
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
