@@ -19,7 +19,7 @@ AI::~AI(){
 
 int AI::extentValue(int y){
     if (team[currentIndex].isKing()) {
-        return 0;
+        return 50;
     }
     if (topSide) {
         return y;
@@ -103,8 +103,13 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection){
 int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth){
 
     if(x<0 || y<0 || y>7 || x>7){
-        points += OUT_OF_BOUND;
-        return points;
+        if (depth == 0) {
+            return OUT_OF_BOUND;
+        }
+        else{
+            //points += OUT_OF_BOUND;
+            return points;
+        }
     }
 
     switch (checkDirection) {
@@ -241,17 +246,33 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
     }
 
     if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
-        //Check if I can kill to left
-        if(killCheckArea(x, y, checkDirection) == true){
-            killMove = true;
+        //Check if I can kill
+        if(killCheckArea(x, y, checkDirection)){
+            //killMove = true;
             points += extentValue(y) + KILL_PIECE;
         }
         else{
-            points += OUT_OF_BOUND;
+            //points += OUT_OF_BOUND;
+            //return points;
+            if (depth == 0) {
+                return OUT_OF_BOUND;
+            }
+            else{
+                //points += OUT_OF_BOUND;
+                return points;
+            }
         }
     }
     if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
-        return OUT_OF_BOUND;
+        //points += OUT_OF_BOUND;
+        //return OUT_OF_BOUND;
+        if (depth == 0) {
+            return OUT_OF_BOUND;
+        }
+        else{
+            //points += OUT_OF_BOUND;
+            return points;
+        }
     }
     
     if (depth == 0) {
