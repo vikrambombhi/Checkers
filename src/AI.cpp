@@ -245,7 +245,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
             points += extentValue(y) + KILL_PIECE;
         }
         else{
-            points = OUT_OF_BOUND;
+            points += OUT_OF_BOUND;
         }
     }
     if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
@@ -256,7 +256,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
         return points;
     }
     else{
-        return (points += returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth-1),checkArea(x+1,y+ONE, RIGHT, points, depth-1))/(4-depth));
+        return (points += returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth-1),checkArea(x+1,y+ONE, RIGHT, points, depth-1))/(DEPTH_OF_FIVE-depth));
     }
     return 0;
 }
@@ -359,7 +359,7 @@ bool AI::makeMove(SDL_Event *event){
     
     for(int index=0;index<team.size();index++){
         currentIndex = index;
-        moveCheck(index, 3);
+        moveCheck(index, DEPTH_OF_FIVE-1);
     }
     int bestPieceIndex = 0;
     int temp = team[bestPieceIndex].probability;

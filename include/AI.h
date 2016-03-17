@@ -31,7 +31,7 @@ private:
     const int BLOCK = 50;
     const int KILL_PIECE = 100;
     const int OUT_OF_BOUND = -99999999;
-    Directions dList[2] = {LEFT, RIGHT};
+    const int DEPTH_OF_FIVE = 5;
 };
 
 #endif // AI_H
