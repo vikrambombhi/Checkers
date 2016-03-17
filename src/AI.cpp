@@ -105,7 +105,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
     if(x<0 || y<0 || y>7 || x>7){
         //points += OUT_OF_BOUND;
         //return points;
-        if (depth == 0) {
+        if (depth == DEPTH_OF_FIVE-1) {
             return OUT_OF_BOUND;
         }
         else{
@@ -257,7 +257,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
         else{
             //points += OUT_OF_BOUND;
             //return points;
-            if (depth == 0) {
+            if (depth == DEPTH_OF_FIVE-1) {
                 return OUT_OF_BOUND;
             }
             else{
@@ -269,7 +269,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
     if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
         //points += OUT_OF_BOUND;
         //return OUT_OF_BOUND;
-        if (depth == 0) {
+        if (depth == DEPTH_OF_FIVE-1) {
             return OUT_OF_BOUND;
         }
         else{
