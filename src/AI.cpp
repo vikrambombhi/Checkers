@@ -250,6 +250,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
         if(killCheckArea(x, y, checkDirection)){
             //killMove = true;
             points += extentValue(y) + KILL_PIECE;
+            changeWithDirection(&x, &y, checkDirection);
         }
         else{
             //points += OUT_OF_BOUND;
