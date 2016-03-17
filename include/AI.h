@@ -23,7 +23,7 @@ private:
     bool changeWithDirection(int*,int*,Directions);
     bool killCheckArea(int,int,Directions);
     int returnBigger(int, int);
-    int checkArea(int x, int y, Directions, int , int depth);
+    int checkArea(int x, int y, Directions, int , int depth, bool isKing);
     void moveCheck(int index, int depth);
     int currentIndex;
     bool killMove;
