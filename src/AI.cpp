@@ -7,6 +7,7 @@
 
 AI::AI(bool topSideOfBoard, CheckersBoard *board, Button *buttons): Player(topSideOfBoard, board, buttons){
     currentIndex = 0;
+    killMove = false;
 }
 
 AI::~AI(){
@@ -242,6 +243,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
     if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
         //Check if I can kill to left
         if(killCheckArea(x, y, checkDirection) == true){
+            killMove = true;
             points += extentValue(y) + KILL_PIECE;
         }
         else{
