@@ -107,7 +107,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
     cout<<"x,y: "<<x<<","<<y<<"Direction:   "<<checkDirection<<"    maxDepth is: "<<maxDepth<<"  Current depth is:   "<<depth<<endl;
     
     if(x<0 || y<0 || y>7 || x>7){
-        if (depth == 0) {
+        if (depth == 1) {
                 return OUT_OF_BOUND;
             }
             else{
@@ -118,7 +118,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
     if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
         //points += OUT_OF_BOUND;
         //return OUT_OF_BOUND;
-        if (depth == DEPTH_OF_FIVE-1) {
+        if (depth == 1) {
             return OUT_OF_BOUND;
         }
         else{
@@ -137,7 +137,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
         else{
             //points += OUT_OF_BOUND;
             //return points;
-            if (depth == 0) {
+            if (depth == 1) {
                 return OUT_OF_BOUND;
             }
             else{
