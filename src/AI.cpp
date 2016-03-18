@@ -19,6 +19,9 @@ AI::~AI(){
 
 int AI::extentValue(int y){
     if (team[currentIndex].isKing()) {
+        return 25;
+    }
+    if (y == 7*topSide) {
         return 50;
     }
     if (topSide) {
@@ -103,7 +106,35 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection){
 int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth, int maxDepth, bool isKing){
     cout<<"x,y: "<<x<<","<<y<<"Direction:   "<<checkDirection<<"    maxDepth is: "<<maxDepth<<"  Current depth is:   "<<depth<<endl;
     if(x<0 || y<0 || y>7 || x>7){
-        if (depth == 1) {
+    if (depth == 0) {
+            return OUT_OF_BOUND;
+        }
+        else{
+            return points;
+        }
+    }
+
+    if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
+        //Check if I can kill
+        if(killCheckArea(x, y, checkDirection)){
+            //killMove = true;
+            points += extentValue(y) + KILL_PIECE;
+            changeWithDirection(&x, &y, checkDirection);
+        }
+        else{
+            //points += OUT_OF_BOUND;
+            //return points;
+            if (depth == 0) {
+                return OUT_OF_BOUND;
+            }
+            else{
+                //points += OUT_OF_BOUND;
+                return points;
+            }
+        }
+    }
+    if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
+        if (depth == 0){
             return OUT_OF_BOUND;
         }
         else{
@@ -243,27 +274,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
         default:
             break;
     }
-
-    if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
-        //Check if I can kill
-        if(killCheckArea(x, y, checkDirection)){
-            points += extentValue(y) + KILL_PIECE;
-            changeWithDirection(&x, &y, checkDirection);
-        }
-        else{
-            if (depth == 1) {
-                return OUT_OF_BOUND;
-            }
-            else{
-                return points;
-            }
-        }
-    }
-    if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
-        return OUT_OF_BOUND;
-    }
-
-    if (depth >= maxDepth) {
+    if (depth == maxDepth) {
         //cout<<"depth:    "<<depth<<"    points: "<<endl;
         return points;
     }
