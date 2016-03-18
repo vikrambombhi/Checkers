@@ -117,6 +117,18 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
         }
     }
     
+    if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
+        //points += OUT_OF_BOUND;
+        //return OUT_OF_BOUND;
+        if (depth == DEPTH_OF_FIVE-1) {
+            return OUT_OF_BOUND;
+        }
+        else{
+            //points += OUT_OF_BOUND;
+            return points;
+        }
+    }
+    
     if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
         //Check if I can kill
         if(killCheckArea(x, y, checkDirection)){
@@ -134,17 +146,6 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                 //points += OUT_OF_BOUND;
                 return points;
             }
-        }
-    }
-    if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
-        //points += OUT_OF_BOUND;
-        //return OUT_OF_BOUND;
-        if (depth == DEPTH_OF_FIVE-1) {
-            return OUT_OF_BOUND;
-        }
-        else{
-            //points += OUT_OF_BOUND;
-            return points;
         }
     }
 
