@@ -22,16 +22,16 @@ private:
     int extentValue(int);
     bool changeWithDirection(int*,int*,Directions);
     bool killCheckArea(int,int,Directions);
-    int returnBigger(int, int);
-    //int tempRecursive(int points, int x, int y, int depth, int left, int right);
-    int checkArea(int x, int y, Directions, int , int depth);
+    double returnBigger(int, int);
+    int returnRandomIndex(vector<int> bestPiecesList);
+    int checkArea(int x, int y, Directions, int , int depth, int maxDepth, bool isKing);
     void moveCheck(int index, int depth);
     int currentIndex;
+    bool killMove;
     const int NOTHING = 0;
-    const int BLOCK = 50;
-    const int KILL_PIECE = 100;
+    const int BLOCK = 100;
+    const int KILL_PIECE = 200;
     const int OUT_OF_BOUND = -99999999;
-    Directions dList[2] = {LEFT, RIGHT};
 };
 
 #endif // AI_H
