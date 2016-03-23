@@ -33,5 +33,9 @@ void MenuState::stateRender(){
 }
 
 bool MenuState::stateExit(){
-    return true;
+    return false;
+}
+
+bool MenuState::loadMedia(){
+    return false;
 }
