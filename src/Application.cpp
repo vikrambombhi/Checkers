@@ -96,7 +96,7 @@ int Application::startApplication(){
         SDL_RenderClear(gRenderer);
         applicationStateManager->stateRender();
         SDL_RenderPresent(gRenderer);
-        SDL_Delay(500);
+        SDL_Delay(100);
     }
 
     closeApplication();
