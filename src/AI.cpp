@@ -32,8 +32,8 @@ int AI::extentValue(int y){
     }
 }
 
-int AI::returnBigger(int left, int right){
-    int biggest = 0;
+double AI::returnBigger(int left, int right){
+    double biggest = 0;
     if(left>right){
         biggest = left;
     }
@@ -53,6 +53,16 @@ int AI::returnBigger(int left, int right){
         }
     }
     return biggest;
+}
+
+int AI::returnRandomIndex(vector<int> bestPiecesList){
+    int vectorSize = bestPiecesList.size();
+    /* initialize random seed: */
+    srand (time(NULL));
+    /* generate secret number from 0 to vectorSize*/
+    int randPeice = (rand() %vectorSize+1);
+    return bestPiecesList[randPeice];
+
 }
 
 bool AI::changeWithDirection(int *x, int *y, Directions direction){
@@ -105,7 +115,7 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection){
 
 int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth, int maxDepth, bool isKing){
     //cout<<"x,y: "<<x<<","<<y<<"Direction:   "<<checkDirection<<"    maxDepth is: "<<maxDepth<<"  Current depth is:   "<<depth<<endl;
-    
+
     if(x<0 || y<0 || y>7 || x>7){
         if (depth == 1) {
                 return OUT_OF_BOUND;
@@ -299,14 +309,14 @@ void AI::moveCheck(int index, int maxDepth){
         exit(-1);
     }
 
-    int left = 0;
-    int right = 0;
-    int backLeft = 0;
-    int backRight = 0;
+    double left = 0;
+    double right = 0;
+    double backLeft = 0;
+    double backRight = 0;
 
     // Case 1: King piece, need to check every direction //
     if (team[index].isKing()) {
-        
+
         //cout<<"Check Left"<<endl;
         left = checkArea(team[index].x-1, team[index].y+ONE, LEFT, left, 1, maxDepth, true);
         //cout<<"Check Right"<<endl;
@@ -365,7 +375,7 @@ void AI::moveCheck(int index, int maxDepth){
         left = checkArea(team[index].x-1, team[index].y+ONE, LEFT, left, 1, maxDepth, false);
         //cout<<"Check Right"<<endl;
         right = checkArea(team[index].x+1, team[index].y+ONE, RIGHT, right, 1, maxDepth, false);
-        
+
         if(left>right){
             team[index].probability = left;
             team[index].bestDirection = LEFT;
@@ -399,17 +409,23 @@ bool AI::makeMove(SDL_Event *event){
         currentIndex = index;
         moveCheck(index, 7);
     }
-    int bestPieceIndex = 0;
-    int temp = team[bestPieceIndex].probability;
+
+    vector<int> bestPiecesList;
+    int biggestProabability = team[0].probability;
 
     for(int teamIndex=0;teamIndex<team.size();teamIndex++){
         // If probability is the same, will stick with the first index
-        if(team[teamIndex].probability>temp) {
-            temp = team[teamIndex].probability;
-            bestPieceIndex = teamIndex;
+        if(team[teamIndex].probability>biggestProabability) {
+            biggestProabability = team[teamIndex].probability;
         }
     }
 
+    for(int teamIndex=0;teamIndex<team.size();teamIndex++){
+        if(team[teamIndex].probability>=biggestProabability){
+            bestPiecesList.push_back(teamIndex);
+        }
+    }
+    int bestPieceIndex = returnRandomIndex(bestPiecesList);
     cout<< "the chosen one: " << bestPieceIndex << " -> "<< team[bestPieceIndex].x << "," << team[bestPieceIndex].y;
 
     int x = team[bestPieceIndex].x;
