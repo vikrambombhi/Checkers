@@ -24,8 +24,8 @@ void MenuState::stateEvent(){
     
 }
 
-void MenuState::stateUpdate(){
-    
+StateEnum MenuState::stateUpdate(){
+    return GAME_STATE;
 }
 
 void MenuState::stateRender(){

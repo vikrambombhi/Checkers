@@ -7,27 +7,26 @@
 //
 
 #include "../include/ApplicationStateManager.h"
+#include "../include/MenuState.h"
 #include "../include/GameState.h"
+#include "../include/GameOverState.h"
 
 ApplicationStateManager::ApplicationStateManager(){
-    currentState = new GameState;
+    currentState = new GameState();
     currentState->stateEnter();
 }
 
 ApplicationStateManager::~ApplicationStateManager(){
+    delete currentState;
     currentState = NULL;
-}
-
-void ApplicationStateManager::stateEnter(){
-    currentState->stateEnter();
 }
 
 void ApplicationStateManager::stateEvent(){
     currentState->stateEvent();
 }
 
-void ApplicationStateManager::stateUpdate(){
-    currentState->stateUpdate();
+StateEnum ApplicationStateManager::stateUpdate(){
+    return currentState->stateUpdate();
 }
 
 void ApplicationStateManager::stateRender(){
@@ -36,4 +35,29 @@ void ApplicationStateManager::stateRender(){
 
 bool ApplicationStateManager::stateExit(){
     return currentState->stateExit();
+}
+
+void ApplicationStateManager::setCurrentStateEnum(StateEnum current){
+    currentStateEnum = current;
+}
+
+StateEnum ApplicationStateManager::getCurrentStateEnum(){
+    return currentStateEnum;
+}
+
+void ApplicationStateManager::changeStates(){
+    switch (currentStateEnum) {
+        case MENU_STATE:
+            currentState = new MenuState;
+            break;
+        case GAME_STATE:
+            currentState = new GameState();
+            break;
+        case GAME_OVER_STATE:
+            currentState = new GameOverState;
+            break;
+        default:
+            break;
+    }
+    currentState->stateEnter();
 }

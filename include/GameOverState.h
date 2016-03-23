@@ -1,19 +1,19 @@
 //
-//  MenuState.h
+//  GameOverState.h
 //  SDL_Checkers
 //
-//  Created by Jacky Chiu on 2016-02-29.
+//  Created by Jacky Chiu on 2016-03-23.
 //  Copyright © 2016 Jacky Chiu.
-//
 
-#ifndef MenuState_h
-#define MenuState_h
+#ifndef GameOverState_h
+#define GameOverState_h
+
 #include "ApplicationState.h"
 
-class MenuState: public ApplicationState{
+class GameOverState: public ApplicationState{
 public:
-    MenuState();
-    ~MenuState();
+    GameOverState();
+    ~GameOverState();
     void stateEnter();
     void stateEvent();
     StateEnum stateUpdate();
@@ -21,7 +21,7 @@ public:
     bool stateExit();
 private:
     bool loadMedia();
+    bool userQuit;
 };
 
-
-#endif /* MenuState_h */
+#endif /* GameOverState_h */

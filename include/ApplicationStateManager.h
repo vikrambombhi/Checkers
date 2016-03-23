@@ -9,18 +9,22 @@
 #ifndef ApplicationStateManager_h
 #define ApplicationStateManager_h
 
-class ApplicationState;
+#include "ApplicationState.h"
+//class ApplicationState;
 
 class ApplicationStateManager{
 public:
     ApplicationStateManager();
     ~ApplicationStateManager();
-    void stateEnter();
     void stateEvent();
-    void stateUpdate();
+    StateEnum stateUpdate();
     void stateRender();
     bool stateExit();
+    StateEnum getCurrentStateEnum();
+    void setCurrentStateEnum(StateEnum);
+    void changeStates();
+private:
     ApplicationState *currentState;
+    StateEnum currentStateEnum;
 };
-
 #endif /* ApplicationStateManager_h */
