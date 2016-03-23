@@ -218,9 +218,8 @@ void Player::movePiece(int teamIndex, int newX, int newY){
     // Moves piece
     if (abs(newX - team[teamIndex].x) == 2 && abs(newY - team[teamIndex].y) == 2) {
         killPiece(abs(newX + team[teamIndex].x)/2, abs(newY + team[teamIndex].y)/2);
-
+        killerPeiceIndex = teamIndex;
     }
-    //cout<<team[teamIndex].x<<","<<team[teamIndex].y<<"  New place:"<<newX<<","<<newY<<endl;
     Board->virtualBoard[newX][newY] = Board->virtualBoard[team[teamIndex].x][team[teamIndex].y];
     Board->virtualBoard[team[teamIndex].x][team[teamIndex].y] = EMPTY_PIECE;
     team[teamIndex].x = newX;
@@ -231,6 +230,7 @@ void Player::movePiece(int teamIndex, int newX, int newY){
 
 void Player::killPiece(int x, int y) {
     Board->virtualBoard[x][y] = EMPTY_PIECE;
+    killWasMade = true;
 }
 
 void Player::updateTeam() {
