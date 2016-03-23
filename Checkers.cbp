@@ -41,6 +41,7 @@
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/RealPlayer.h" />
 		<Unit filename="include/Texture.h" />
+		<Unit filename="include/oldAI.h" />
 		<Unit filename="src/AI.cpp" />
 		<Unit filename="src/Application.cpp" />
 		<Unit filename="src/ApplicationStateManager.cpp" />
@@ -53,6 +54,7 @@
 		<Unit filename="src/RealPlayer.cpp" />
 		<Unit filename="src/Texture.cpp" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/oldAI.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
