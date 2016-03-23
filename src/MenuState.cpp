@@ -8,4 +8,34 @@
 
 #include "../include/MenuState.h"
 
+MenuState::MenuState(){
+    
+}
 
+MenuState::~MenuState(){
+    
+}
+
+void MenuState::stateEnter(){
+    
+}
+
+void MenuState::stateEvent(){
+    
+}
+
+void MenuState::stateUpdate(){
+    
+}
+
+void MenuState::stateRender(){
+    
+}
+
+bool MenuState::stateExit(){
+    return false;
+}
+
+bool MenuState::loadMedia(){
+    return false;
+}

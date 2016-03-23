@@ -15,7 +15,7 @@
 	"CheckersBoard.h"
 	"Piece.h"
 
-1458761504 c:\users\vikram\documents\github\checkers\include\checkersboard.h
+1458770183 c:\users\vikram\documents\github\checkers\include\checkersboard.h
 	<vector>
 	<iostream>
 	"Application.h"
@@ -361,7 +361,7 @@
 
 1458761504 c:\users\vikram\documents\github\checkers\include\piece.h
 
-1458761504 c:\users\vikram\documents\github\checkers\include\gamestate.h
+1458770183 c:\users\vikram\documents\github\checkers\include\gamestate.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL2/SDL.h>

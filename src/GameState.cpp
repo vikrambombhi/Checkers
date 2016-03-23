@@ -61,6 +61,9 @@ void GameState::stateEvent(){
             userQuit=true;
         }
 
+        if (gameOver()) {
+            // End game //
+        }
         // Player 1 turn //
         if (Player1->turn) {
             if(Player1->makeMove(&event)){
@@ -75,13 +78,28 @@ void GameState::stateEvent(){
 
         // Player 2 turn //
         else{
-            if(Player2->makeMove(&event)){
-                Player2->updateKings();
-                Player2->turn = false;
-                Player1->turn = true;
-                Player1->updateTeam();
-                // Breaks to continue in main loop //
-                break;
+            // Player 1 turn //
+            if (Player1->turn) {
+                if(Player1->makeMove(&event)){
+                    Player1->updateKings();
+                    Player1->turn = false;
+                    Player2->turn = true;
+                    Player2->updateTeam();
+                    // Breaks to continue in main loop //
+                    break;
+                }
+            }
+
+            // Player 2 turn //
+            else{
+                if(Player2->makeMove(&event)){
+                    Player2->updateKings();
+                    Player2->turn = false;
+                    Player1->turn = true;
+                    Player1->updateTeam();
+                    // Breaks to continue in main loop //
+                    break;
+                }
             }
         }
     }
@@ -136,6 +154,13 @@ bool GameState::loadMedia(){
         }
     }
     return initSuccessfulful;
+}
+
+bool GameState::gameOver(){
+    if (Player1->team.size() == 0 || Player2->team.size() == 0) {
+        return true;
+    }
+    return false;
 }
 
 void GameState::stateUpdate(){
