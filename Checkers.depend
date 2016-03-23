@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1458762383 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
+1458769794 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
 	<iostream>
 	<cstdlib>
 	<stdlib.h>
@@ -7,7 +7,7 @@
 	"../include/AI.h"
 	"../include/GameState.h"
 
-1458762383 c:\users\vikram\documents\github\checkers\include\ai.h
+1458769794 c:\users\vikram\documents\github\checkers\include\ai.h
 	"../include/Player.h"
 	"../include/CheckersBoard.h"
 
@@ -370,7 +370,7 @@
 
 1458761504 c:\users\vikram\documents\github\checkers\include\applicationstate.h
 
-1458761504 source:c:\users\vikram\documents\github\checkers\src\application.cpp
+1458770002 source:c:\users\vikram\documents\github\checkers\src\application.cpp
 	"../include/Application.h"
 	"../include/ApplicationState.h"
 	"../include/ApplicationStateManager.h"
@@ -398,11 +398,12 @@
 	"../include/GameState.h"
 	"../include/Texture.h"
 
-1458761504 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
+1458769445 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
 	"../include/GameState.h"
 	"../include/CheckersBoard.h"
 	"../include/Player.h"
 	"../include/AI.h"
+	"../include/oldAI.h"
 	"../include/RealPlayer.h"
 	"../include/Button.h"
 	"../include/Texture.h"
@@ -434,4 +435,17 @@
 
 1458761504 source:c:\users\vikram\documents\github\checkers\src\texture.cpp
 	"../include/Texture.h"
+
+1458769794 c:\users\vikram\documents\github\checkers\include\oldai.h
+	"../include/Player.h"
+	"../include/CheckersBoard.h"
+	"../include/AI.h"
+
+1458769794 source:c:\users\vikram\documents\github\checkers\src\oldai.cpp
+	<iostream>
+	<cstdlib>
+	<stdlib.h>
+	<time.h>
+	"../include/oldAI.h"
+	"../include/GameState.h"
 

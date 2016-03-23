@@ -10,6 +10,7 @@
 #include "../include/CheckersBoard.h"
 #include "../include/Player.h"
 #include "../include/AI.h"
+#include "../include/oldAI.h"
 #include "../include/RealPlayer.h"
 #include "../include/Button.h"
 #include "../include/Texture.h"
@@ -27,6 +28,7 @@ GameState::GameState(){
     boardButtons = new Button[TOTAL_BUTTONS];
     Player1 = new AI(true, Board, boardButtons);
     Player2 = new RealPlayer(false, Board, boardButtons);
+    //Player2 = new oldAI(false, Board, boardButtons);
     userQuit = false;
 }
 
@@ -58,7 +60,7 @@ void GameState::stateEvent(){
         {
             userQuit=true;
         }
-        
+
         // Player 1 turn //
         if (Player1->turn) {
             if(Player1->makeMove(&event)){
@@ -70,7 +72,7 @@ void GameState::stateEvent(){
                 break;
             }
         }
-        
+
         // Player 2 turn //
         else{
             if(Player2->makeMove(&event)){

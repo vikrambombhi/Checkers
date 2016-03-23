@@ -392,7 +392,7 @@ bool AI::makeMove(SDL_Event *event){
 
     for(int index=0;index<team.size();index++){
         currentIndex = index;
-        moveCheck(index, 7);
+        moveCheck(index, 69);
     }
 
     vector<int> bestPiecesList;
