@@ -10,7 +10,7 @@
 #include "../include/Texture.h"
 
 GameOverState::GameOverState(){
-    
+    userQuit = false;
 }
 
 GameOverState::~GameOverState(){

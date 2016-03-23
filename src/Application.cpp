@@ -3,7 +3,7 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-18.
-//  Copyright © 2016 Jacky Chiu. 
+//  Copyright © 2016 Jacky Chiu.
 //
 
 #include "../include/Application.h"
@@ -28,10 +28,10 @@ Application::Application(){
 Application::~Application(){
     delete applicationStateManager;
     applicationStateManager = NULL;
-    
+
     SDL_DestroyWindow(gWindow);
     gWindow=NULL;
-    
+
     SDL_DestroyRenderer(gRenderer);
     gRenderer=NULL;
 }
@@ -86,7 +86,7 @@ bool Application::init(){
 }
 
 int Application::startApplication(){
-    
+
     while (!applicationStateManager->stateExit()) {
         applicationStateManager->stateEvent();
         applicationStateManager->stateRender();
@@ -97,11 +97,11 @@ int Application::startApplication(){
         SDL_RenderPresent(gRenderer);
         SDL_Delay(100);
     }
-    
+
     closeApplication();
 
     return (EXIT_SUCCESS);
-     
+
 }
 
 void Application::closeApplication(){

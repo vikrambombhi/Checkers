@@ -30,7 +30,7 @@ private:
     bool killMove;
     const int NOTHING = 0;
     const int BLOCK = 100;
-    const int KILL_PIECE = 200;
+    const int KILL_PIECE = 500;
     const int OUT_OF_BOUND = -99999999;
 };
 
