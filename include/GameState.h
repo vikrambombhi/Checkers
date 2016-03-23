@@ -45,6 +45,7 @@ public:
     bool stateExit();
 private:
     bool loadMedia();
+    bool gameOver();
     CheckersBoard *Board;
     Button *boardButtons;
     Player *Player1;

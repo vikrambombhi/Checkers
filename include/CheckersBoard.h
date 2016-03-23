@@ -31,6 +31,7 @@ public:
     void turnHighLightOff();
     vector<vector<int> > virtualBoard; // Virtual board inexed by [x][y]
     void drawBoardPeices(int, int, Button*);
+    bool emptyBoard();
     vector<pointXY> validLocations;
 private:
     bool highLight;
