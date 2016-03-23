@@ -56,12 +56,11 @@ double AI::returnBigger(int left, int right){
 }
 
 int AI::returnRandomIndex(vector<int> bestPiecesList){
-    int vectorSize = bestPiecesList.size();
     /* initialize random seed: */
-    srand (time(NULL));
+    srand(static_cast<unsigned int>(time(NULL)));
     /* generate secret number from 0 to vectorSize*/
-    int randPeice = (rand() %vectorSize+1);
-    return bestPiecesList[randPeice];
+    int randPiece = rand() % bestPiecesList.size();
+    return bestPiecesList[randPiece];
 
 }
 
@@ -411,17 +410,17 @@ bool AI::makeMove(SDL_Event *event){
     }
 
     vector<int> bestPiecesList;
-    int biggestProabability = team[0].probability;
+    double biggestProabability = team[0].probability;
 
     for(int teamIndex=0;teamIndex<team.size();teamIndex++){
         // If probability is the same, will stick with the first index
-        if(team[teamIndex].probability>biggestProabability) {
+        if(team[teamIndex].probability > biggestProabability) {
             biggestProabability = team[teamIndex].probability;
         }
     }
 
     for(int teamIndex=0;teamIndex<team.size();teamIndex++){
-        if(team[teamIndex].probability>=biggestProabability){
+        if(team[teamIndex].probability >= biggestProabability){
             bestPiecesList.push_back(teamIndex);
         }
     }
