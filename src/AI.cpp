@@ -19,7 +19,7 @@ AI::~AI(){
 
 int AI::extentValue(int y){
     if (team[currentIndex].isKing()) {
-        return 25;
+        return 10;
     }
     if (y == 7*topSide) {
         return 50;
