@@ -90,8 +90,6 @@ int Application::startApplication(){
     while (!applicationStateManager->stateExit()) {
         applicationStateManager->stateEvent();
         applicationStateManager->stateUpdate();
-        // Light wood color //
-        SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
         // Refreshs screen //
         SDL_RenderClear(gRenderer);
         applicationStateManager->stateRender();

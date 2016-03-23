@@ -155,7 +155,8 @@ void GameState::stateUpdate(){
 void GameState::stateRender(){
 
     // Render stuff here //
-
+    // Light wood color //
+    SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
     Board->drawBoard();
 
     // Render whole team //

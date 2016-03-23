@@ -8,9 +8,11 @@
 
 #include "../include/ApplicationStateManager.h"
 #include "../include/GameState.h"
+#include "../include/MenuState.h"
+
 
 ApplicationStateManager::ApplicationStateManager(){
-    currentState = new GameState;
+    currentState = new MenuState;
     currentState->stateEnter();
 }
 
