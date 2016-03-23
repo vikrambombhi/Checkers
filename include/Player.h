@@ -25,6 +25,9 @@ public:
     bool turn;
     void updateTeam();
     void updateKings();
+    
+    // for multi turn loop
+    bool killWasMade = false;
 protected:
     void movePiece(int, int, int);
     void killPiece(int, int);
@@ -38,6 +41,9 @@ protected:
     int ENEMY_TEAM_NUMBER;
     CheckersBoard *Board;
     Button *boardButtons;
+    
+    // for multi turn loop
+    int killerPeiceIndex;
 };
 
 

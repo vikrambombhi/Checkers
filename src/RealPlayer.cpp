@@ -28,6 +28,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
         
         // Selecting state for inital piece //
         if (!selectingState) {
+            killWasMade = false;
             for (int index=0; index<TOTAL_BUTTONS; index++) {
                 if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
                     // Player selects a piece to move //
@@ -74,12 +75,14 @@ void RealPlayer::selectPiece(int x, int y){
 }
 
 bool RealPlayer::selectedLocationIsValid(int x, int y, bool forHighlight) {
-    cout << "Selected location is:\t(" << x << ", " << y << ")" <<endl;
+    if (!forHighlight) {
+        cout << "Selected location is:\t(" << x << ", " << y << ")" <<endl;
+    }
     bool locationIsValid = false;
     if (Board->virtualBoard[x][y] == EMPTY_PIECE) {
 
         // case 1: moving in a 3x3 square centered at the origin //
-        if (abs(x - xLocation) == 1 && abs(y - yLocation) == 1) {
+        if (abs(x - xLocation) == 1 && abs(y - yLocation) == 1 && !killWasMade) {
 
             // case 1.1: piece is a king //
             if (team[currentPieceIndex].isKing()) {
@@ -107,15 +110,15 @@ bool RealPlayer::selectedLocationIsValid(int x, int y, bool forHighlight) {
         }
     }
     // case 3: selects own piece to switch selection //
-    else if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER) && !forHighlight){
+    else if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER) && !forHighlight && !killWasMade){
         Board->validLocations.clear();
         selectPiece(x, y);
         locationIsValid = false;
     }
-    if (!locationIsValid) {
+    if (!locationIsValid && !forHighlight) {
         cout<<"cant move here"<<endl;
     }
-    else{
+    else if(!killWasMade){
         selectingState = false;
     }
     return locationIsValid;
