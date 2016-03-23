@@ -1,21 +1,15 @@
-#ifndef AI_H
-#define AI_H
+#ifndef oldAI_H
+#define oldAI_H
 
 #include "../include/Player.h"
 #include "../include/CheckersBoard.h"
+#include "../include/AI.h"
 
-enum Directions{
-    LEFT,
-    RIGHT,
-    BACK_LEFT,
-    BACK_RIGHT
-};
-
-class AI : public Player
+class oldAI : public Player
 {
 public:
-    AI(bool, CheckersBoard*, Button*);
-    ~AI();
+    oldAI(bool, CheckersBoard*, Button*);
+    ~oldAI();
     bool makeMove(SDL_Event *);
 private:
     int threatCheckArea(int,int,Directions);
@@ -30,8 +24,8 @@ private:
     bool killMove;
     const int NOTHING = 0;
     const int BLOCK = 100;
-    const int KILL_PIECE = 500;
+    const int KILL_PIECE = 900;
     const int OUT_OF_BOUND = -99999999;
 };
 
-#endif // AI_H
+#endif // oldAI_H
