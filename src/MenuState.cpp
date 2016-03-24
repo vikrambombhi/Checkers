@@ -14,6 +14,8 @@
 
 MenuState::MenuState(){
     spriteClips.clear();
+    currentStateEnum = MENU_STATE;
+    nextStateEnum = MENU_STATE;
     userQuit = false;
 }
 
@@ -43,7 +45,10 @@ void MenuState::stateEvent(){
 }
 
 StateEnum MenuState::stateUpdate(){
-    return MENU_STATE;
+    if (currentStateEnum != nextStateEnum) {
+        return nextStateEnum;
+    }
+    return currentStateEnum;
 }
 
 void MenuState::stateRender(){

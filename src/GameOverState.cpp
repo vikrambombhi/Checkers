@@ -10,6 +10,8 @@
 #include "../include/Texture.h"
 
 GameOverState::GameOverState(){
+    currentStateEnum = GAME_OVER_STATE;
+    nextStateEnum = GAME_OVER_STATE;
     userQuit = false;
 }
 
@@ -35,7 +37,10 @@ void GameOverState::stateEvent(){
 }
 
 StateEnum GameOverState::stateUpdate(){
-    return GAME_OVER_STATE;
+    if (currentStateEnum != nextStateEnum) {
+        return nextStateEnum;
+    }
+    return currentStateEnum;
 }
 
 void GameOverState::stateRender(){

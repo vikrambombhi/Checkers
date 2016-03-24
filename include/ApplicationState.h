@@ -25,6 +25,8 @@ public:
     virtual bool stateExit() = 0;
 protected:
     virtual bool loadMedia() = 0;
+    StateEnum currentStateEnum;
+    StateEnum nextStateEnum;
 };
 
 #endif /* ApplicationState_h */
