@@ -16,6 +16,7 @@
 
 int TOTAL_BUTTONS = 32;
 
+
 GameState::GameState(){
     BUTTON_WIDTH = 80;
     BUTTON_HEIGHT = 80;
