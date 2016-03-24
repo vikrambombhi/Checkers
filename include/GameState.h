@@ -18,6 +18,7 @@
 #endif
 
 #include "ApplicationState.h"
+#include "Application.h"
 
 enum SpriteList{
     EMPTY_PIECE,
@@ -53,9 +54,6 @@ private:
     Player *Player2;
     bool userQuit;
 };
-
-extern SDL_Rect spriteClips[TOTAL_PIECES-1];
-extern Texture spriteSheetTexture;
 
 extern SpriteList currentSprite;
 extern const int BUTTON_WIDTH;

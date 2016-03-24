@@ -12,7 +12,7 @@
 #include "../include/GameOverState.h"
 
 ApplicationStateManager::ApplicationStateManager(){
-    currentState = new GameState;
+    currentState = new GameState();
     currentState->stateEnter();
 }
 
@@ -46,6 +46,10 @@ StateEnum ApplicationStateManager::getCurrentStateEnum(){
 }
 
 void ApplicationStateManager::changeStates(){
+    
+    delete currentState;
+    currentState = NULL;
+    
     switch (currentStateEnum) {
         case MENU_STATE:
             currentState = new MenuState;

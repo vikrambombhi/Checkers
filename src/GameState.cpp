@@ -14,17 +14,18 @@
 #include "../include/Button.h"
 #include "../include/Texture.h"
 
-SDL_Rect spriteClips[TOTAL_PIECES-1];
-Texture spriteSheetTexture;
-
 SpriteList currentSprite;
 const int BUTTON_WIDTH = 80;
 const int BUTTON_HEIGHT = 80;
 const int TOTAL_BUTTONS = 32;
 
 GameState::GameState(){
+
+    spriteClips.clear();
+
     currentStateEnum = GAME_STATE;
     nextStateEnum = GAME_STATE;
+
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
     Player1 = new AI(true, Board, boardButtons);
@@ -101,25 +102,17 @@ bool GameState::loadMedia(){
     }
     // Initalize Checkers Pieces //
     // Red Piece //
-    spriteClips[0].x = 0;
-    spriteClips[0].y = 0;
-    spriteClips[0].w = BUTTON_WIDTH;
-    spriteClips[0].h = BUTTON_HEIGHT;
+    SDL_Rect redPeice = {0,0,BUTTON_WIDTH,BUTTON_HEIGHT};
+    spriteClips.push_back(redPeice);
     // Black Piece //
-    spriteClips[1].x = BUTTON_WIDTH;
-    spriteClips[1].y = 0;
-    spriteClips[1].w = BUTTON_WIDTH;
-    spriteClips[1].h = BUTTON_HEIGHT;
+    SDL_Rect blackPeice = {BUTTON_WIDTH,0,BUTTON_WIDTH,BUTTON_HEIGHT};
+    spriteClips.push_back(blackPeice);
     // Red king Piece //
-    spriteClips[2].x = BUTTON_WIDTH * 2;
-    spriteClips[2].y = 0;
-    spriteClips[2].w = BUTTON_WIDTH;
-    spriteClips[2].h = BUTTON_HEIGHT;
+    SDL_Rect redKing = {BUTTON_WIDTH * 2, 0, BUTTON_WIDTH, BUTTON_HEIGHT};
+    spriteClips.push_back(redKing);
     // Black king Piece //
-    spriteClips[3].x = BUTTON_WIDTH * 3;
-    spriteClips[3].y = 0;
-    spriteClips[3].w = BUTTON_WIDTH;
-    spriteClips[3].h = BUTTON_HEIGHT;
+    SDL_Rect blackKing = {BUTTON_WIDTH * 3, 0, BUTTON_WIDTH, BUTTON_HEIGHT};
+    spriteClips.push_back(blackKing);
 
     int index = 0;
     bool indent = true;
