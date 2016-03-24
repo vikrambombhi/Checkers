@@ -9,7 +9,8 @@
 #include "../include/MenuState.h"
 
 MenuState::MenuState(){
-    
+    currentStateEnum = MENU_STATE;
+    nextStateEnum = MENU_STATE;
 }
 
 MenuState::~MenuState(){
@@ -25,7 +26,10 @@ void MenuState::stateEvent(){
 }
 
 StateEnum MenuState::stateUpdate(){
-    return GAME_STATE;
+    if (currentStateEnum != nextStateEnum) {
+        return nextStateEnum;
+    }
+    return currentStateEnum;
 }
 
 void MenuState::stateRender(){

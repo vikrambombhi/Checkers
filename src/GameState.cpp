@@ -23,6 +23,8 @@ const int BUTTON_HEIGHT = 80;
 const int TOTAL_BUTTONS = 32;
 
 GameState::GameState(){
+    currentStateEnum = GAME_STATE;
+    nextStateEnum = GAME_STATE;
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
     Player1 = new AI(true, Board, boardButtons);
@@ -59,28 +61,33 @@ void GameState::stateEvent(){
         {
             userQuit=true;
         }
-
-        // Player 1 turn //
-        if (Player1->turn) {
-            if(Player1->makeMove(&event)){
-                Player1->updateKings();
-                Player1->turn = false;
-                Player2->turn = true;
-                Player2->updateTeam();
-                // Breaks to continue in main loop //
-                break;
+        
+        if (!gameOver()) {
+            // Player 1 turn //
+            if (Player1->turn) {
+                if(Player1->makeMove(&event)){
+                    Player1->updateKings();
+                    Player1->turn = false;
+                    Player2->turn = true;
+                    Player2->updateTeam();
+                    // Breaks to continue in main loop //
+                    break;
+                }
+            }
+            // Player 2 turn //
+            else{
+                if(Player2->makeMove(&event)){
+                    Player2->updateKings();
+                    Player2->turn = false;
+                    Player1->turn = true;
+                    Player1->updateTeam();
+                    // Breaks to continue in main loop //
+                    break;
+                }
             }
         }
-        // Player 2 turn //
         else{
-            if(Player2->makeMove(&event)){
-                Player2->updateKings();
-                Player2->turn = false;
-                Player1->turn = true;
-                Player1->updateTeam();
-                // Breaks to continue in main loop //
-                break;
-            }
+            nextStateEnum = GAME_OVER_STATE;
         }
     }
 }
@@ -144,10 +151,10 @@ bool GameState::gameOver(){
 }
 
 StateEnum GameState::stateUpdate(){
-    if (gameOver()) {
-        return GAME_OVER_STATE;
+    if (currentStateEnum != nextStateEnum) {
+        return nextStateEnum;
     }
-    return GAME_STATE;
+    return currentStateEnum;
 }
 
 void GameState::stateRender(){
