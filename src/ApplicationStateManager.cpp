@@ -12,7 +12,6 @@
 #include "../include/GameOverState.h"
 
 ApplicationStateManager::ApplicationStateManager(){
-
     currentState = new GameState();
     currentState->stateEnter();
 }
