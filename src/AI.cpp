@@ -90,22 +90,28 @@ bool AI::changeWithDirection(int *x, int *y, Directions direction){
 }
 
 int AI::threatCheckArea(int x, int y, Directions checkDirection){
+    // Makes sure direction was able to be changed//
     if(!changeWithDirection(&x, &y, checkDirection)){
         return -1;
     }
+    // Makes sure new values are in bound //
     if(x<0 || y<0 || y>7 || x>7){
         return -1;
     }
+    // Returns value in direction //
     return Board->virtualBoard[x][y];
 }
 
 bool AI::killCheckArea(int x, int y, Directions checkDirection){
+    // Makes sure direction was able to be changed//
     if(!changeWithDirection(&x, &y, checkDirection)){
         return false;
     }
+    // Makes sure new values are in bound //
     if(x<0 || y<0 || y>7 || x>7){
         return false;
     }
+    // Returns true if direction is clear //
     if(Board->virtualBoard[x][y] == EMPTY_PIECE){
         return true;
     }
@@ -113,6 +119,8 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection){
 }
 
 int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth, int maxDepth){
+    
+    // Makes sure new values are in bound //
     if(x<0 || y<0 || y>7 || x>7){
         if (depth == 1) {
                 return OUT_OF_BOUND;
@@ -121,7 +129,8 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                 return points;
             }
     }
-
+    
+    // Checks if you can move to new spot //
     if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
         if (depth == 1) {
             return OUT_OF_BOUND;
@@ -130,7 +139,8 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
             return points;
         }
     }
-
+    
+    // Checks if you can make a kill //
     if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
         //Check if I can kill
         if(killCheckArea(x, y, checkDirection)){
@@ -162,18 +172,19 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                     if(sameTeam(threatCheckArea(x, y, BACK_LEFT), ENEMY_TEAM_NUMBER) && threatCheckArea(x, y, RIGHT)==EMPTY_PIECE){
                         points += extentValue(y) - KILL_PIECE;
                     }
-                    //Check if move will kill me from right
-                    if(sameTeam(threatCheckArea(x, y, RIGHT),ENEMY_TEAM_NUMBER) && threatCheckArea(x, y, BACK_LEFT)==EMPTY_PIECE){
-                        points += extentValue(y) - KILL_PIECE;
-                    }
+                    
                     //Check if move will block my team member on left
                     if(sameTeam(threatCheckArea(x, y, LEFT),TEAM_NUMBER) && sameTeam(threatCheckArea(x-1, y, BACK_LEFT),ENEMY_TEAM_NUMBER)){
                         points += extentValue(y) + BLOCK;
                     }
-                    //Check if move will block my team member on right
-                    if(sameTeam(threatCheckArea(x, y, RIGHT),TEAM_NUMBER) && sameTeam(threatCheckArea(x+1, y+ONE, RIGHT),ENEMY_TEAM_NUMBER)){
-                        points += extentValue(y) + BLOCK;
-                    }
+                }
+                //Check if move will kill me from right
+                if(sameTeam(threatCheckArea(x, y, RIGHT),ENEMY_TEAM_NUMBER) && threatCheckArea(x, y, BACK_LEFT)==EMPTY_PIECE){
+                    points += extentValue(y) - KILL_PIECE;
+                }
+                //Check if move will block my team member on right
+                if(sameTeam(threatCheckArea(x, y, RIGHT),TEAM_NUMBER) && sameTeam(threatCheckArea(x+1, y+ONE, RIGHT),ENEMY_TEAM_NUMBER)){
+                    points += extentValue(y) + BLOCK;
                 }
             }
             break;
@@ -191,18 +202,18 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                     if(sameTeam(threatCheckArea(x, y, BACK_RIGHT), ENEMY_TEAM_NUMBER) && threatCheckArea(x, y, LEFT)==EMPTY_PIECE){
                         points += extentValue(y) - KILL_PIECE;
                     }
-                    // Check if move will kill me from left
-                    if(sameTeam(threatCheckArea(x, y, LEFT), ENEMY_TEAM_NUMBER) && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
-                        points += extentValue(y) - KILL_PIECE;
-                    }
-                    //Check if move will block my team from killing me
-                    if(sameTeam(threatCheckArea(x, y, LEFT),TEAM_NUMBER) && sameTeam(threatCheckArea(x-1, y+ONE, LEFT),ENEMY_TEAM_NUMBER)){
-                        points += extentValue(y) + BLOCK;
-                    }
                     //Check if move will block my team from killing me
                     if(sameTeam(threatCheckArea(x, y, RIGHT),TEAM_NUMBER) && sameTeam(threatCheckArea(x+1, y+ONE, RIGHT),ENEMY_TEAM_NUMBER)){
                         points += extentValue(y) + BLOCK;
                     }
+                }
+                // Check if move will kill me from left
+                if(sameTeam(threatCheckArea(x, y, LEFT), ENEMY_TEAM_NUMBER) && threatCheckArea(x, y, BACK_RIGHT) == EMPTY_PIECE){
+                    points += extentValue(y) - KILL_PIECE;
+                }
+                //Check if move will block my team member on left
+                if(sameTeam(threatCheckArea(x, y, LEFT),TEAM_NUMBER) && sameTeam(threatCheckArea(x-1, y+ONE, LEFT),ENEMY_TEAM_NUMBER)){
+                    points += extentValue(y) + BLOCK;
                 }
             }
             break;
@@ -220,10 +231,6 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                     if(sameTeam(threatCheckArea(x, y, LEFT), ENEMY_TEAM_NUMBER) && threatCheckArea(x, y, BACK_RIGHT)==EMPTY_PIECE){
                         points += extentValue(y) - KILL_PIECE;
                     }
-                    //Check if move will kill me from back right
-                    if(threatCheckArea(x, y, BACK_RIGHT)==ENEMY_TEAM_NUMBER+2 && threatCheckArea(x, y, LEFT) == EMPTY_PIECE){
-                        points += extentValue(y) - KILL_PIECE;
-                    }
                     //Check if move will block my team member on left
                     if(sameTeam(threatCheckArea(x, y, LEFT),TEAM_NUMBER) && sameTeam(threatCheckArea(x-1, y+ONE, BACK_LEFT),ENEMY_TEAM_NUMBER)){
                         points += extentValue(y) + BLOCK;
@@ -232,10 +239,14 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                     if(sameTeam(threatCheckArea(x, y, BACK_LEFT),TEAM_NUMBER) && threatCheckArea(x-1, y-ONE, BACK_LEFT)==ENEMY_TEAM_NUMBER+2){
                         points += extentValue(y) + BLOCK;
                     }
-                    //Check if move will block my team member on back right
-                    if(sameTeam(threatCheckArea(x, y, BACK_RIGHT),TEAM_NUMBER) && threatCheckArea(x+1, y-ONE, BACK_RIGHT)==ENEMY_TEAM_NUMBER+2){
-                        points += extentValue(y) + BLOCK;
-                    }
+                }
+                //Check if move will kill me from back right
+                if(threatCheckArea(x, y, BACK_RIGHT)==ENEMY_TEAM_NUMBER+2 && threatCheckArea(x, y, LEFT) == EMPTY_PIECE){
+                    points += extentValue(y) - KILL_PIECE;
+                }
+                //Check if move will block my team member on back right
+                if(sameTeam(threatCheckArea(x, y, BACK_RIGHT),TEAM_NUMBER) && threatCheckArea(x+1, y-ONE, BACK_RIGHT)==ENEMY_TEAM_NUMBER+2){
+                    points += extentValue(y) + BLOCK;
                 }
             }
         break;
@@ -253,10 +264,6 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                     if(threatCheckArea(x, y, BACK_RIGHT)==ENEMY_TEAM_NUMBER+2){
                         points += extentValue(y) - KILL_PIECE;
                     }
-                    //Check if move will kill me from back left
-                    if(threatCheckArea(x, y, BACK_LEFT)==ENEMY_TEAM_NUMBER+2 && threatCheckArea(x, y, RIGHT) == EMPTY_PIECE){
-                        points += extentValue(y) - KILL_PIECE;
-                    }
                     //Check if move will block my team member from right
                     if(sameTeam(threatCheckArea(x, y, RIGHT),TEAM_NUMBER) && sameTeam(threatCheckArea(x+1, y+ONE, RIGHT),ENEMY_TEAM_NUMBER)){
                         points += extentValue(y) + BLOCK;
@@ -265,10 +272,14 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                     if(sameTeam(threatCheckArea(x, y, BACK_RIGHT),TEAM_NUMBER) && threatCheckArea(x+1, y-ONE, BACK_RIGHT)==ENEMY_TEAM_NUMBER+2){
                         points += extentValue(y) + BLOCK;
                     }
-                    //Check if move will block my team member from back left
-                    if(sameTeam(threatCheckArea(x, y, BACK_LEFT),TEAM_NUMBER) && threatCheckArea(x-1, y-ONE, BACK_LEFT)==ENEMY_TEAM_NUMBER+2){
-                        points += extentValue(y) + BLOCK;
-                    }
+                }
+                //Check if move will kill me from back left
+                if(threatCheckArea(x, y, BACK_LEFT)==ENEMY_TEAM_NUMBER+2 && threatCheckArea(x, y, RIGHT) == EMPTY_PIECE){
+                    points += extentValue(y) - KILL_PIECE;
+                }
+                //Check if move will block my team member from back left
+                if(sameTeam(threatCheckArea(x, y, BACK_LEFT),TEAM_NUMBER) && threatCheckArea(x-1, y-ONE, BACK_LEFT)==ENEMY_TEAM_NUMBER+2){
+                    points += extentValue(y) + BLOCK;
                 }
             }
             break;
@@ -283,10 +294,10 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
     else{
         if(team[currentIndex].isKing()){
             //cout<<"depth:    "<<depth<<"    points: "<<endl;
-            return (points += returnBigger(returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth),checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth))/depth, returnBigger(checkArea(x-1, y-ONE, BACK_LEFT, points, depth++, maxDepth),checkArea(x+1,y-ONE, BACK_RIGHT, points, depth++, maxDepth))/depth));
+            return (points += returnBigger(returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth+1, maxDepth),checkArea(x+1,y+ONE, RIGHT, points, depth+1, maxDepth))/depth, returnBigger(checkArea(x-1, y-ONE, BACK_LEFT, points, depth+1, maxDepth),checkArea(x+1,y-ONE, BACK_RIGHT, points, depth+1, maxDepth))/depth));
         }
-        //cout<<checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth, false)/depth<<" ||  "<<"right:  "<<checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth, false)/depth<<endl;
-        return (points += returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth),checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth))/depth);
+        //cout<<checkArea(x-1, y+ONE, LEFT, points, depth+1, maxDepth, false)/depth<<" ||  "<<"right:  "<<checkArea(x+1,y+ONE, RIGHT, points, depth+1, maxDepth, false)/depth<<endl;
+        return (points += returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth+1, maxDepth),checkArea(x+1,y+ONE, RIGHT, points, depth+1, maxDepth))/depth);
     }
     return 0;
 }
@@ -383,7 +394,7 @@ void AI::moveCheck(int index, int maxDepth){
             }
         }
     }
-    cout<< "index: " << index<< " L: " << left << " " << " R: " << right  << " BL: " <<backLeft<< " BR: " << backRight <<"  position: " << team[index].x <<"," << team[index].y << endl;
+    cout<< "index: " << index<< " L: " << left << " " << " R: " << right  << " BL: " << backLeft<< " BR: " << backRight << "  position: " << team[index].x << "," << team[index].y << endl;
 }
 
 bool AI::makeMove(SDL_Event *event){
