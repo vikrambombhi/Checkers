@@ -46,12 +46,16 @@ StateEnum ApplicationStateManager::getCurrentStateEnum(){
 }
 
 void ApplicationStateManager::changeStates(){
+    
+    delete currentState;
+    currentState = NULL;
+    
     switch (currentStateEnum) {
         case MENU_STATE:
             currentState = new MenuState;
             break;
         case GAME_STATE:
-            currentState = new GameState();
+            currentState = new GameState;
             break;
         case GAME_OVER_STATE:
             currentState = new GameOverState;

@@ -9,11 +9,15 @@
 #include "../include/Application.h"
 #include "../include/ApplicationState.h"
 #include "../include/ApplicationStateManager.h"
+#include "../include/Texture.h"
 
 SDL_Window *gWindow;
 SDL_Renderer *gRenderer;
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 640;
+
+vector<SDL_Rect> spriteClips;
+Texture spriteSheetTexture;
 
 Application::Application(){
     gWindow=NULL;
@@ -28,7 +32,7 @@ Application::Application(){
 Application::~Application(){
     delete applicationStateManager;
     applicationStateManager = NULL;
-
+    
     SDL_DestroyWindow(gWindow);
     gWindow=NULL;
 
@@ -78,9 +82,7 @@ bool Application::init(){
                     initSuccessful = false;
                 }
             }
-        }
-
-
+        } 
     }
     return initSuccessful;
 }

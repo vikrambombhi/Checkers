@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <vector>
 
 #ifdef _WIN32
 #include <SDL.h>
@@ -24,6 +25,7 @@
 using namespace std;
 
 class ApplicationStateManager;
+class Texture;
 
 class Application{
 public:
@@ -35,6 +37,9 @@ public:
 protected:
     ApplicationStateManager *applicationStateManager;
 };
+
+extern vector<SDL_Rect> spriteClips;
+extern Texture spriteSheetTexture;
 
 extern SDL_Window *gWindow;
 extern SDL_Renderer *gRenderer;
