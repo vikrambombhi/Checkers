@@ -45,27 +45,36 @@ void MenuState::stateEvent(){
             userQuit=true;
         }
         
-        if (boardButtons[LOCAL_MULTIPLAYER].insideButton(346, 40)) {
-            hover[0] = true;
-        }
-        else {
-            currentSprite = LOCAL_MULTIPLAYER;
-            hover[0] = false;
+        if (event.type == SDL_MOUSEMOTION) {
+            if (boardButtons[LOCAL_MULTIPLAYER].insideButton(346, 40)) {
+                hover[0] = true;
+            }
+            else {
+                currentSprite = LOCAL_MULTIPLAYER;
+                hover[0] = false;
+            }
+            if (boardButtons[SINGLEPLAYER].insideButton(346, 40)) {
+                hover[1] = true;
+            }
+            else {
+                hover[1] = false;
+            }
+            if (boardButtons[AI_VS_AI].insideButton(346, 40)) {
+                hover[2] = true;
+            }
+            else {
+                hover[2] = false;
+            }
         }
         
-        if (boardButtons[SINGLEPLAYER].insideButton(346, 40)) {
-            hover[1] = true;
-        }
-        else {
-            hover[1] = false;
+        if (event.type == SDL_MOUSEBUTTONDOWN) {
+            for (int index = 0; index < 3; index++) {
+                if (hover[index]) {
+                    nextStateEnum = GAME_STATE;
+                }
+            }
         }
         
-        if (boardButtons[AI_VS_AI].insideButton(346, 40)) {
-            hover[2] = true;
-        }
-        else {
-            hover[2] = false;
-        }
 
     }
 }
