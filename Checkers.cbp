@@ -35,6 +35,7 @@
 		<Unit filename="include/ApplicationStateManager.h" />
 		<Unit filename="include/Button.h" />
 		<Unit filename="include/CheckersBoard.h" />
+		<Unit filename="include/GameOverState.h" />
 		<Unit filename="include/GameState.h" />
 		<Unit filename="include/MenuState.h" />
 		<Unit filename="include/Piece.h" />
@@ -44,9 +45,11 @@
 		<Unit filename="include/oldAI.h" />
 		<Unit filename="src/AI.cpp" />
 		<Unit filename="src/Application.cpp" />
+		<Unit filename="src/ApplicationState.cpp" />
 		<Unit filename="src/ApplicationStateManager.cpp" />
 		<Unit filename="src/Button.cpp" />
 		<Unit filename="src/CheckersBoard.cpp" />
+		<Unit filename="src/GameOverState.cpp" />
 		<Unit filename="src/GameState.cpp" />
 		<Unit filename="src/MenuState.cpp" />
 		<Unit filename="src/Piece.cpp" />

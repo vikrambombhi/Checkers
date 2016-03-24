@@ -2,67 +2,41 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="src\GameState.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\GameOverState.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1868" topLine="0" />
+			<Cursor1 position="283" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\oldAI.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\ApplicationStateManager.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="776" topLine="0" />
+			<Cursor1 position="282" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="include\AI.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\AI.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="838" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\oldAI.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="14526" topLine="0" />
+			<Cursor1 position="411" topLine="0" />
 		</Cursor>
 		<Folding>
 			<Collapse line="7" />
 			<Collapse line="12" />
-			<Collapse line="19" />
 			<Collapse line="34" />
 			<Collapse line="57" />
 			<Collapse line="66" />
 			<Collapse line="91" />
 			<Collapse line="101" />
-			<Collapse line="114" />
-			<Collapse line="305" />
-			<Collapse line="403" />
+			<Collapse line="152" />
+			<Collapse line="181" />
+			<Collapse line="210" />
+			<Collapse line="243" />
+			<Collapse line="278" />
+			<Collapse line="282" />
+			<Collapse line="293" />
 		</Folding>
 	</File>
-	<File name="src\RealPlayer.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\GameState.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4892" topLine="114" />
+			<Cursor1 position="206" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\Application.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2827" topLine="66" />
-		</Cursor>
-	</File>
-	<File name="src\AI.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="649" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="7" />
-			<Collapse line="34" />
-			<Collapse line="57" />
-			<Collapse line="66" />
-			<Collapse line="91" />
-			<Collapse line="101" />
-			<Collapse line="114" />
-		</Folding>
-	</File>
-	<File name="src\CheckersBoard.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2542" topLine="0" />
-		</Cursor>
-	</File>
-	<EditorTabsLayout layout="0a35300056f2e3ad0009501300000002=*0;Checkers:src\AI.cpp,1;Checkers:include\oldAI.h,2;Checkers:src\oldAI.cpp,3;Checkers:src\GameState.cpp,4;Checkers:include\AI.h,5;Checkers:src\Application.cpp@layout2|name=dummy;caption=;state=2098174;dir=3;layer=0;row=0;pos=0;prop=100000;bestw=592;besth=314;minw=592;minh=314;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=0a35300056f2e3ad0009501300000002;caption=;state=2098172;dir=5;layer=0;row=0;pos=0;prop=100000;bestw=200;besth=200;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|dock_size(5,0,0)=202|" />
+	<EditorTabsLayout layout="0a3d379056f32c23000c5b1d00000002=*0;Checkers:src\AI.cpp,1;Checkers:src\GameState.cpp@layout2|name=dummy;caption=;state=2098174;dir=3;layer=0;row=0;pos=0;prop=100000;bestw=680;besth=228;minw=680;minh=228;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=0a3d379056f32c23000c5b1d00000002;caption=;state=2098172;dir=5;layer=0;row=0;pos=0;prop=100000;bestw=200;besth=200;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|dock_size(5,0,0)=202|" />
 </CodeBlocks_layout_file>
