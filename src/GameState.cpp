@@ -26,8 +26,8 @@ GameState::GameState(){
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
     Player1 = new AI(true, Board, boardButtons);
-    Player2 = new RealPlayer(false, Board, boardButtons);
-    //Player2 = new oldAI(false, Board, boardButtons);
+    //Player2 = new RealPlayer(false, Board, boardButtons);
+    Player2 = new oldAI(false, Board, boardButtons);
     userQuit = false;
 }
 
@@ -153,12 +153,12 @@ StateEnum GameState::stateUpdate(){
 void GameState::stateRender(){
 
     // Render stuff here //
-    
+
     // Light wood color //
     SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
     // Refreshs screen //
     SDL_RenderClear(gRenderer);
-    
+
     Board->drawBoard();
 
     // Render whole team //
