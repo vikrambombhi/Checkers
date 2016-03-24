@@ -32,3 +32,4 @@
 
 *.depend
 *.layout
+*.DS_store
