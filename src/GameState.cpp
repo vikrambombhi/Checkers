@@ -5,12 +5,11 @@
 //  Created by Jacky Chiu on 2016-02-25.
 //  Copyright © 2016 Jacky Chiu.
 //
-
+#include "../include/ApplicationStateManager.h"
 #include "../include/GameState.h"
 #include "../include/CheckersBoard.h"
 #include "../include/Player.h"
 #include "../include/AI.h"
-#include "../include/oldAI.h"
 #include "../include/RealPlayer.h"
 #include "../include/Button.h"
 #include "../include/Texture.h"
@@ -61,9 +60,6 @@ void GameState::stateEvent(){
             userQuit=true;
         }
 
-        if (gameOver()) {
-            // End game //
-        }
         // Player 1 turn //
         if (Player1->turn) {
             if(Player1->makeMove(&event)){
@@ -75,31 +71,15 @@ void GameState::stateEvent(){
                 break;
             }
         }
-
         // Player 2 turn //
         else{
-            // Player 1 turn //
-            if (Player1->turn) {
-                if(Player1->makeMove(&event)){
-                    Player1->updateKings();
-                    Player1->turn = false;
-                    Player2->turn = true;
-                    Player2->updateTeam();
-                    // Breaks to continue in main loop //
-                    break;
-                }
-            }
-
-            // Player 2 turn //
-            else{
-                if(Player2->makeMove(&event)){
-                    Player2->updateKings();
-                    Player2->turn = false;
-                    Player1->turn = true;
-                    Player1->updateTeam();
-                    // Breaks to continue in main loop //
-                    break;
-                }
+            if(Player2->makeMove(&event)){
+                Player2->updateKings();
+                Player2->turn = false;
+                Player1->turn = true;
+                Player1->updateTeam();
+                // Breaks to continue in main loop //
+                break;
             }
         }
     }
@@ -163,15 +143,22 @@ bool GameState::gameOver(){
     return false;
 }
 
-void GameState::stateUpdate(){
-    return;
+StateEnum GameState::stateUpdate(){
+    if (gameOver()) {
+        return GAME_OVER_STATE;
+    }
+    return GAME_STATE;
 }
 
 void GameState::stateRender(){
 
     // Render stuff here //
+
     // Light wood color //
     SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
+    // Refreshs screen //
+    SDL_RenderClear(gRenderer);
+    
     Board->drawBoard();
 
     // Render whole team //

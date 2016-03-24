@@ -30,7 +30,7 @@ public:
     ~MenuState();
     void stateEnter();
     void stateEvent();
-    void stateUpdate();
+    StateEnum stateUpdate();
     void stateRender();
     bool stateExit();
 private:

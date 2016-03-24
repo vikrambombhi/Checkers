@@ -89,10 +89,11 @@ int Application::startApplication(){
 
     while (!applicationStateManager->stateExit()) {
         applicationStateManager->stateEvent();
-        applicationStateManager->stateUpdate();
-        // Refreshs screen //
-        SDL_RenderClear(gRenderer);
         applicationStateManager->stateRender();
+        if (applicationStateManager->stateUpdate() != applicationStateManager->getCurrentStateEnum()) {
+            applicationStateManager->setCurrentStateEnum(applicationStateManager->stateUpdate());
+            applicationStateManager->changeStates();
+        }
         SDL_RenderPresent(gRenderer);
         SDL_Delay(100);
     }

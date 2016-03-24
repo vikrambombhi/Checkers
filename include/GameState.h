@@ -28,6 +28,7 @@ enum SpriteList{
     TOTAL_PIECES
 };
 
+class ApplicationStateManager;
 class Button;
 class CheckersBoard;
 class Player;
@@ -40,7 +41,7 @@ public:
     ~GameState();
     void stateEnter();
     void stateEvent();
-    void stateUpdate();
+    StateEnum stateUpdate();
     void stateRender();
     bool stateExit();
 private:
