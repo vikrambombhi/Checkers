@@ -29,3 +29,6 @@
 
 #dlls
 *.dll
+
+*.depend
+*.layout
