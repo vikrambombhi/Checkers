@@ -112,7 +112,7 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection){
     return false;
 }
 
-int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth, int maxDepth, bool isKing){
+int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth, int maxDepth){
     if(x<0 || y<0 || y>7 || x>7){
         if (depth == 1) {
                 return OUT_OF_BOUND;
@@ -281,12 +281,12 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
         return points;
     }
     else{
-        if(isKing == true){
+        if(team[currentIndex].isKing()){
             //cout<<"depth:    "<<depth<<"    points: "<<endl;
-            return (points += returnBigger(returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth, true),checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth, true))/depth, returnBigger(checkArea(x-1, y-ONE, BACK_LEFT, points, depth++, maxDepth, true),checkArea(x+1,y-ONE, BACK_RIGHT, points, depth++, maxDepth, true))/depth));
+            return (points += returnBigger(returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth),checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth))/depth, returnBigger(checkArea(x-1, y-ONE, BACK_LEFT, points, depth++, maxDepth),checkArea(x+1,y-ONE, BACK_RIGHT, points, depth++, maxDepth))/depth));
         }
         //cout<<checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth, false)/depth<<" ||  "<<"right:  "<<checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth, false)/depth<<endl;
-        return (points += returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth, false),checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth, false))/depth);
+        return (points += returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth),checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth))/depth);
     }
     return 0;
 }
@@ -303,10 +303,10 @@ void AI::moveCheck(int index, int maxDepth){
 
     // Case 1: King piece, need to check every direction //
     if (team[index].isKing()) {
-        left = checkArea(team[index].x-1, team[index].y+ONE, LEFT, left, 1, maxDepth, true);
-        right = checkArea(team[index].x+1, team[index].y+ONE, RIGHT, right, 1, maxDepth, true);
-        backLeft = checkArea(team[index].x-1, team[index].y-ONE, BACK_LEFT, backLeft, 1, maxDepth, true);
-        backRight = checkArea(team[index].x+1, team[index].y-ONE, BACK_RIGHT, backLeft, 1, maxDepth, true);
+        left = checkArea(team[index].x-1, team[index].y+ONE, LEFT, left, 1, maxDepth);
+        right = checkArea(team[index].x+1, team[index].y+ONE, RIGHT, right, 1, maxDepth);
+        backLeft = checkArea(team[index].x-1, team[index].y-ONE, BACK_LEFT, backLeft, 1, maxDepth);
+        backRight = checkArea(team[index].x+1, team[index].y-ONE, BACK_RIGHT, backLeft, 1, maxDepth);
 
         int largest = left;
         int bestDirection = LEFT;
@@ -356,9 +356,9 @@ void AI::moveCheck(int index, int maxDepth){
     // Case 2: Not king piece, only check left and right //
     else{
         //cout<<"Check Left"<<endl;
-        left = checkArea(team[index].x-1, team[index].y+ONE, LEFT, left, 1, maxDepth, false);
+        left = checkArea(team[index].x-1, team[index].y+ONE, LEFT, left, 1, maxDepth);
         //cout<<"Check Right"<<endl;
-        right = checkArea(team[index].x+1, team[index].y+ONE, RIGHT, right, 1, maxDepth, false);
+        right = checkArea(team[index].x+1, team[index].y+ONE, RIGHT, right, 1, maxDepth);
 
         if(left>right){
             team[index].probability = left;

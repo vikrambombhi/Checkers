@@ -24,7 +24,7 @@ private:
     bool killCheckArea(int,int,Directions);
     double returnBigger(int, int);
     int returnRandomIndex(vector<int> bestPiecesList);
-    int checkArea(int x, int y, Directions, int , int depth, int maxDepth, bool isKing);
+    int checkArea(int x, int y, Directions, int , int depth, int maxDepth);
     void moveCheck(int index, int depth);
     int currentIndex;
     bool killMove;
