@@ -17,6 +17,7 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 640;
 int BUTTON_WIDTH = 0;
 int BUTTON_HEIGHT = 0;
+int GAMEMODE = 0;
 
 vector<SDL_Rect> spriteClips;
 Texture spriteSheetTexture;

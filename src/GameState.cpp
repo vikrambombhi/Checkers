@@ -26,10 +26,27 @@ GameState::GameState(){
 
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
-    Player1 = new AI(true, Board, boardButtons);
-    Player2 = new RealPlayer(false, Board, boardButtons);
-    //Player2 = new oldAI(false, Board, boardButtons);
+    
     userQuit = false;
+    switch (GAMEMODE) {
+        case 0:
+            Player1 = new RealPlayer(true, Board, boardButtons);
+            Player2 = new RealPlayer(false, Board, boardButtons);
+            break;
+        case 1:
+            Player1 = new AI(true, Board, boardButtons);
+            Player2 = new RealPlayer(false, Board, boardButtons);
+            break;
+        case 2:
+            Player1 = new AI(true, Board, boardButtons);
+            Player2 = new AI(false, Board, boardButtons);
+            break;
+        default:
+            userQuit = true;
+            break;
+    }
+    //Player2 = new oldAI(false, Board, boardButtons);
+    
 }
 
 GameState::~GameState(){

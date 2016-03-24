@@ -71,6 +71,7 @@ void MenuState::stateEvent(){
             for (int index = 0; index < 3; index++) {
                 if (hover[index]) {
                     nextStateEnum = GAME_STATE;
+                    GAMEMODE = index;
                 }
             }
         }
