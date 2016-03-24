@@ -17,6 +17,7 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 640;
 int BUTTON_WIDTH = 0;
 int BUTTON_HEIGHT = 0;
+
 vector<SDL_Rect> spriteClips;
 Texture spriteSheetTexture;
 
@@ -98,7 +99,13 @@ int Application::startApplication(){
             applicationStateManager->changeStates();
         }
         SDL_RenderPresent(gRenderer);
-        SDL_Delay(100);
+        if (applicationStateManager->getCurrentStateEnum() == MENU_STATE) {
+            SDL_Delay(30);
+        }
+        else {
+            SDL_Delay(100);
+        }
+        
     }
 
     closeApplication();

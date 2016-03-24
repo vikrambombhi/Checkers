@@ -14,7 +14,6 @@
 #include "../include/Button.h"
 #include "../include/Texture.h"
 
-
 int TOTAL_BUTTONS = 32;
 
 GameState::GameState(){
