@@ -49,7 +49,6 @@ StateEnum MenuState::stateUpdate(){
 void MenuState::stateRender(){
     SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(gRenderer);
-    
     drawMenu();
 }
 

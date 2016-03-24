@@ -78,9 +78,7 @@ bool Application::init(){
                     initSuccessful = false;
                 }
             }
-        }
-
-
+        } 
     }
     return initSuccessful;
 }
