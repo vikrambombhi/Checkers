@@ -7,13 +7,18 @@
 //
 
 #include "../include/MenuState.h"
+#include "../include/Texture.h"
+
+//Texture spriteSheetTexture;
+//vector<SDL_Rect> spriteClips;
 
 MenuState::MenuState(){
+    spriteClips.clear();
     userQuit = false;
 }
 
 MenuState::~MenuState(){
-    
+    spriteSheetTexture.free();
 }
 
 void MenuState::stateEnter(){
@@ -53,13 +58,36 @@ bool MenuState::stateExit(){
 }
 
 bool MenuState::loadMedia(){
+    bool initSuccessfulful = true;
+    
+    if (!spriteSheetTexture.loadFromFile("data/MenuState.png")) {
+        printf("Could not load sprite");
+        initSuccessfulful = false;
+    }
     
     
-    return true;
+    //SpriteClips
+    
+    SDL_Rect localMultiplayer = {0, 0, 346, 40};
+    spriteClips.push_back(localMultiplayer);
+    SDL_Rect localMultiplayerHover = {346, 0, 346, 40};
+    spriteClips.push_back(localMultiplayerHover);
+    SDL_Rect singlePlayer = {0, 40, 346, 40};
+    spriteClips.push_back(singlePlayer);
+    SDL_Rect singlePlayerHover = {346, 40, 346, 40};
+    spriteClips.push_back(singlePlayerHover);
+    SDL_Rect aI = {0, 80, 346, 40};
+    spriteClips.push_back(aI);
+    SDL_Rect aIHover = {346, 80, 346, 40};
+    spriteClips.push_back(aIHover);
+    SDL_Rect fullMenu = {0, 120, 640, 640};
+    spriteClips.push_back(fullMenu);
+    
+    return initSuccessfulful;
 }
 
 void MenuState::drawMenu() {
-
+    spriteSheetTexture.render(0, 0, &spriteClips[6]);
     
 }
 
