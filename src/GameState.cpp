@@ -14,17 +14,13 @@
 #include "../include/Button.h"
 #include "../include/Texture.h"
 
-vector<SDL_Rect> spriteClips;
 
-SpriteList currentSprite;
-const int BUTTON_WIDTH = 80;
-const int BUTTON_HEIGHT = 80;
-const int TOTAL_BUTTONS = 32;
+int TOTAL_BUTTONS = 32;
 
 GameState::GameState(){
-
-    spriteClips.clear();
-
+    BUTTON_WIDTH = 80;
+    BUTTON_HEIGHT = 80;
+    
     currentStateEnum = GAME_STATE;
     nextStateEnum = GAME_STATE;
 
@@ -45,6 +41,7 @@ GameState::~GameState(){
     Player1 = NULL;
     delete Player2;
     Player2 = NULL;
+    spriteClips.clear();
 }
 
 void GameState::stateEnter(){
@@ -159,7 +156,7 @@ void GameState::stateRender(){
     SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
     // Refreshs screen //
     SDL_RenderClear(gRenderer);
-    
+
     Board->drawBoard();
 
     // Render whole team //

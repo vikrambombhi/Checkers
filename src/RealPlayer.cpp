@@ -30,7 +30,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
         if (!selectingState) {
             killWasMade = false;
             for (int index=0; index<TOTAL_BUTTONS; index++) {
-                if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
+                if (boardButtons[index].insideButton(BUTTON_WIDTH, BUTTON_HEIGHT)) {
                     // Player selects a piece to move //
                     selectPiece(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                     break;
@@ -40,7 +40,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
         // Selecting for the piece to be moved //
         else{
             for (int index=0; index<TOTAL_BUTTONS; index++) {
-                if (boardButtons[index].insideButton(BUTTON_HEIGHT,BUTTON_WIDTH)) {
+                if (boardButtons[index].insideButton(BUTTON_WIDTH,BUTTON_HEIGHT)) {
                     // Player selects where the piece should move //
                     if (/*Board->validLocations.size() > 0 &&*/ selectedLocationIsValid(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
                         movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);

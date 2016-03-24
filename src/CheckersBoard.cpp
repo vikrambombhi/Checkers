@@ -106,22 +106,22 @@ void CheckersBoard::drawBoardPeices(int x, int y, Button *boardButton){
             
         case RED_PIECE:
             currentSprite = RED_PIECE;
-            boardButton->render();
+            boardButton->render(currentSprite-1);
             break;
             
         case BLACK_PIECE:
             currentSprite = BLACK_PIECE;
-            boardButton->render();
+            boardButton->render(currentSprite-1);
             break;
             
         case RED_KING:
             currentSprite = RED_KING;
-            boardButton->render();
+            boardButton->render(currentSprite-1);
             break;
             
         case BLACK_KING:
             currentSprite = BLACK_KING;
-            boardButton->render();
+            boardButton->render(currentSprite-1);
             break;
 
         default:

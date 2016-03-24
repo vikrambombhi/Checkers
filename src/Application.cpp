@@ -10,13 +10,14 @@
 #include "../include/ApplicationState.h"
 #include "../include/ApplicationStateManager.h"
 #include "../include/Texture.h"
-
+int currentSprite = 0;
 SDL_Window *gWindow;
 SDL_Renderer *gRenderer;
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 640;
-
-vector<SDL_Rect> SpriteClips;
+int BUTTON_WIDTH = 0;
+int BUTTON_HEIGHT = 0;
+vector<SDL_Rect> spriteClips;
 Texture spriteSheetTexture;
 
 Application::Application(){
@@ -32,7 +33,7 @@ Application::Application(){
 Application::~Application(){
     delete applicationStateManager;
     applicationStateManager = NULL;
-
+    
     SDL_DestroyWindow(gWindow);
     gWindow=NULL;
 
@@ -82,9 +83,7 @@ bool Application::init(){
                     initSuccessful = false;
                 }
             }
-        }
-
-
+        } 
     }
     return initSuccessful;
 }
