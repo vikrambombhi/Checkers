@@ -38,7 +38,6 @@ void MenuState::stateEvent(){
 }
 
 StateEnum MenuState::stateUpdate(){
-    //return GAME_STATE;
     return MENU_STATE;
 }
 
