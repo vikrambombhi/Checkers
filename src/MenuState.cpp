@@ -11,6 +11,7 @@
 MenuState::MenuState(){
     currentStateEnum = MENU_STATE;
     nextStateEnum = MENU_STATE;
+    userQuit = false;
 }
 
 MenuState::~MenuState(){
@@ -18,11 +19,24 @@ MenuState::~MenuState(){
 }
 
 void MenuState::stateEnter(){
-    
+    if (!loadMedia()) {
+        cout<<"Could not load media"<<endl;
+    }
 }
 
 void MenuState::stateEvent(){
+    SDL_Event event;
     
+    // Event loop //
+    while(SDL_PollEvent(&event)!=0){
+        
+        // Quits game //
+        if(event.type==SDL_QUIT)
+        {
+            userQuit=true;
+        }
+
+    }
 }
 
 StateEnum MenuState::stateUpdate(){
@@ -33,13 +47,29 @@ StateEnum MenuState::stateUpdate(){
 }
 
 void MenuState::stateRender(){
+    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(gRenderer);
     
+    drawMenu();
 }
 
 bool MenuState::stateExit(){
-    return false;
+    return userQuit;
 }
 
 bool MenuState::loadMedia(){
-    return false;
+    
+    
+    return true;
 }
+
+void MenuState::drawMenu() {
+
+    
+}
+
+
+
+
+
+

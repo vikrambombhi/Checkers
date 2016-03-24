@@ -12,7 +12,11 @@
 #include "../include/GameOverState.h"
 
 ApplicationStateManager::ApplicationStateManager(){
+<<<<<<< HEAD
     currentState = new GameState;
+=======
+    currentState = new MenuState();
+>>>>>>> 5147abb2160c161f8889ab80ce6066f38ef724ea
     currentState->stateEnter();
 }
 
