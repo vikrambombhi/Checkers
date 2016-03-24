@@ -10,6 +10,7 @@
 #include "../include/CheckersBoard.h"
 #include "../include/Player.h"
 #include "../include/AI.h"
+#include "../include/oldAI.h"
 #include "../include/RealPlayer.h"
 #include "../include/Button.h"
 #include "../include/Texture.h"
@@ -62,7 +63,7 @@ void GameState::stateEvent(){
         {
             userQuit=true;
         }
-        
+
         if (!gameOver()) {
             // Player 1 turn //
             if (Player1->turn) {
@@ -152,12 +153,8 @@ StateEnum GameState::stateUpdate(){
 
 void GameState::stateRender(){
 
-    // Render stuff here //
-<<<<<<< HEAD
-
-=======
->>>>>>> 011be0a42cf198610715ea3af141be618dfe1a11
-    // Light wood color //
+ // Render stuff here //
+// Light wood color //
     SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);
     // Refreshs screen //
     SDL_RenderClear(gRenderer);

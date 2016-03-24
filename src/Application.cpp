@@ -32,7 +32,7 @@ Application::Application(){
 Application::~Application(){
     delete applicationStateManager;
     applicationStateManager = NULL;
-    
+
     SDL_DestroyWindow(gWindow);
     gWindow=NULL;
 
@@ -82,7 +82,7 @@ bool Application::init(){
                     initSuccessful = false;
                 }
             }
-        } 
+        }
     }
     return initSuccessful;
 }
@@ -97,7 +97,7 @@ int Application::startApplication(){
             applicationStateManager->changeStates();
         }
         SDL_RenderPresent(gRenderer);
-        SDL_Delay(100);
+        SDL_Delay(500);
     }
 
     closeApplication();

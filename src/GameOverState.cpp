@@ -6,6 +6,7 @@
 //  Copyright © 2016 Jacky Chiu.
 //
 #include <stdio.h>
+#include <fstream>
 #include "../include/GameOverState.h"
 #include "../include/Texture.h"
 
@@ -16,10 +17,21 @@ GameOverState::GameOverState(){
 }
 
 GameOverState::~GameOverState(){
-    
+
 }
 
 void GameOverState::stateEnter(){
+    //write to file
+    /*
+    ofstream myfile ("KDratio.txt", ios::app);
+    if (myfile.is_open()){
+        myfile << "AI:"<<wonORlost<<endl;
+        myfile << "AI took"<<turnsCount<<" turns"<<endl;
+        myfile << "Points system used was"<<pointsSystem<<endl;
+        myfile.close();
+    }
+    else cout << "Unable to open file";
+    */
     printf("GAME OVER");
 }
 
@@ -27,7 +39,7 @@ void GameOverState::stateEvent(){
     SDL_Event event;
     // Event loop //
     while(SDL_PollEvent(&event)!=0){
-        
+
         // Quits game //
         if(event.type==SDL_QUIT)
         {
