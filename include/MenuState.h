@@ -21,7 +21,18 @@
 
 #include "ApplicationState.h"
 #include "Application.h"
-#include "Button.h"
+
+class Button;
+
+enum MenuSpriteEnum {
+    LOCAL_MULTIPLAYER,
+    SINGLEPLAYER,
+    AI_VS_AI,
+    LOCAL_MULTIPLAYER_HOVER,
+    SINGLEPLAYER_HOVER,
+    AI_VS_AI_HOVER,
+    FULL_MENU
+};
 
 
 class MenuState: public ApplicationState{
@@ -34,10 +45,11 @@ public:
     void stateRender();
     bool stateExit();
 private:
+    bool hover[3] = {false, false, false};
+    Button *boardButtons;
     void drawMenu();
     bool loadMedia();
     bool userQuit;
-    TTF_Font *font;
 };
 
 

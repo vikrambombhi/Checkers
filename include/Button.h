@@ -23,7 +23,7 @@ public:
     ~Button();
     void setPoint(int,int);
     bool insideButton(int,int);
-    void render();
+    void render(int);
     int getButtonPointX();
     int getButtonPointY();
 private:

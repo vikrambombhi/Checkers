@@ -10,28 +10,44 @@
 #include "../include/CheckersBoard.h"
 #include "../include/Player.h"
 #include "../include/AI.h"
+#include "../include/oldAI.h"
 #include "../include/RealPlayer.h"
 #include "../include/Button.h"
 #include "../include/Texture.h"
 
-SpriteList currentSprite;
-const int BUTTON_WIDTH = 80;
-const int BUTTON_HEIGHT = 80;
-const int TOTAL_BUTTONS = 32;
+int TOTAL_BUTTONS = 32;
+
 
 GameState::GameState(){
-
-    spriteClips.clear();
+    BUTTON_WIDTH = 80;
+    BUTTON_HEIGHT = 80;
 
     currentStateEnum = GAME_STATE;
     nextStateEnum = GAME_STATE;
 
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
-    Player1 = new AI(true, Board, boardButtons);
-    Player2 = new RealPlayer(false, Board, boardButtons);
-    //Player2 = new oldAI(false, Board, boardButtons);
+
     userQuit = false;
+    switch (GAMEMODE) {
+        case 0:
+            Player1 = new RealPlayer(true, Board, boardButtons);
+            Player2 = new RealPlayer(false, Board, boardButtons);
+            break;
+        case 1:
+            Player1 = new AI(true, Board, boardButtons);
+            Player2 = new RealPlayer(false, Board, boardButtons);
+            break;
+        case 2:
+            Player1 = new AI(true, Board, boardButtons);
+            Player2 = new AI(false, Board, boardButtons);
+            break;
+        default:
+            userQuit = true;
+            break;
+    }
+    //Player2 = new oldAI(false, Board, boardButtons);
+
 }
 
 GameState::~GameState(){
@@ -43,6 +59,7 @@ GameState::~GameState(){
     Player1 = NULL;
     delete Player2;
     Player2 = NULL;
+    spriteClips.clear();
 }
 
 void GameState::stateEnter(){
@@ -62,7 +79,7 @@ void GameState::stateEvent(){
         {
             userQuit=true;
         }
-        
+
         if (!gameOver()) {
             // Player 1 turn //
             if (Player1->turn) {
@@ -71,6 +88,7 @@ void GameState::stateEvent(){
                     Player1->turn = false;
                     Player2->turn = true;
                     Player2->updateTeam();
+                    Player1turn++;
                     // Breaks to continue in main loop //
                     break;
                 }
@@ -82,6 +100,7 @@ void GameState::stateEvent(){
                     Player2->turn = false;
                     Player1->turn = true;
                     Player1->updateTeam();
+                    Player2turn++;
                     // Breaks to continue in main loop //
                     break;
                 }
@@ -151,7 +170,6 @@ StateEnum GameState::stateUpdate(){
 }
 
 void GameState::stateRender(){
-
     // Render stuff here //
     // Light wood color //
     SDL_SetRenderDrawColor(gRenderer, 0xD4, 0x9A, 0x6A, 0xFF);

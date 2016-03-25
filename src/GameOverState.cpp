@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "../include/GameOverState.h"
 #include "../include/Texture.h"
+#include "../include/NeuralNetwork.h"
 
 GameOverState::GameOverState(){
     currentStateEnum = GAME_OVER_STATE;
@@ -16,10 +17,12 @@ GameOverState::GameOverState(){
 }
 
 GameOverState::~GameOverState(){
-    
+
 }
 
 void GameOverState::stateEnter(){
+    NeuralNetwork think = NeuralNetwork();
+    think.mind();
     printf("GAME OVER");
 }
 
@@ -27,7 +30,7 @@ void GameOverState::stateEvent(){
     SDL_Event event;
     // Event loop //
     while(SDL_PollEvent(&event)!=0){
-        
+
         // Quits game //
         if(event.type==SDL_QUIT)
         {
