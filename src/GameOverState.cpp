@@ -6,9 +6,9 @@
 //  Copyright © 2016 Jacky Chiu.
 //
 #include <stdio.h>
-#include <fstream>
 #include "../include/GameOverState.h"
 #include "../include/Texture.h"
+#include "../include/NeuralNetwork.h"
 
 GameOverState::GameOverState(){
     currentStateEnum = GAME_OVER_STATE;
@@ -21,17 +21,8 @@ GameOverState::~GameOverState(){
 }
 
 void GameOverState::stateEnter(){
-    //write to file
-    /*
-    ofstream myfile ("KDratio.txt", ios::app);
-    if (myfile.is_open()){
-        myfile << "AI:"<<wonORlost<<endl;
-        myfile << "AI took"<<turnsCount<<" turns"<<endl;
-        myfile << "Points system used was"<<pointsSystem<<endl;
-        myfile.close();
-    }
-    else cout << "Unable to open file";
-    */
+    NeuralNetwork think = NeuralNetwork();
+    think.mind();
     printf("GAME OVER");
 }
 

@@ -119,7 +119,7 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection){
 }
 
 int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth, int maxDepth){
-    
+
     // Makes sure new values are in bound //
     if(x<0 || y<0 || y>7 || x>7){
         if (depth == 1) {
@@ -129,7 +129,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                 return points;
             }
     }
-    
+
     // Checks if you can move to new spot //
     if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
         if (depth == 1) {
@@ -139,7 +139,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
             return points;
         }
     }
-    
+
     // Checks if you can make a kill //
     if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
         //Check if I can kill
@@ -172,7 +172,7 @@ int AI::checkArea(int x, int y, Directions checkDirection, int points, int depth
                     if(sameTeam(threatCheckArea(x, y, BACK_LEFT), ENEMY_TEAM_NUMBER) && threatCheckArea(x, y, RIGHT)==EMPTY_PIECE){
                         points += extentValue(y) - KILL_PIECE;
                     }
-                    
+
                     //Check if move will block my team member on left
                     if(sameTeam(threatCheckArea(x, y, LEFT),TEAM_NUMBER) && sameTeam(threatCheckArea(x-1, y, BACK_LEFT),ENEMY_TEAM_NUMBER)){
                         points += extentValue(y) + BLOCK;

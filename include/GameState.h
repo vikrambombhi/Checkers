@@ -3,7 +3,7 @@
 //  SDL_Checkers
 //
 //  Created by Jacky Chiu on 2016-02-25.
-//  Copyright © 2016 Jacky Chiu. 
+//  Copyright © 2016 Jacky Chiu.
 //
 
 #ifndef GameState_h
@@ -45,6 +45,8 @@ public:
     StateEnum stateUpdate();
     void stateRender();
     bool stateExit();
+    int Player1turn;
+    int Player2turn;
 private:
     bool loadMedia();
     bool gameOver();

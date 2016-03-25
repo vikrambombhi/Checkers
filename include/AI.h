@@ -28,7 +28,6 @@ private:
     void moveCheck(int index, int depth);
     int currentIndex;
     bool killMove;
-    const int NOTHING = 0;
     const int BLOCK = 75;
     const int KILL_PIECE = 500;
     const int OUT_OF_BOUND = -99999999;

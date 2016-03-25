@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1458831189 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
+1458845661 source:c:\users\vikram\documents\github\checkers\src\ai.cpp
 	<iostream>
 	<cstdlib>
 	<stdlib.h>
@@ -7,7 +7,7 @@
 	"../include/AI.h"
 	"../include/GameState.h"
 
-1458843003 c:\users\vikram\documents\github\checkers\include\ai.h
+1458845661 c:\users\vikram\documents\github\checkers\include\ai.h
 	"../include/Player.h"
 	"../include/CheckersBoard.h"
 
@@ -362,7 +362,7 @@
 
 1458761504 c:\users\vikram\documents\github\checkers\include\piece.h
 
-1458797044 c:\users\vikram\documents\github\checkers\include\gamestate.h
+1458846073 c:\users\vikram\documents\github\checkers\include\gamestate.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL2/SDL.h>
@@ -404,7 +404,7 @@
 	"../include/GameState.h"
 	"../include/Texture.h"
 
-1458831236 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
+1458852225 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
 	"../include/ApplicationStateManager.h"
 	"../include/GameState.h"
 	"../include/CheckersBoard.h"
@@ -468,11 +468,11 @@
 1458780971 c:\users\vikram\documents\github\checkers\include\gameoverstate.h
 	"ApplicationState.h"
 
-1458830419 source:c:\users\vikram\documents\github\checkers\src\gameoverstate.cpp
+1458852565 source:c:\users\vikram\documents\github\checkers\src\gameoverstate.cpp
 	<stdio.h>
-	<fstream>
 	"../include/GameOverState.h"
 	"../include/Texture.h"
+	"../include/NeuralNetwork.h"
 
 1458780971 source:c:\users\vikram\documents\github\checkers\src\applicationstate.cpp
 	"../include/ApplicationState.h"
@@ -481,4 +481,13 @@
 	"SDL.h"
 	"begin_code.h"
 	"close_code.h"
+
+1458872877 source:c:\users\vikram\documents\github\checkers\src\neuralnetwork.cpp
+	"NeuralNetwork.h"
+	<fstream>
+	<iostream>
+	<typeinfo>
+
+1458872014 c:\users\vikram\documents\github\checkers\include\neuralnetwork.h
+	<vector>
 
