@@ -21,13 +21,13 @@ int TOTAL_BUTTONS = 32;
 GameState::GameState(){
     BUTTON_WIDTH = 80;
     BUTTON_HEIGHT = 80;
-    
+
     currentStateEnum = GAME_STATE;
     nextStateEnum = GAME_STATE;
 
     Board = new CheckersBoard;
     boardButtons = new Button[TOTAL_BUTTONS];
-    
+
     userQuit = false;
     switch (GAMEMODE) {
         case 0:
@@ -47,7 +47,7 @@ GameState::GameState(){
             break;
     }
     //Player2 = new oldAI(false, Board, boardButtons);
-    
+
 }
 
 GameState::~GameState(){
@@ -156,7 +156,6 @@ bool GameState::loadMedia(){
 }
 
 bool GameState::gameOver(){
-    return true;
     if (Player1->team.size() == 0 || Player2->team.size() == 0) {
         return true;
     }

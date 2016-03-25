@@ -21,7 +21,7 @@
 	"Application.h"
 	"Button.h"
 
-1458797044 c:\users\vikram\documents\github\checkers\include\application.h
+1458873833 c:\users\vikram\documents\github\checkers\include\application.h
 	<stdio.h>
 	<stdlib.h>
 	<iostream>
@@ -356,13 +356,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1458761504 c:\users\vikram\documents\github\checkers\include\button.h
+1458873833 c:\users\vikram\documents\github\checkers\include\button.h
 	<SDL.h>
 	<SDL2/SDL.h>
 
 1458761504 c:\users\vikram\documents\github\checkers\include\piece.h
 
-1458846073 c:\users\vikram\documents\github\checkers\include\gamestate.h
+1458873834 c:\users\vikram\documents\github\checkers\include\gamestate.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL2/SDL.h>
@@ -372,7 +372,7 @@
 
 1458797044 c:\users\vikram\documents\github\checkers\include\applicationstate.h
 
-1458831373 source:c:\users\vikram\documents\github\checkers\src\application.cpp
+1458873974 source:c:\users\vikram\documents\github\checkers\src\application.cpp
 	"../include/Application.h"
 	"../include/ApplicationState.h"
 	"../include/ApplicationStateManager.h"
@@ -381,16 +381,17 @@
 1458780971 c:\users\vikram\documents\github\checkers\include\applicationstatemanager.h
 	"ApplicationState.h"
 
-1458797044 source:c:\users\vikram\documents\github\checkers\src\applicationstatemanager.cpp
+1458873833 source:c:\users\vikram\documents\github\checkers\src\applicationstatemanager.cpp
 	"../include/ApplicationStateManager.h"
 	"../include/MenuState.h"
 	"../include/GameState.h"
 	"../include/GameOverState.h"
 
-1458761504 source:c:\users\vikram\documents\github\checkers\src\button.cpp
+1458873833 source:c:\users\vikram\documents\github\checkers\src\button.cpp
 	"../include/Button.h"
 	"../include/GameState.h"
 	"../include/Texture.h"
+	"../include/Application.h"
 
 1458761504 c:\users\vikram\documents\github\checkers\include\texture.h
 	<SDL.h>
@@ -399,12 +400,12 @@
 	<SDL2_image/SDL_image.h>
 	"Application.h"
 
-1458761504 source:c:\users\vikram\documents\github\checkers\src\checkersboard.cpp
+1458873833 source:c:\users\vikram\documents\github\checkers\src\checkersboard.cpp
 	"../include/CheckersBoard.h"
 	"../include/GameState.h"
 	"../include/Texture.h"
 
-1458852225 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
+1458873833 source:c:\users\vikram\documents\github\checkers\src\gamestate.cpp
 	"../include/ApplicationStateManager.h"
 	"../include/GameState.h"
 	"../include/CheckersBoard.h"
@@ -421,11 +422,12 @@
 1458761504 source:c:\users\vikram\documents\github\checkers\src\main.cpp
 	"../include/Application.h"
 
-1458797044 source:c:\users\vikram\documents\github\checkers\src\menustate.cpp
+1458873833 source:c:\users\vikram\documents\github\checkers\src\menustate.cpp
 	"../include/MenuState.h"
 	"../include/Texture.h"
+	"../include/Button.h"
 
-1458797044 c:\users\vikram\documents\github\checkers\include\menustate.h
+1458873833 c:\users\vikram\documents\github\checkers\include\menustate.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
@@ -434,7 +436,6 @@
 	<SDL2_ttf/SDL_ttf.h>
 	"ApplicationState.h"
 	"Application.h"
-	"Button.h"
 
 1458761504 source:c:\users\vikram\documents\github\checkers\src\piece.cpp
 	"../include/Piece.h"
@@ -445,7 +446,7 @@
 	"../include/Button.h"
 	"../include/GameState.h"
 
-1458770183 source:c:\users\vikram\documents\github\checkers\src\realplayer.cpp
+1458873833 source:c:\users\vikram\documents\github\checkers\src\realplayer.cpp
 	"../include/RealPlayer.h"
 	"../include/GameState.h"
 
@@ -457,7 +458,7 @@
 	"../include/CheckersBoard.h"
 	"../include/AI.h"
 
-1458769794 source:c:\users\vikram\documents\github\checkers\src\oldai.cpp
+1458873833 source:c:\users\vikram\documents\github\checkers\src\oldai.cpp
 	<iostream>
 	<cstdlib>
 	<stdlib.h>
@@ -482,12 +483,14 @@
 	"begin_code.h"
 	"close_code.h"
 
-1458872877 source:c:\users\vikram\documents\github\checkers\src\neuralnetwork.cpp
+1458876716 source:c:\users\vikram\documents\github\checkers\src\neuralnetwork.cpp
 	"NeuralNetwork.h"
+	<stdlib.h>
+	<time.h>
 	<fstream>
 	<iostream>
 	<typeinfo>
 
-1458872014 c:\users\vikram\documents\github\checkers\include\neuralnetwork.h
+1458877336 c:\users\vikram\documents\github\checkers\include\neuralnetwork.h
 	<vector>
 

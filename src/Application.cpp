@@ -100,17 +100,12 @@ int Application::startApplication(){
             applicationStateManager->changeStates();
         }
         SDL_RenderPresent(gRenderer);
-<<<<<<< HEAD
-        SDL_Delay(500);
-=======
         if (applicationStateManager->getCurrentStateEnum() == MENU_STATE) {
             SDL_Delay(30);
         }
         else {
             SDL_Delay(100);
         }
-        
->>>>>>> 71b95256e8744832881a0e52c61ab936b16b7cef
     }
 
     closeApplication();
