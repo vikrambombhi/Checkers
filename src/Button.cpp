@@ -9,6 +9,7 @@
 #include "../include/Button.h"
 #include "../include/GameState.h"
 #include "../include/Texture.h"
+#include "../include/Application.h"
 
 Button::Button(){
     buttonPoint.x = 0;
@@ -25,18 +26,17 @@ void Button::setPoint(int x, int y){
     buttonPoint.y = y;
 }
 
-void Button::render(){
+void Button::render(int sprite){
     //Render button with spritesheet
-    spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[currentSprite-1]);
+    spriteSheetTexture.render(buttonPoint.x, buttonPoint.y, &spriteClips[sprite]);
 }
 
-bool Button::insideButton(int buttonHeight, int buttonWidth){
+bool Button::insideButton(int buttonWidth, int buttonHeight){
 
     int x,y;
     bool insideButton = true;
     SDL_GetMouseState(&x,&y);
     
-    // Checks if button has been clicked
     // Above button //
     if(y < buttonPoint.y){
         insideButton = false;

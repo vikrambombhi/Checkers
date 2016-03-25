@@ -34,16 +34,24 @@ public:
     int startApplication();
     bool init();
     void closeApplication();
+    int gameMode;
 protected:
     ApplicationStateManager *applicationStateManager;
 };
 
 extern vector<SDL_Rect> spriteClips;
 extern Texture spriteSheetTexture;
+extern int currentSprite;
 
 extern SDL_Window *gWindow;
 extern SDL_Renderer *gRenderer;
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
+
+extern int BUTTON_WIDTH;
+extern int BUTTON_HEIGHT;
+extern int TOTAL_BUTTONS;
+
+extern int GAMEMODE;
 
 #endif /* Application_h */

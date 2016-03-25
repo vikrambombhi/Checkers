@@ -295,10 +295,10 @@ int oldAI::checkArea(int x, int y, Directions checkDirection, int points, int de
     else{
         if(isKing == true){
             //cout<<"depth:    "<<depth<<"    points: "<<endl;
-            return (points += returnBigger(returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth, true),checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth, true))/depth, returnBigger(checkArea(x-1, y-ONE, BACK_LEFT, points, depth++, maxDepth, true),checkArea(x+1,y-ONE, BACK_RIGHT, points, depth++, maxDepth, true))/depth));
+            return (points += returnBigger(returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth+1, maxDepth, true),checkArea(x+1,y+ONE, RIGHT, points, depth+1, maxDepth, true))/depth, returnBigger(checkArea(x-1, y-ONE, BACK_LEFT, points, depth+1, maxDepth, true),checkArea(x+1,y-ONE, BACK_RIGHT, points, depth+1, maxDepth, true))/depth));
         }
         //cout<<checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth, false)/depth<<" ||  "<<"right:  "<<checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth, false)/depth<<endl;
-        return (points += returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth++, maxDepth, false),checkArea(x+1,y+ONE, RIGHT, points, depth++, maxDepth, false))/depth);
+        return (points += returnBigger(checkArea(x-1, y+ONE, LEFT, points, depth+1, maxDepth, false),checkArea(x+1,y+ONE, RIGHT, points, depth+1, maxDepth, false))/depth);
     }
     return 0;
 }

@@ -57,9 +57,5 @@ private:
     bool userQuit;
 };
 
-extern SpriteList currentSprite;
-extern const int BUTTON_WIDTH;
-extern const int BUTTON_HEIGHT;
-extern const int TOTAL_BUTTONS;
 
 #endif /* GameState_h */

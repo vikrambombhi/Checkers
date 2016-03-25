@@ -10,11 +10,14 @@
 #include "../include/ApplicationState.h"
 #include "../include/ApplicationStateManager.h"
 #include "../include/Texture.h"
-
+int currentSprite = 0;
 SDL_Window *gWindow;
 SDL_Renderer *gRenderer;
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 640;
+int BUTTON_WIDTH = 0;
+int BUTTON_HEIGHT = 0;
+int GAMEMODE = 0;
 
 vector<SDL_Rect> spriteClips;
 Texture spriteSheetTexture;
@@ -97,7 +100,17 @@ int Application::startApplication(){
             applicationStateManager->changeStates();
         }
         SDL_RenderPresent(gRenderer);
+<<<<<<< HEAD
         SDL_Delay(500);
+=======
+        if (applicationStateManager->getCurrentStateEnum() == MENU_STATE) {
+            SDL_Delay(30);
+        }
+        else {
+            SDL_Delay(100);
+        }
+        
+>>>>>>> 71b95256e8744832881a0e52c61ab936b16b7cef
     }
 
     closeApplication();
