@@ -19,7 +19,7 @@ NeuralNetwork::~NeuralNetwork()
 
 bool NeuralNetwork::createNode(){
     /* initialize random seed: */
-    srand (time(NULL));
+    srand (static_cast<unsigned int>(time(NULL)));
     float randomNum = rand() % 101;
     int randomSign = rand() % 7;
     int selectChange = rand() % 4;
@@ -80,4 +80,8 @@ bool NeuralNetwork::mind(){
     //writeToFile(winORlost, turnsCount);
     //readFile();
     createNode();
+    
+    
+    // temporary return to ensure build isnt broken
+    return true;
 }
