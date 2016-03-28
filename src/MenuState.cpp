@@ -46,27 +46,18 @@ void MenuState::stateEvent(){
         }
         
         if (event.type == SDL_MOUSEMOTION) {
-            if (boardButtons[LOCAL_MULTIPLAYER].insideButton(346, 40)) {
-                hover[0] = true;
-            }
-            else {
-                currentSprite = LOCAL_MULTIPLAYER;
-                hover[0] = false;
-            }
-            if (boardButtons[SINGLEPLAYER].insideButton(346, 40)) {
-                hover[1] = true;
-            }
-            else {
-                hover[1] = false;
-            }
-            if (boardButtons[AI_VS_AI].insideButton(346, 40)) {
-                hover[2] = true;
-            }
-            else {
-                hover[2] = false;
+            // Checks if mouse is hovering over a button
+            for (int index = 0; index < 3; index ++) {
+                if (boardButtons[index].insideButton(346, 40)) {
+                    hover[index] = true;
+                }
+                else {
+                    hover[index] = false;
+                }
             }
         }
         
+        // Checks if a button was clicked
         if (event.type == SDL_MOUSEBUTTONDOWN) {
             for (int index = 0; index < 3; index++) {
                 if (hover[index]) {
@@ -75,8 +66,6 @@ void MenuState::stateEvent(){
                 }
             }
         }
-        
-
     }
 }
 
@@ -113,22 +102,22 @@ bool MenuState::loadMedia(){
     }
     
     
-    //SpriteClips
-    
+    // SpriteClips
+    // Standard Clips
     SDL_Rect localMultiplayer = {0, 0, 346, 40};
     spriteClips.push_back(localMultiplayer);
     SDL_Rect singlePlayer = {0, 40, 346, 40};
     spriteClips.push_back(singlePlayer);
     SDL_Rect aI = {0, 80, 346, 40};
     spriteClips.push_back(aI);
-    
+    // Hover Clips
     SDL_Rect localMultiplayerHover = {346, 0, 346, 40};
     spriteClips.push_back(localMultiplayerHover);
     SDL_Rect singlePlayerHover = {346, 40, 346, 40};
     spriteClips.push_back(singlePlayerHover);
     SDL_Rect aIHover = {346, 80, 346, 40};
     spriteClips.push_back(aIHover);
-    
+    // Full Menu
     SDL_Rect fullMenu = {0, 120, 640, 640};
     spriteClips.push_back(fullMenu);
     
@@ -136,15 +125,12 @@ bool MenuState::loadMedia(){
     boardButtons[SINGLEPLAYER].setPoint(148, 280);
     boardButtons[AI_VS_AI].setPoint(148, 350);
     
-    
     return initSuccessfulful;
 }
 
 void MenuState::drawMenu() {
     spriteSheetTexture.render(0, 0, &spriteClips[FULL_MENU]);
 }
-
-
 
 
 
