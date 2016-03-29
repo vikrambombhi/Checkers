@@ -205,25 +205,26 @@ bool Player::makeMove(SDL_Event *){
 }
 
 bool Player::sameTeam(int value1, int value2){
-    if (value1 != EMPTY_PIECE) {
-        if (value1%2 == value2%2) {
-            return true;
-        }
+    // checks if two peices are on the same team
+    if (value1%2 == value2%2 && value1 != EMPTY_PIECE) {
+        return true;
     }
     return false;
 }
 
 void Player::movePiece(int teamIndex, int newX, int newY){
-    //cout<<"enter move func"<<endl;
-    // Moves piece
+    // Moves piece by its selected teamIndex to its (newX, newY) location
     if (abs(newX - team[teamIndex].x) == 2 && abs(newY - team[teamIndex].y) == 2) {
+        // Kills piece at average location
         killPiece(abs(newX + team[teamIndex].x)/2, abs(newY + team[teamIndex].y)/2);
+        // Gives player knowledge on which piece made the kill
         killerPeiceIndex = teamIndex;
     }
     Board->virtualBoard[newX][newY] = Board->virtualBoard[team[teamIndex].x][team[teamIndex].y];
     Board->virtualBoard[team[teamIndex].x][team[teamIndex].y] = EMPTY_PIECE;
     team[teamIndex].x = newX;
     team[teamIndex].y = newY;
+    
     // Prints virtualBoard at end of move
     cout<<*Board<<endl;
 }
@@ -234,6 +235,7 @@ void Player::killPiece(int x, int y) {
 }
 
 void Player::updateTeam() {
+    // Updates team when teamSize has been altered
     bool updateMade = false;
     for(int index=0;index<teamSize;index++){
         if (Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER && Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER + 2) {
@@ -250,6 +252,7 @@ void Player::updateTeam() {
 }
 
 void Player::updateKings() {
+    
     int yToMakeKing = 7 * topSide;
     bool updateMade = false;
     for(int index=0;index<teamSize;index++){
@@ -265,6 +268,7 @@ void Player::updateKings() {
 }
 
 int Player::pieceTeamIndexByXY(int x, int y) {
+    // Gets a piece's index from its x-y location on the board
     int index=0;
     for(;index<teamSize;index++){
         if((team[index].x == x) && (team[index].y == y)){

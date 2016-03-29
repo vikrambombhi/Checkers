@@ -156,7 +156,6 @@ bool GameState::loadMedia(){
 }
 
 bool GameState::gameOver(){
-    return true;
     if (Player1->team.size() == 0 || Player2->team.size() == 0) {
         return true;
     }
