@@ -32,7 +32,6 @@ bool NeuralNetwork::createNode(){
     if(selectChange == 2 || selectChange == 3){
         KILL_PIECE += randomNum;
     }
-    cout<<BLOCK<<KILL_PIECE<<endl;
     return true;
 }
 
@@ -40,13 +39,13 @@ bool NeuralNetwork::readFile(){
     ifstream data("data.txt"); //load file named data.txt
     {
         string first_line;
-        getline(data, first_line); // waste the first line ("pointSystem winORlost turnsCount")
+        getline(data, first_line); // waste the first line ("BLOCK KILL_PIECE wins turnsCount")
     }
 
     while( data.good() )
     {
-        columns temp;
-        data >> temp.block >> temp.kill_piece >> temp.winORlost >> temp.turnsCount;
+        node temp;
+        data >> temp.block >> temp.kill_piece >> temp.wins >> temp.losses >> temp.turnsCount;
         nodes.push_back(temp);
     }
 
@@ -55,18 +54,19 @@ bool NeuralNetwork::readFile(){
         cout<<"node:    "<<i<<endl;
         cout << "block points: " << nodes[i].block << " type: " << typeid(nodes[i].block).name() << endl;
         cout << "kill points: " << nodes[i].kill_piece << " type: " << typeid(nodes[i].kill_piece).name() << endl;
-        cout << "win or lost: " << nodes[i].winORlost << " type: " << typeid(nodes[i].winORlost).name() << endl;
+        cout << "number of wins: " << nodes[i].wins << " type: " << typeid(nodes[i].wins).name() << endl;
+        cout << "number of losses: " << nodes[i].losses << " type: " << typeid(nodes[i].losses).name() << endl;
         cout << "turns Count: " << nodes[i].turnsCount << " type: " << typeid(nodes[i].turnsCount).name() << endl;
     }
     return true;
 }
 
-bool NeuralNetwork::writeToFile(int winORlost, int turnsCount){
+bool NeuralNetwork::writeToFile(int wins,int losses, int turnsCount){
     //write to file
     ofstream myfile ("data.txt", ios::app);
     if (myfile.is_open()){
 
-        myfile <<BLOCK<<" "<<KILL_PIECE<<" "<<winORlost<<" "<<turnsCount<<endl;
+        myfile <<BLOCK<<" "<<KILL_PIECE<<" "<<wins<<" "<<losses<<" "<<turnsCount<<endl;
         myfile.close();
         return true;
     }
@@ -74,10 +74,31 @@ bool NeuralNetwork::writeToFile(int winORlost, int turnsCount){
     return false;
 }
 
+float NeuralNetwork::kdRatio(int index){
+    if(nodes[index].losses == 0){
+        return nodes[index].wins;
+    }
+    else{
+        return (nodes[index].wins/nodes[index].losses);
+    }
+}
+
+void NeuralNetwork::selectNode(){
+    int bestNode = 0;
+    for(int i=0; i<nodes.size()-1;i++){
+        if(kdRatio(i)>kdRatio(bestNode)){
+            bestNode = i;
+        }
+    }
+    cout << nodes[bestNode].losses << endl;
+}
+
 bool NeuralNetwork::mind(){
-    int winORlost = 2;
+    int wins = 2;
+    int losses = 3;
     int turnsCount = 11;
-    //writeToFile(winORlost, turnsCount);
-    //readFile();
     createNode();
+    writeToFile(wins, losses, turnsCount);
+    readFile();
+    selectNode();
 }
