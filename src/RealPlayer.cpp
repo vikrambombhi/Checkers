@@ -42,7 +42,8 @@ bool RealPlayer::makeMove(SDL_Event* event){
             for (int index=0; index<TOTAL_BUTTONS; index++) {
                 if (boardButtons[index].insideButton(BUTTON_WIDTH,BUTTON_HEIGHT)) {
                     // Player selects where the piece should move //
-                    if (/*Board->validLocations.size() > 0 &&*/ selectedLocationIsValid(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
+                    
+                    if (selectedLocationIsValid(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
                         movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                         Board->turnHighLightOff();
                         
@@ -75,6 +76,7 @@ void RealPlayer::selectPiece(int x, int y){
             xLocation = x;
             yLocation = y;
             currentPieceIndex = pieceTeamIndexByXY(x, y);
+            // TODO: replace xLocation with team[currentPieceIndex].x
             Board->turnHighLightOn(x, y);
             highlightValidMoves();
             selectingState = true;
@@ -86,9 +88,6 @@ void RealPlayer::selectPiece(int x, int y){
 }
 
 bool RealPlayer::selectedLocationIsValid(int x, int y, bool forHighlight) {
-    if (!forHighlight) {
-        cout << "Selected location is:\t(" << x << ", " << y << ")" <<endl;
-    }
     bool locationIsValid = false;
     if (Board->virtualBoard[x][y] == EMPTY_PIECE) {
 
@@ -150,7 +149,6 @@ void RealPlayer::highlightValidMoves() {
             }
         }
     }
-    
 }
 
 
