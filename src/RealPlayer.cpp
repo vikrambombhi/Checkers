@@ -10,7 +10,6 @@
 #include "../include/GameState.h"
 
 RealPlayer::RealPlayer(bool topSideOfBoard, CheckersBoard *board, Button *buttons): Player(topSideOfBoard, board, buttons){
-    xLocation = 0, yLocation = 0;
     selectingState = false;
     currentPieceIndex = 0;
 }
@@ -43,7 +42,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
                 if (boardButtons[index].insideButton(BUTTON_WIDTH,BUTTON_HEIGHT)) {
                     // Player selects where the piece should move //
                     
-                    if (selectedLocationIsValid(boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
+                    if (selectedLocationIsValid(currentPieceIndex,boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
                         movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                         Board->turnHighLightOff();
                         
@@ -73,10 +72,7 @@ void RealPlayer::selectPiece(int x, int y){
     // SELECT PIECE //
     // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
     if(Board->virtualBoard[x][y]==TEAM_NUMBER || Board->virtualBoard[x][y]==TEAM_NUMBER+2 ){
-            xLocation = x;
-            yLocation = y;
             currentPieceIndex = pieceTeamIndexByXY(x, y);
-            // TODO: replace xLocation with team[currentPieceIndex].x
             Board->turnHighLightOn(x, y);
             highlightValidMoves();
             selectingState = true;
@@ -87,12 +83,12 @@ void RealPlayer::selectPiece(int x, int y){
     }
 }
 
-bool RealPlayer::selectedLocationIsValid(int x, int y, bool forHighlight) {
+bool RealPlayer::selectedLocationIsValid(int currentPieceIndex, int x, int y, bool forHighlight) {
     bool locationIsValid = false;
     if (Board->virtualBoard[x][y] == EMPTY_PIECE) {
 
         // case 1: moving in a 3x3 square centered at the origin //
-        if (abs(x - xLocation) == 1 && abs(y - yLocation) == 1 && !killWasMade) {
+        if (abs(x - team[currentPieceIndex].x) == 1 && abs(y - team[currentPieceIndex].y) == 1 && !killWasMade) {
 
             // case 1.1: piece is a king //
             if (team[currentPieceIndex].isKing()) {
@@ -100,13 +96,13 @@ bool RealPlayer::selectedLocationIsValid(int x, int y, bool forHighlight) {
             }
 
             // case 1.2: piece isn't a king //
-            else if (y - yLocation == ONE) {
+            else if (y - team[currentPieceIndex].y == ONE) {
                 locationIsValid = true;
             }
         }
 
         // case 2: moving in a 5x5 square centered at the origin to kill a piece //
-        else if (abs(x - xLocation) == 2 && abs(y - yLocation) == 2 && sameTeam(Board->virtualBoard[(x + xLocation)/2][(y + yLocation)/2],ENEMY_TEAM_NUMBER)) {
+        else if (abs(x - team[currentPieceIndex].x) == 2 && abs(y - team[currentPieceIndex].y) == 2 && sameTeam(Board->virtualBoard[(x + team[currentPieceIndex].x)/2][(y + team[currentPieceIndex].y)/2],ENEMY_TEAM_NUMBER)) {
 
             // case 2.1: piece is a king //
             if (team[currentPieceIndex].isKing()) {
@@ -114,7 +110,7 @@ bool RealPlayer::selectedLocationIsValid(int x, int y, bool forHighlight) {
             }
 
             // case 2.2: piece isn't a king //
-            else if (y - yLocation == 2*ONE) {
+            else if (y - team[currentPieceIndex].y == 2*ONE) {
                 locationIsValid = true;
             }
         }
@@ -137,12 +133,12 @@ bool RealPlayer::selectedLocationIsValid(int x, int y, bool forHighlight) {
 void RealPlayer::highlightValidMoves() {
     int x, y;
     for (int i = -2; i <=2; i++){
-        x = xLocation + i;
+        x = team[currentPieceIndex].x + i;
         for (int j = -2; j <=2; j++){
-            y = yLocation + j;
+            y = team[currentPieceIndex].y + j;
             
             if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-                if (selectedLocationIsValid(x, y, true)) {
+                if (selectedLocationIsValid(currentPieceIndex,x, y, true)) {
                     pointXY pointToHighlight = {x,y};
                     Board->validLocations.push_back(pointToHighlight);
                 }

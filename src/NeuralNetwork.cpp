@@ -98,14 +98,8 @@ bool NeuralNetwork::mind(){
     int losses = 3;
     int turnsCount = 11;
     createNode();
-<<<<<<< HEAD
-    writeToFile(wins, losses, turnsCount);
-    readFile();
-    selectNode();
-=======
     
     
     // temporary return to ensure build isnt broken
     return true;
->>>>>>> d5f228876c72697be961cc24e01a81dc8d21fcc7
 }
