@@ -27,10 +27,10 @@ private:
     int checkArea(int x, int y, Directions, int , int depth, int maxDepth);
     void moveCheck(int index, int depth);
     int currentIndex;
-    bool killMove;
     const int BLOCK = 75;
     const int KILL_PIECE = 500;
     const int OUT_OF_BOUND = -99999999;
+    //Directions directionVector[4] = {LEFT, RIGHT, BACK_LEFT, BACK_RIGHT};
 };
 
 #endif // AI_H

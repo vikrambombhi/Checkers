@@ -7,7 +7,6 @@
 
 AI::AI(bool topSideOfBoard, CheckersBoard *board, Button *buttons): Player(topSideOfBoard, board, buttons){
     currentIndex = 0;
-    killMove = false;
 }
 
 AI::~AI(){
@@ -306,7 +305,7 @@ void AI::moveCheck(int index, int maxDepth){
     if(maxDepth == 0 || team[index].x>8 || team[index].y>8 || team[index].x<0 || team[index].y<0){
         exit(-1);
     }
-
+    //vector<int> availableMoveList;
     double left = 0;
     double right = 0;
     double backLeft = 0;
@@ -399,7 +398,43 @@ void AI::moveCheck(int index, int maxDepth){
 
 bool AI::makeMove(SDL_Event *event){
     cout<<"AI's Turn"<<endl;
-
+    /*
+    double left = 0;
+    double right = 0;
+    double backLeft = 0;
+    double backRight = 0;
+    int maxDepth = 7;
+    
+    // FINSIH DOUBLE KILL FUNCTION
+    // If kill was made check check if another kill can be made
+    // PROBLEM: CALLING MOVECHECK WILL CHECK ALL SIDE, ONLY WANT TO CHECK SIDES THAT HAVE KILL AVAILBE
+    
+    if (killWasMade) {
+        if (team[killerPeiceIndex].isKing()) {
+            
+            if (killCheckArea(team[killerPeiceIndex].x, team[killerPeiceIndex].y, BACK_LEFT)){
+                backLeft = checkArea(team[killerPeiceIndex].x-1, team[killerPeiceIndex].y-ONE, BACK_LEFT, backLeft, 1, maxDepth);
+            }
+            if (killCheckArea(team[killerPeiceIndex].x, team[killerPeiceIndex].y, BACK_RIGHT)){
+                backLeft = checkArea(team[killerPeiceIndex].x+1, team[killerPeiceIndex].y-ONE, BACK_RIGHT, backRight, 1, maxDepth);
+            }
+        }
+        else{
+            if (killCheckArea(team[killerPeiceIndex].x, team[killerPeiceIndex].y, LEFT)){
+                left = checkArea(team[killerPeiceIndex].x-1, team[killerPeiceIndex].y+ONE, LEFT, left, 1, maxDepth);
+            }
+            if (killCheckArea(team[killerPeiceIndex].x, team[killerPeiceIndex].y, RIGHT)){
+                right = checkArea(team[killerPeiceIndex].x+1, team[killerPeiceIndex].y+ONE, RIGHT, right, 1, maxDepth);
+            }
+        }
+    }
+    else{
+        for(int index=0;index<team.size();index++){
+            currentIndex = index;
+            moveCheck(index, 7);
+        }
+    }
+     */
     for(int index=0;index<team.size();index++){
         currentIndex = index;
         moveCheck(index, 7);
