@@ -18,11 +18,10 @@ public:
     bool makeMove(SDL_Event *);
 private:
     void selectPiece(int, int);
-    bool selectedLocationIsValid(int, int, bool);
+    bool selectedLocationIsValid(int, int, int, bool);
     void highlightValidMoves();
     bool selectingState;
     int currentPieceIndex;
-    int xLocation, yLocation;
 };
 
 

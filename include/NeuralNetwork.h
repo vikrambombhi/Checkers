@@ -9,7 +9,9 @@ class NeuralNetwork
         ~NeuralNetwork();
         bool createNode();
         bool readFile();
-        bool writeToFile(int winORlost, int turnsCount);
+        bool writeToFile(int wins, int losses, int turnsCount);
+        float kdRatio(int index);
+        void selectNode();
         bool mind();
 
         float BLOCK = 75;
@@ -18,14 +20,15 @@ class NeuralNetwork
     protected:
 
     private:
-        struct columns{
-            float block;
-            float kill_piece;
-            int winORlost;
+        struct node{
+            double block;
+            double kill_piece;
+            int wins;
+            int losses;
             int turnsCount;
         };
 
-        std::vector<columns> nodes;
+        std::vector<node> nodes;
 };
 
 #endif // NEURALNETWORK_H

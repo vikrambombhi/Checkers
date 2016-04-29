@@ -1,0 +1,6 @@
+BLOCK KILL_PIECE wins losses turnsCount
+75 500 2 2 11
+-9 500 13 3 11
+22 500 2 3 11
+-17 408 2 3 11
+165 590 2 3 11
