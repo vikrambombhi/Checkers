@@ -11,7 +11,7 @@
 
 #ifdef _WIN32
 #include <SDL.h>
-#elif __APPLE__
+#else
 #include <SDL2/SDL.h>
 #endif
 
