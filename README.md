@@ -13,16 +13,17 @@ A simple checkers game created in C++ using SDL2's frameworks. That is planned t
 - Movable pieces, along with being able to kill an opponents piece
 - AI Player to play against
 - Scalability with code structure
-- Can be multiplayer (with a simple switch of a object call in GameState.cpp, but will eventually become a mode)
+- Local Multiplayer 
+- Menu
 
 ## Planned Features
 - Different levels to the AI
-- Menu
 
 ## Installation
-- Download the following libaries and extract them in the same directory (Make sure you codesign frameworks in on Mac, refer to reference)
+- Download the following libaries and extract them in the same directory (Make sure you codesign frameworks if on Mac -> refer to reference)
     - SDL2
     - SDL2_image
+    - SDL2_tff
 - Clone the repo
 - Create project in IDE of choice
 - Add the files from the repo into the project
@@ -35,6 +36,8 @@ Reference for help: http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php
 SDL2 Library: https://www.libsdl.org/download-2.0.php
 
 SDL2 Image: https://www.libsdl.org/projects/SDL_image/
+
+SDL2 TFF: https://www.libsdl.org/projects/SDL_ttf/
 
 ## Project Progress
 (Update Mar 13)
