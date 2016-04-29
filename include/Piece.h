@@ -19,7 +19,7 @@ public:
     void makeKing();
     int x;
     int y;
-    int probability;
+    int potential;
     int bestDirection;
 private:
     bool king;

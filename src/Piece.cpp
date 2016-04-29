@@ -11,7 +11,7 @@
 Piece::Piece() {
     x = 0;
     y = 0;
-    probability = 0;
+    potential = 0;
     king = false;
 }
 

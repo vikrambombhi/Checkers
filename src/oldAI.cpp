@@ -33,12 +33,12 @@ int oldAI::extentValue(int y){
 }
 
 double oldAI::returnBigger(int left, int right){
-    double biggest = 0;
+    double largest = 0;
     if(left>right){
-        biggest = left;
+        largest = left;
     }
     if(right>left){
-        biggest = right;
+        largest = right;
     }
     if(left==right){
         /* initialize random seed: */
@@ -46,13 +46,13 @@ double oldAI::returnBigger(int left, int right){
         /* generate secret number between 1 and 2: */
         int randNum = rand() % 4;
         if(randNum%2==0){
-            biggest = left;
+            largest = left;
         }
         else{
-            biggest = right;
+            largest = right;
         }
     }
-    return biggest;
+    return largest;
 }
 
 int oldAI::returnRandomIndex(vector<int> bestPiecesList){
@@ -364,7 +364,7 @@ void oldAI::moveCheck(int index, int maxDepth){
                     break;
             }
         }
-        team[index].probability = largest;
+        team[index].potential = largest;
         team[index].bestDirection = bestDirection;
 
     }
@@ -376,11 +376,11 @@ void oldAI::moveCheck(int index, int maxDepth){
         right = checkArea(team[index].x+1, team[index].y+ONE, RIGHT, right, 1, maxDepth, false);
 
         if(left>right){
-            team[index].probability = left;
+            team[index].potential = left;
             team[index].bestDirection = LEFT;
         }
         if(right>left){
-            team[index].probability = right;
+            team[index].potential = right;
             team[index].bestDirection = RIGHT;
         }
         if(left==right){
@@ -389,11 +389,11 @@ void oldAI::moveCheck(int index, int maxDepth){
             /* generate secret number between 1 and 2: */
             int randNum = rand() % 4;
             if(randNum%2==0){
-                team[index].probability = left;
+                team[index].potential = left;
                 team[index].bestDirection = LEFT;
             }
             else{
-                team[index].probability = right;
+                team[index].potential = right;
                 team[index].bestDirection = RIGHT;
             }
         }
@@ -410,17 +410,17 @@ bool oldAI::makeMove(SDL_Event *event){
     }
 
     vector<int> bestPiecesList;
-    double biggestProabability = team[0].probability;
+    double largestPotential = team[0].potential;
 
     for(int teamIndex=0;teamIndex<team.size();teamIndex++){
-        // If probability is the same, will stick with the first index
-        if(team[teamIndex].probability > biggestProabability) {
-            biggestProabability = team[teamIndex].probability;
+        // If potential is the same, will stick with the first index
+        if(team[teamIndex].potential > largestPotential) {
+            largestPotential = team[teamIndex].potential;
         }
     }
 
     for(int teamIndex=0;teamIndex<team.size();teamIndex++){
-        if(team[teamIndex].probability >= biggestProabability){
+        if(team[teamIndex].potential >= largestPotential){
             bestPiecesList.push_back(teamIndex);
         }
     }
@@ -431,7 +431,7 @@ bool oldAI::makeMove(SDL_Event *event){
     int y = team[bestPieceIndex].y;
 
     // Makes sure the move isnt out of bounds //
-    if (team[bestPieceIndex].probability != OUT_OF_BOUND) {
+    if (team[bestPieceIndex].potential != OUT_OF_BOUND) {
 
         switch (team[bestPieceIndex].bestDirection) {
             case LEFT:
