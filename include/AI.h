@@ -19,16 +19,15 @@ public:
     bool makeMove(SDL_Event *);
 private:
     // State shoud have:
-    // 1. Team piece index
-    // 2. Current depth
-    // 3. Temp board to move pieces on
+    // Current depth
+    // Temp board to move pieces on
     
     // New AI Stuff
     int findMax(int,int);
     int findMin(int,int);
     int maxValue(/*state*/);
-    int minValue(/*state*/) ;
-    int bestMove(/*state*/);
+    int minValue(/*state*/);
+    
     // Old AI stuff
     int threatCheckArea(int,int,Directions);
     bool changeWithDirection(int*,int*,Directions);
@@ -38,6 +37,9 @@ private:
     const int OUT_OF_BOUND = -99999999;
     // Temp value:
     const int MAX_DEPTH = 3;
+    
+    // Going to need a second team which is able to control the opposing team
+    // Used for finding min values
 };
 
 #endif // AI_H

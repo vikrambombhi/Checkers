@@ -93,10 +93,20 @@ int findMin(int value1, int value2){
     return value2;
 }
 
+int maxValue(){
+    
+    return 0;
+}
+
+int minValue(){
+    
+    return 0;
+}
+
 bool AI::makeMove(SDL_Event *event){
     for(int index=0;index<team.size();index++){
         currentIndex = index;
-        //moveCheck(index, 7);
+        //team[currentIndex].potenial = maxValue();
     }
 
     vector<int> bestPiecesList;
