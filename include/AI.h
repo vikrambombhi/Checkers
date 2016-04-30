@@ -21,6 +21,7 @@ private:
     // State shoud have:
     // Current depth
     // Temp board to move pieces on
+    // Value
     
     // New AI Stuff
     int findMax(int,int);
