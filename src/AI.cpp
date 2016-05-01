@@ -79,27 +79,93 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection){
     return false;
 }
 
-int findMax(int value1, int value2){
+void AI::getEnemyTeam(){
+    enemyTeam.clear();
+    for(int x=0;x<8;x++){
+        for(int y=0;y<8;y++){
+            if (sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)) {
+                enemyTeam.push_back(Piece());
+                if (Board->virtualBoard[x][y] == ENEMY_TEAM_NUMBER+2){
+                    enemyTeam.back().makeKing();
+                }
+                enemyTeam.back().x = x;
+                enemyTeam.back().y = y;
+            }
+        }
+    }
+}
+
+int AI::findMax(int value1, int value2){
     if (value1 > value2) {
         return value1;
     }
     return value2;
 }
 
-int findMin(int value1, int value2){
+int AI::findMin(int value1, int value2){
     if (value1 < value2) {
         return value1;
     }
     return value2;
 }
 
-int maxValue(){
-    
-    return 0;
+bool AI::checkNode(Directions direction){
+    int x = team[currentIndex].x;
+    int y = team[currentIndex].y;
+    if(!changeWithDirection(&x , &y, direction)){
+        return false;
+    };
+    // Makes sure new values are in bound //
+    if(x<0 || y<0 || y>7 || x>7){
+        return false;
+    }
+    if(sameTeam(Board->virtualBoard[x][y], TEAM_NUMBER)){
+        return false;
+    }
+    if(sameTeam(Board->virtualBoard[x][y], ENEMY_TEAM_NUMBER)){
+        return killCheckArea(x, y, direction);
+    }
+    return true;
 }
 
-int minValue(){
-    
+int AI::maxValue(CheckersBoard tempBoard, int depth, Directions direction, int value){
+    if(depth < 0){
+        return value;
+    }
+    if(!checkNode(direction)){
+        return OUT_OF_BOUND;
+    }
+    int x = team[currentIndex].x;
+    int y = team[currentIndex].y;
+
+    //make the move on temp board
+    changeWithDirection(&x, &y, direction);
+    if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
+        // Changes it again for moving 2 units diagonally //
+        changeWithDirection(&x, &y, direction);
+    }
+    //This should move on the tempBoard
+    movePiece(currentIndex, x, y);
+
+    getEnemyTeam();
+
+    value = team.size() - enemyTeam.size();
+    // check for every direction in vector
+    if(team[currentIndex].isKing()){
+        for(int d = 0; d<4; d++){
+            value = findMax(value, minValue(tempBoard, depth--, kingMoves[d], value));
+        }
+    }
+    else{
+       for(int d = 0; d<2; d++){
+            value = findMax(value, minValue(tempBoard, depth--, pieceMoves[d], value));
+        }
+    }
+    return value;
+}
+
+int AI::minValue(CheckersBoard tempBoard, int depth, Directions direction, int value){
+
     return 0;
 }
 

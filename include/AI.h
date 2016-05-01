@@ -26,10 +26,13 @@ private:
     // New AI Stuff
     int findMax(int,int);
     int findMin(int,int);
-    int maxValue(/*state*/);
-    int minValue(/*state*/);
+    int maxValue(CheckersBoard tempBoard, int depth, Directions direction, int value);
+    int minValue(CheckersBoard tempBoard, int depth, Directions direction, int value);
+    bool checkNode(Directions direction);
     
+
     // Old AI stuff
+    void getEnemyTeam();
     int threatCheckArea(int,int,Directions);
     bool changeWithDirection(int*,int*,Directions);
     bool killCheckArea(int,int,Directions);
@@ -38,9 +41,13 @@ private:
     const int OUT_OF_BOUND = -99999999;
     // Temp value:
     const int MAX_DEPTH = 3;
-    
+
     // Going to need a second team which is able to control the opposing team
     // Used for finding min values
+    vector<Piece> enemyTeam;
+
+    Directions kingMoves[4] = {LEFT, RIGHT, BACK_LEFT, BACK_RIGHT};
+    Directions pieceMoves[2] = {LEFT, RIGHT};
 };
 
 #endif // AI_H
