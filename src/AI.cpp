@@ -148,7 +148,8 @@ int AI::maxValue(CheckersBoard tempBoard, int depth, Directions direction, int v
     movePiece(currentIndex, x, y);
 
     getEnemyTeam();
-
+    
+    // TODO: ADD POINT SYSTEM FOR GOOD BOARD POSITIONS
     value = team.size() - enemyTeam.size();
     // check for every direction in vector
     if(team[currentIndex].isKing()){
@@ -166,13 +167,68 @@ int AI::maxValue(CheckersBoard tempBoard, int depth, Directions direction, int v
 
 int AI::minValue(CheckersBoard tempBoard, int depth, Directions direction, int value){
 
-    return 0;
+    if(depth < 0){
+        return value;
+    }
+    if(!checkNode(direction)){
+        return OUT_OF_BOUND;
+    }
+    int x = enemyTeam[currentIndex].x;
+    int y = enemyTeam[currentIndex].y;
+    
+    // TODO: FIGURE OUT HOW TO MAKE FUNC CHECK ALL OF ENEMY TEAM, IT ONLY CHECKS THE CURRENT INDEX RN
+    // MAYBE DO THIS??? MIGHT NOT WORK, INFINATE LOOP WARNING
+    /*
+    for(int index=0;index<enemyTeam.size();index++){
+        currentIndex = index;
+        if (enemyTeam[currentIndex].isKing()) {
+            enemyTeam[currentIndex].potential = findMax(findMax(maxValue(*Board, MAX_DEPTH, LEFT, OUT_OF_BOUND), maxValue(*Board, MAX_DEPTH, RIGHT, OUT_OF_BOUND)) , findMax(maxValue(*Board, MAX_DEPTH, BACK_LEFT, OUT_OF_BOUND), maxValue(*Board, MAX_DEPTH, BACK_RIGHT, OUT_OF_BOUND)));
+        }
+        else{
+            enemyTeam[currentIndex].potential = findMax(maxValue(*Board, MAX_DEPTH, LEFT, OUT_OF_BOUND), maxValue(*Board, MAX_DEPTH, RIGHT, OUT_OF_BOUND));
+        }
+    }
+     */
+    
+    //make the move on temp board
+    changeWithDirection(&x, &y, direction);
+    if(sameTeam(Board->virtualBoard[x][y],TEAM_NUMBER)){
+        // Changes it again for moving 2 units diagonally //
+        changeWithDirection(&x, &y, direction);
+    }
+    
+    //This should move on the tempBoard
+    // TODO: MAKE MOVE PIECE MOVE ENEMY TEAM'S PIECE NOT ITS OWN
+    movePiece(currentIndex, x, y);
+    
+    getEnemyTeam();
+    
+    value = team.size() - enemyTeam.size();
+    
+    // check for every direction in vector
+    if(enemyTeam[currentIndex].isKing()){
+        for(int d = 0; d<4; d++){
+            value = findMin(value, maxValue(tempBoard, depth--, kingMoves[d], value));
+        }
+    }
+    else{
+        for(int d = 0; d<2; d++){
+            value = findMin(value, maxValue(tempBoard, depth--, pieceMoves[d], value));
+        }
+    }
+    return value;
+
 }
 
 bool AI::makeMove(SDL_Event *event){
     for(int index=0;index<team.size();index++){
         currentIndex = index;
-        //team[currentIndex].potenial = maxValue();
+        if (team[currentIndex].isKing()) {
+            team[currentIndex].potential = findMax(findMax(maxValue(*Board, MAX_DEPTH, LEFT, OUT_OF_BOUND), maxValue(*Board, MAX_DEPTH, RIGHT, OUT_OF_BOUND)) , findMax(maxValue(*Board, MAX_DEPTH, BACK_LEFT, OUT_OF_BOUND), maxValue(*Board, MAX_DEPTH, BACK_RIGHT, OUT_OF_BOUND)));
+        }
+        else{
+            team[currentIndex].potential = findMax(maxValue(*Board, MAX_DEPTH, LEFT, OUT_OF_BOUND), maxValue(*Board, MAX_DEPTH, RIGHT, OUT_OF_BOUND));
+        }
     }
 
     vector<int> bestPiecesList;
