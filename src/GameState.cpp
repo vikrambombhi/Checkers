@@ -88,7 +88,6 @@ void GameState::stateEvent(){
                     Player1->turn = false;
                     Player2->turn = true;
                     Player2->updateTeam();
-                    Player1turn++;
                     // Breaks to continue in main loop //
                     break;
                 }
@@ -100,7 +99,6 @@ void GameState::stateEvent(){
                     Player2->turn = false;
                     Player1->turn = true;
                     Player1->updateTeam();
-                    Player2turn++;
                     // Breaks to continue in main loop //
                     break;
                 }

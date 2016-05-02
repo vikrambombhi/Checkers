@@ -45,8 +45,6 @@ public:
     StateEnum stateUpdate();
     void stateRender();
     bool stateExit();
-    int Player1turn;
-    int Player2turn;
 private:
     bool loadMedia();
     bool gameOver();
