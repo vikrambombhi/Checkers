@@ -34,6 +34,7 @@ protected:
     void initTeam();
     bool sameTeam(int,int);
     int pieceTeamIndexByXY(int,int);
+    int currentIndex;
     bool topSide;
     int ONE;
     int teamSize = 12;

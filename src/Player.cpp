@@ -15,6 +15,7 @@ Player::Player(bool topSideOfBoard, CheckersBoard *board, Button buttons[]){
     Board = board;
     boardButtons = buttons;
     topSide = topSideOfBoard;
+    currentIndex = 0;
     initTeam();
     if (topSideOfBoard) {
         ONE = 1;

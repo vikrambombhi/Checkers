@@ -21,7 +21,6 @@ private:
     bool selectedLocationIsValid(int, int, int, bool);
     void highlightValidMoves();
     bool selectingState;
-    int currentPieceIndex;
 };
 
 

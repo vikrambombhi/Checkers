@@ -7,9 +7,9 @@
 //
 
 #include "../include/Piece.h"
-#include <cstdlib>
-#include <stdlib.h>
-#include <time.h>
+
+Directions kingMoves[4] = {LEFT, RIGHT, BACK_LEFT, BACK_RIGHT};
+Directions pieceMoves[2] = {LEFT, RIGHT};
 
 Piece::Piece() {
     x = 0;
@@ -49,6 +49,12 @@ void Piece::findBestDirection(){
     }
     
     srand(static_cast<unsigned int>(time(NULL)));
-    bestDirection = rand() % largestVector.size();
+    int bestIndex = rand() % largestVector.size();
+    
+    for(int k=0; k<4; k++){
+        if (kingMoves[k] == bestIndex) {
+            bestDirection = kingMoves[k];
+        }
+    }
     potential = largest;
 }

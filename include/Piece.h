@@ -10,6 +10,16 @@
 #define Piece_h
 
 #include <vector>
+#include <cstdlib>
+#include <stdlib.h>
+#include <time.h>
+
+enum Directions{
+    LEFT,
+    RIGHT,
+    BACK_LEFT,
+    BACK_RIGHT
+};
 
 using namespace std;
 
@@ -23,7 +33,7 @@ public:
     int y;
     int potential;
     int directionValues[4] = {-99999999, -99999999, -99999999, -99999999};
-    int bestDirection;
+    Directions bestDirection;
     void findBestDirection();
 private:
     bool king;

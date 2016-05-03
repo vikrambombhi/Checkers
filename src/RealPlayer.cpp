@@ -11,7 +11,6 @@
 
 RealPlayer::RealPlayer(bool topSideOfBoard, CheckersBoard *board, Button *buttons): Player(topSideOfBoard, board, buttons){
     selectingState = false;
-    currentPieceIndex = 0;
 }
 
 RealPlayer::~RealPlayer(){
@@ -42,8 +41,8 @@ bool RealPlayer::makeMove(SDL_Event* event){
                 if (boardButtons[index].insideButton(BUTTON_WIDTH,BUTTON_HEIGHT)) {
                     // Player selects where the piece should move //
                     
-                    if (selectedLocationIsValid(currentPieceIndex,boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
-                        movePiece(Board, team, currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
+                    if (selectedLocationIsValid(currentIndex,boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
+                        movePiece(Board, team, currentIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                         Board->turnHighLightOff();
                         
                         if (killWasMade) {
@@ -72,7 +71,7 @@ void RealPlayer::selectPiece(int x, int y){
     // SELECT PIECE //
     // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
     if(sameTeam(Board->virtualBoard[x][y], TEAM_NUMBER)){
-            currentPieceIndex = pieceTeamIndexByXY(x, y);
+            currentIndex = pieceTeamIndexByXY(x, y);
             Board->turnHighLightOn(x, y);
             highlightValidMoves();
             selectingState = true;
@@ -83,34 +82,34 @@ void RealPlayer::selectPiece(int x, int y){
     }
 }
 
-bool RealPlayer::selectedLocationIsValid(int currentPieceIndex, int x, int y, bool forHighlight) {
+bool RealPlayer::selectedLocationIsValid(int currentIndex, int x, int y, bool forHighlight) {
     bool locationIsValid = false;
     if (Board->virtualBoard[x][y] == EMPTY_PIECE) {
 
         // case 1: moving in a 3x3 square centered at the origin //
-        if (abs(x - team[currentPieceIndex].x) == 1 && abs(y - team[currentPieceIndex].y) == 1 && !killWasMade) {
+        if (abs(x - team[currentIndex].x) == 1 && abs(y - team[currentIndex].y) == 1 && !killWasMade) {
 
             // case 1.1: piece is a king //
-            if (team[currentPieceIndex].isKing()) {
+            if (team[currentIndex].isKing()) {
                 locationIsValid = true;
             }
 
             // case 1.2: piece isn't a king //
-            else if (y - team[currentPieceIndex].y == ONE) {
+            else if (y - team[currentIndex].y == ONE) {
                 locationIsValid = true;
             }
         }
 
         // case 2: moving in a 5x5 square centered at the origin to kill a piece //
-        else if (abs(x - team[currentPieceIndex].x) == 2 && abs(y - team[currentPieceIndex].y) == 2 && sameTeam(Board->virtualBoard[(x + team[currentPieceIndex].x)/2][(y + team[currentPieceIndex].y)/2],ENEMY_TEAM_NUMBER)) {
+        else if (abs(x - team[currentIndex].x) == 2 && abs(y - team[currentIndex].y) == 2 && sameTeam(Board->virtualBoard[(x + team[currentIndex].x)/2][(y + team[currentIndex].y)/2],ENEMY_TEAM_NUMBER)) {
 
             // case 2.1: piece is a king //
-            if (team[currentPieceIndex].isKing()) {
+            if (team[currentIndex].isKing()) {
                 locationIsValid = true;
             }
 
             // case 2.2: piece isn't a king //
-            else if (y - team[currentPieceIndex].y == 2*ONE) {
+            else if (y - team[currentIndex].y == 2*ONE) {
                 locationIsValid = true;
             }
         }
@@ -133,12 +132,12 @@ bool RealPlayer::selectedLocationIsValid(int currentPieceIndex, int x, int y, bo
 void RealPlayer::highlightValidMoves() {
     int x, y;
     for (int i = -2; i <=2; i++){
-        x = team[currentPieceIndex].x + i;
+        x = team[currentIndex].x + i;
         for (int j = -2; j <=2; j++){
-            y = team[currentPieceIndex].y + j;
+            y = team[currentIndex].y + j;
             
             if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-                if (selectedLocationIsValid(currentPieceIndex,x, y, true)) {
+                if (selectedLocationIsValid(currentIndex,x, y, true)) {
                     pointXY pointToHighlight = {x,y};
                     Board->validLocations.push_back(pointToHighlight);
                 }
