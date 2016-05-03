@@ -37,7 +37,6 @@ protected:
     int currentIndex;
     bool topSide;
     int ONE;
-    int teamSize = 12;
     int TEAM_NUMBER;
     int ENEMY_TEAM_NUMBER;
     CheckersBoard *Board;
