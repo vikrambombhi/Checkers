@@ -441,7 +441,7 @@ bool oldAI::makeMove(SDL_Event *event){
                     changeWithDirection(&x, &y, LEFT);
                 }
                 cout<< " best move: " << x << "," << y << endl;
-                movePiece(bestPieceIndex, x, y);
+                movePiece(Board, team, bestPieceIndex, x, y);
                 return true;
 
             case RIGHT:
@@ -451,7 +451,7 @@ bool oldAI::makeMove(SDL_Event *event){
                     changeWithDirection(&x, &y, RIGHT);
                 }
                 cout<< " best move: " << x << "," << y << endl;
-                movePiece(bestPieceIndex, x, y);
+                movePiece(Board, team, bestPieceIndex, x, y);
                 return true;
 
             case BACK_LEFT:
@@ -461,7 +461,7 @@ bool oldAI::makeMove(SDL_Event *event){
                     changeWithDirection(&x, &y, BACK_LEFT);
                 }
                 cout<< " best move: " << x << "," << y << endl;
-                movePiece(bestPieceIndex, x, y);
+                movePiece(Board, team, bestPieceIndex, x, y);
                 return true;
 
             case BACK_RIGHT:
@@ -471,7 +471,7 @@ bool oldAI::makeMove(SDL_Event *event){
                     changeWithDirection(&x, &y, BACK_RIGHT);
                 }
                 cout<< " best move: " << x << "," << y << endl;
-                movePiece(bestPieceIndex, x, y);
+                movePiece(Board, team, bestPieceIndex, x, y);
                 return true;
 
             default:

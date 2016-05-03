@@ -43,7 +43,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
                     // Player selects where the piece should move //
                     
                     if (selectedLocationIsValid(currentPieceIndex,boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
-                        movePiece(currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
+                        movePiece(Board, team, currentPieceIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                         Board->turnHighLightOff();
                         
                         if (killWasMade) {
@@ -71,7 +71,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
 void RealPlayer::selectPiece(int x, int y){
     // SELECT PIECE //
     // When a piece hasn't been selected yet, and the button currently selected doesn't have a piece inside //
-    if(Board->virtualBoard[x][y]==TEAM_NUMBER || Board->virtualBoard[x][y]==TEAM_NUMBER+2 ){
+    if(sameTeam(Board->virtualBoard[x][y], TEAM_NUMBER)){
             currentPieceIndex = pieceTeamIndexByXY(x, y);
             Board->turnHighLightOn(x, y);
             highlightValidMoves();

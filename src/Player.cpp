@@ -212,11 +212,11 @@ bool Player::sameTeam(int value1, int value2){
     return false;
 }
 
-void Player::movePiece(int teamIndex, int newX, int newY){
+void Player::movePiece(CheckersBoard* Board, vector<Piece>& team, int teamIndex, int newX, int newY){
     // Moves piece by its selected teamIndex to its (newX, newY) location
     if (abs(newX - team[teamIndex].x) == 2 && abs(newY - team[teamIndex].y) == 2) {
         // Kills piece at average location
-        killPiece(abs(newX + team[teamIndex].x)/2, abs(newY + team[teamIndex].y)/2);
+        killPiece(Board , abs(newX + team[teamIndex].x)/2, abs(newY + team[teamIndex].y)/2);
         // Gives player knowledge on which piece made the kill
         killerPeiceIndex = teamIndex;
     }
@@ -229,7 +229,7 @@ void Player::movePiece(int teamIndex, int newX, int newY){
     cout<<*Board<<endl;
 }
 
-void Player::killPiece(int x, int y) {
+void Player::killPiece(CheckersBoard* Board, int x, int y) {
     Board->virtualBoard[x][y] = EMPTY_PIECE;
     killWasMade = true;
 }
@@ -238,7 +238,7 @@ void Player::updateTeam() {
     // Updates team when teamSize has been altered
     bool updateMade = false;
     for(int index=0;index<teamSize;index++){
-        if (Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER && Board->virtualBoard[team[index].x][team[index].y] != TEAM_NUMBER + 2) {
+        if (!sameTeam(Board->virtualBoard[team[index].x][team[index].y], TEAM_NUMBER)) {
             team.erase(team.begin()+index);
             teamSize--;
             index--;

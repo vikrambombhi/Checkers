@@ -109,22 +109,56 @@ int AI::findMin(int value1, int value2){
     return value2;
 }
 
+int AI::valueCalculator(){
+    // TODO: ADD POINT SYSTEM FOR GOOD BOARD POSITIONS
+    
+    int value = 0;
+    
+    for(int i=0; i<team.size(); i++){
+        if (team[i].isKing()) {
+            value += 2;
+        }
+        else{
+            value +=1;
+        }
+    }
+    
+    for(int j=0; j<enemyTeam.size(); j++){
+        if (enemyTeam[j].isKing()) {
+            value -= 2;
+        }
+        else{
+            value -= 1;
+        }
+    }
+    
+    return value;
+}
+
 bool AI::checkNode(Directions direction){
     int x = team[currentIndex].x;
     int y = team[currentIndex].y;
+    
+    // Makes sure the changed x & y values are applied (Just incase)
     if(!changeWithDirection(&x , &y, direction)){
         return false;
     };
+    
     // Makes sure new values are in bound //
     if(x<0 || y<0 || y>7 || x>7){
         return false;
     }
+    
+    // Team piece in the way
     if(sameTeam(Board->virtualBoard[x][y], TEAM_NUMBER)){
         return false;
     }
+    
+    // Enemy might be unkillable
     if(sameTeam(Board->virtualBoard[x][y], ENEMY_TEAM_NUMBER)){
         return killCheckArea(x, y, direction);
     }
+    
     return true;
 }
 
@@ -137,7 +171,9 @@ int AI::maxValue(CheckersBoard tempBoard, int depth, Directions direction, int v
     }
     int x = team[currentIndex].x;
     int y = team[currentIndex].y;
-
+    
+    //TODO: TEAM IS CONSTANTLY CHANGING, THE ACTUALLY STATE OF BOARD IS LOST, RESET SOMEWHERE
+    
     //make the move on temp board
     changeWithDirection(&x, &y, direction);
     if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
@@ -145,12 +181,12 @@ int AI::maxValue(CheckersBoard tempBoard, int depth, Directions direction, int v
         changeWithDirection(&x, &y, direction);
     }
     //This should move on the tempBoard
-    movePiece(currentIndex, x, y);
+    movePiece(&tempBoard, team, currentIndex, x, y);
 
     getEnemyTeam();
     
-    // TODO: ADD POINT SYSTEM FOR GOOD BOARD POSITIONS
-    value = team.size() - enemyTeam.size();
+    value = valueCalculator();
+    
     // check for every direction in vector
     if(team[currentIndex].isKing()){
         for(int d = 0; d<4; d++){
@@ -173,6 +209,7 @@ int AI::minValue(CheckersBoard tempBoard, int depth, Directions direction, int v
     if(!checkNode(direction)){
         return OUT_OF_BOUND;
     }
+    
     int x = enemyTeam[currentIndex].x;
     int y = enemyTeam[currentIndex].y;
     
@@ -199,11 +236,11 @@ int AI::minValue(CheckersBoard tempBoard, int depth, Directions direction, int v
     
     //This should move on the tempBoard
     // TODO: MAKE MOVE PIECE MOVE ENEMY TEAM'S PIECE NOT ITS OWN
-    movePiece(currentIndex, x, y);
+    movePiece(&tempBoard, enemyTeam, currentIndex, x, y);
     
     getEnemyTeam();
     
-    value = team.size() - enemyTeam.size();
+    value = valueCalculator();
     
     // check for every direction in vector
     if(enemyTeam[currentIndex].isKing()){
@@ -263,7 +300,7 @@ bool AI::makeMove(SDL_Event *event){
                     changeWithDirection(&x, &y, LEFT);
                 }
                 cout<< " best move: " << x << "," << y << endl;
-                movePiece(bestPieceIndex, x, y);
+                movePiece(Board, team, bestPieceIndex, x, y);
                 return true;
 
             case RIGHT:
@@ -273,7 +310,7 @@ bool AI::makeMove(SDL_Event *event){
                     changeWithDirection(&x, &y, RIGHT);
                 }
                 cout<< " best move: " << x << "," << y << endl;
-                movePiece(bestPieceIndex, x, y);
+                movePiece(Board, team, bestPieceIndex, x, y);
                 return true;
 
             case BACK_LEFT:
@@ -283,7 +320,7 @@ bool AI::makeMove(SDL_Event *event){
                     changeWithDirection(&x, &y, BACK_LEFT);
                 }
                 cout<< " best move: " << x << "," << y << endl;
-                movePiece(bestPieceIndex, x, y);
+                movePiece(Board, team, bestPieceIndex, x, y);
                 return true;
 
             case BACK_RIGHT:
@@ -293,7 +330,7 @@ bool AI::makeMove(SDL_Event *event){
                     changeWithDirection(&x, &y, BACK_RIGHT);
                 }
                 cout<< " best move: " << x << "," << y << endl;
-                movePiece(bestPieceIndex, x, y);
+                movePiece(Board, team, bestPieceIndex, x, y);
                 return true;
 
             default:
