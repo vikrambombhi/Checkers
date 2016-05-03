@@ -22,8 +22,8 @@ private:
 
     // Old AI stuff
     void getEnemyTeam();
-    bool changeWithDirection(int*,int*,Directions);
-    bool killCheckArea(int,int,Directions);
+    bool changeWithDirection(int*,int*,Directions, bool);
+    bool killCheckArea(int,int,Directions, bool);
     int bestPiece(vector<Piece>);
     //int currentIndex; // TODO: RealPlayer uses currentIndex too, should move to Player class
     const int OUT_OF_BOUND = -99999999;
