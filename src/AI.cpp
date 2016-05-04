@@ -105,7 +105,7 @@ bool AI::changeWithDirection(int *x, int *y, Directions direction, bool enemy){
     return true;
 }
 
-bool AI::killCheckArea(int x, int y, Directions checkDirection, bool enemy){
+bool AI::killCheckArea(CheckersBoard& tempBoard, int x, int y, Directions checkDirection, bool enemy){
     // Makes sure direction was able to be changed//
     if(!changeWithDirection(&x, &y, checkDirection, enemy)){
         return false;
@@ -115,7 +115,7 @@ bool AI::killCheckArea(int x, int y, Directions checkDirection, bool enemy){
         return false;
     }
     // Returns true if direction is clear //
-    if(Board->virtualBoard[x][y] == EMPTY_PIECE){
+    if(tempBoard.virtualBoard[x][y] == EMPTY_PIECE){
         return true;
     }
     return false;
@@ -210,10 +210,50 @@ bool AI::checkNode(CheckersBoard& tempBoard, vector<Piece>& teamCopy, vector<Pie
     
     // Enemy might be unkillable
     if(sameTeam(tempBoard.virtualBoard[x][y], enemyTeamNumber)){
-        return killCheckArea(x, y, direction, enemy);
+        return killCheckArea(tempBoard, x, y, direction, enemy);
     }
 
     return true;
+}
+
+bool AI::makeMove(SDL_Event *event){
+    
+    // Init enemyTeam that this class can use
+    getEnemyTeam();
+    
+    for(int index=0;index<team.size();index++){
+        currentIndex = index;
+        
+        team[index].directionValues[0] = maxValue(*Board, team, enemyTeam, MAX_DEPTH, LEFT, OUT_OF_BOUND);
+        team[index].directionValues[1] = maxValue(*Board, team, enemyTeam, MAX_DEPTH, RIGHT, OUT_OF_BOUND);
+        
+        if (team[index].isKing()) {
+            team[index].directionValues[2] = maxValue(*Board, team, enemyTeam, MAX_DEPTH, BACK_LEFT, OUT_OF_BOUND);
+            team[index].directionValues[3] = maxValue(*Board, team, enemyTeam, MAX_DEPTH, BACK_RIGHT, OUT_OF_BOUND);
+        }
+        team[index].findBestDirection();
+    }
+    
+    int bestPieceIndex = bestPiece(team);
+    cout<< "The chosen one: " << bestPieceIndex << " -> "<< team[bestPieceIndex].x << "," << team[bestPieceIndex].y;
+    
+    int x = team[bestPieceIndex].x;
+    int y = team[bestPieceIndex].y;
+    
+    // Makes sure the move isnt out of bounds //
+    if (team[bestPieceIndex].potential != OUT_OF_BOUND) {
+        
+        changeWithDirection(&x, &y, team[bestPieceIndex].bestDirection, false);
+        
+        if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
+            // Changes it again for moving 2 units diagonally //
+            changeWithDirection(&x, &y, team[bestPieceIndex].bestDirection, false);
+        }
+        cout<< " best move: " << x << "," << y << endl;
+        movePiece(*Board, team, bestPieceIndex, x, y);
+        return true;
+    }
+    return false;
 }
 
 int AI::maxValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value){
@@ -221,6 +261,7 @@ int AI::maxValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> 
     bool killMove = false;
     
     if(depth < 0){
+        cout<<"//////////// Node end ////////////\n"<<endl;
         return value;
     }
     if(!checkNode(tempBoard, teamCopy, enemyTeamCopy, direction, false)){
@@ -229,19 +270,19 @@ int AI::maxValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> 
     int x = teamCopy[currentIndex].x;
     int y = teamCopy[currentIndex].y;
     
-    //make the move on temp board
     changeWithDirection(&x, &y, direction, false);
     if(sameTeam(tempBoard.virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
-        // Changes it again for moving 2 units diagonally //
         changeWithDirection(&x, &y, direction, false);
         killMove = true;
     }
+    
     //This should move on the tempBoard
-    movePiece(&tempBoard, teamCopy, currentIndex, x, y);
+    movePiece(tempBoard, teamCopy, currentIndex, x, y);
     updateKings(tempBoard, teamCopy, false);
     if (killMove) {
         updateTeam(tempBoard, enemyTeamCopy, true);
     }
+    
     value = valueCalculator(teamCopy, enemyTeamCopy);
     
     // check for every direction in vector
@@ -258,7 +299,7 @@ int AI::maxValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> 
     return value;
 }
 
-int AI::minMove(CheckersBoard tempboard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value){
+int AI::minMove(CheckersBoard& tempboard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value){
     for(int index=0;index<enemyTeam.size();index++){
         enemyCurrentIndex = index;
         
@@ -270,10 +311,11 @@ int AI::minMove(CheckersBoard tempboard, vector<Piece> teamCopy, vector<Piece> e
             enemyTeamCopy[index].directionValues[3] = minValue(tempboard, teamCopy, enemyTeamCopy, depth, BACK_RIGHT, value);
         }
         
-        enemyTeamCopy[index].findBestDirection();
+        enemyTeamCopy[index].findLargestPotenial();
         
     }
-    return enemyTeamCopy[bestPiece(enemyTeamCopy)].potential;
+    int bestPieceIndex = bestPiece(enemyTeamCopy);
+    return enemyTeamCopy[bestPieceIndex].potential;
 }
 
 int AI::minValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value){
@@ -281,6 +323,7 @@ int AI::minValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> 
     bool killMove = false;
 
     if(depth < 0){
+        cout<<"//////////// Node end ////////////\n"<<endl;
         return value;
     }
     if(!checkNode(tempBoard, teamCopy, enemyTeamCopy, direction, true)){
@@ -299,7 +342,7 @@ int AI::minValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> 
     }
     
     //This should move on the tempBoard
-    movePiece(&tempBoard, enemyTeamCopy, enemyCurrentIndex, x, y);
+    movePiece(tempBoard, enemyTeamCopy, enemyCurrentIndex, x, y);
     updateKings(tempBoard, enemyTeamCopy, true);
     if (killMove) {
         updateTeam(tempBoard, teamCopy, false);
@@ -320,46 +363,4 @@ int AI::minValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> 
     }
     return value;
 
-}
-
-bool AI::makeMove(SDL_Event *event){
-    
-    // Init enemyTeam that this class can use
-    getEnemyTeam();
-
-    for(int index=0;index<team.size();index++){
-        currentIndex = index;
-
-        team[index].directionValues[0] = maxValue(*Board, team, enemyTeam, MAX_DEPTH, LEFT, OUT_OF_BOUND);
-        team[index].directionValues[1] = maxValue(*Board, team, enemyTeam, MAX_DEPTH, RIGHT, OUT_OF_BOUND);
-        
-        if (team[index].isKing()) {
-            team[index].directionValues[2] = maxValue(*Board, team, enemyTeam, MAX_DEPTH, BACK_LEFT, OUT_OF_BOUND);
-            team[index].directionValues[3] = maxValue(*Board, team, enemyTeam, MAX_DEPTH, BACK_RIGHT, OUT_OF_BOUND);
-        }
-        
-        team[index].findBestDirection();
-
-    }
-
-    int bestPieceIndex = bestPiece(team);
-    cout<< "The chosen one: " << bestPieceIndex << " -> "<< team[bestPieceIndex].x << "," << team[bestPieceIndex].y;
-
-    int x = team[bestPieceIndex].x;
-    int y = team[bestPieceIndex].y;
-
-    // Makes sure the move isnt out of bounds //
-    if (team[bestPieceIndex].potential != OUT_OF_BOUND) {
-        
-        changeWithDirection(&x, &y, team[bestPieceIndex].bestDirection, false);
-        
-        if(sameTeam(Board->virtualBoard[x][y],ENEMY_TEAM_NUMBER)){
-            // Changes it again for moving 2 units diagonally //
-            changeWithDirection(&x, &y, team[bestPieceIndex].bestDirection, false);
-        }
-        cout<< " best move: " << x << "," << y << endl;
-        movePiece(Board, team, bestPieceIndex, x, y);
-        return true;
-    }
-    return false;
 }

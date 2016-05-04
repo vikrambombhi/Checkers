@@ -35,6 +35,7 @@ public:
     int directionValues[4] = {-99999999, -99999999, -99999999, -99999999};
     Directions bestDirection;
     void findBestDirection();
+    void findLargestPotenial();
 private:
     bool king;
 };

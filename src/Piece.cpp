@@ -31,6 +31,17 @@ void Piece::makeKing() {
     king = true;
 }
 
+void Piece::findLargestPotenial(){
+    int largest = directionValues[0];
+    
+    for (int i=1; i<4; i++) {
+        if (largest < directionValues[i]) {
+            largest = directionValues[i];
+        }
+    }
+    potential = largest;
+}
+
 void Piece::findBestDirection(){
     
     int largest = directionValues[0];

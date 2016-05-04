@@ -16,7 +16,7 @@ private:
     int findMin(int,int);
     int maxValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value);
     int minValue(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value);
-    int minMove(CheckersBoard tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value);
+    int minMove(CheckersBoard& tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value);
     bool checkNode(CheckersBoard& tempBoard, vector<Piece>& teamCopy, vector<Piece>& enemyTeamCopy, Directions direction, bool enemy);
     int valueCalculator(vector<Piece>& teamCopy, vector<Piece>&);
     
@@ -27,7 +27,7 @@ private:
     // Old AI stuff
     void getEnemyTeam();
     bool changeWithDirection(int*,int*,Directions, bool);
-    bool killCheckArea(int,int,Directions, bool);
+    bool killCheckArea(CheckersBoard& tempBoard, int,int,Directions, bool);
     int bestPiece(vector<Piece>);
     
     const int OUT_OF_BOUND = -99999999;

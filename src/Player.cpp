@@ -213,7 +213,7 @@ bool Player::sameTeam(int value1, int value2){
     return false;
 }
 
-void Player::movePiece(CheckersBoard* pBoard, vector<Piece>& teamMove, int teamIndex, int newX, int newY){
+void Player::movePiece(CheckersBoard& pBoard, vector<Piece>& teamMove, int teamIndex, int newX, int newY){
     // Moves piece by its selected teamIndex to its (newX, newY) location
     if (abs(newX - teamMove[teamIndex].x) == 2 && abs(newY - teamMove[teamIndex].y) == 2) {
         // Kills piece at average location
@@ -221,17 +221,17 @@ void Player::movePiece(CheckersBoard* pBoard, vector<Piece>& teamMove, int teamI
         // Gives player knowledge on which piece made the kill
         killerPeiceIndex = teamIndex;
     }
-    pBoard->virtualBoard[newX][newY] = pBoard->virtualBoard[teamMove[teamIndex].x][teamMove[teamIndex].y];
-    pBoard->virtualBoard[teamMove[teamIndex].x][teamMove[teamIndex].y] = EMPTY_PIECE;
+    pBoard.virtualBoard[newX][newY] = pBoard.virtualBoard[teamMove[teamIndex].x][teamMove[teamIndex].y];
+    pBoard.virtualBoard[teamMove[teamIndex].x][teamMove[teamIndex].y] = EMPTY_PIECE;
     teamMove[teamIndex].x = newX;
     teamMove[teamIndex].y = newY;
     
     // Prints virtualBoard at end of move
-    //cout<<*Board<<endl;
+    cout<<pBoard<<endl;
 }
 
-void Player::killPiece(CheckersBoard* Board, int x, int y) {
-    Board->virtualBoard[x][y] = EMPTY_PIECE;
+void Player::killPiece(CheckersBoard& pBoard, int x, int y) {
+    pBoard.virtualBoard[x][y] = EMPTY_PIECE;
     killWasMade = true;
 }
 
