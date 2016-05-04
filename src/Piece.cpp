@@ -14,7 +14,7 @@ Directions pieceMoves[2] = {LEFT, RIGHT};
 Piece::Piece() {
     x = 0;
     y = 0;
-    potential = 0;
+    potential = -99999999;
     king = false;
 }
 

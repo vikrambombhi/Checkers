@@ -10,7 +10,6 @@
 #include "../include/CheckersBoard.h"
 #include "../include/Player.h"
 #include "../include/AI.h"
-#include "../include/oldAI.h"
 #include "../include/RealPlayer.h"
 #include "../include/Button.h"
 #include "../include/Texture.h"
@@ -88,6 +87,7 @@ void GameState::stateEvent(){
                     Player1->turn = false;
                     Player2->turn = true;
                     Player2->updateTeam();
+                    cout<<*Board<<endl;
                     // Breaks to continue in main loop //
                     break;
                 }
@@ -99,6 +99,7 @@ void GameState::stateEvent(){
                     Player2->turn = false;
                     Player1->turn = true;
                     Player1->updateTeam();
+                    cout<<*Board<<endl;
                     // Breaks to continue in main loop //
                     break;
                 }

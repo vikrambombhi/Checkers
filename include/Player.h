@@ -29,8 +29,8 @@ public:
     // for multi turn loop
     bool killWasMade = false;
 protected:
-    void movePiece(CheckersBoard&, vector<Piece>& ,int, int, int);
-    void killPiece(CheckersBoard&, int, int);
+    void movePiece(vector<vector<int>> &, vector<Piece> & ,int, int, int);
+    void killPiece(vector<vector<int>> &, int, int);
     void initTeam();
     bool sameTeam(int,int);
     int pieceTeamIndexByXY(int,int);

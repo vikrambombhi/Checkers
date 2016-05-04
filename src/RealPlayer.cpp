@@ -42,7 +42,7 @@ bool RealPlayer::makeMove(SDL_Event* event){
                     // Player selects where the piece should move //
                     
                     if (selectedLocationIsValid(currentIndex,boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80, false)) {
-                        movePiece(*Board, team, currentIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
+                        movePiece(Board->virtualBoard, team, currentIndex, boardButtons[index].getButtonPointX()/80, boardButtons[index].getButtonPointY()/80);
                         Board->turnHighLightOff();
                         
                         if (killWasMade) {
