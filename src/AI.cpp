@@ -284,7 +284,7 @@ int AI::maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     
     value = valueCalculator(teamCopy, enemyTeamCopy);
     
-    value = findMax(value, minMove(tempBoard, teamCopy, enemyTeamCopy, depth-=1, value));
+    value = findMax(value, minMove(tempBoard, teamCopy, enemyTeamCopy, depth-1, value));
 
     return value;
 }
@@ -337,7 +337,7 @@ int AI::minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     
     value = valueCalculator(teamCopy, enemyTeamCopy);
     
-    value = findMin(value, maxMove(tempBoard, teamCopy, enemyTeamCopy, depth-=1, value));
+    value = findMin(value, maxMove(tempBoard, teamCopy, enemyTeamCopy, depth-1, value));
 
     return value;
 
