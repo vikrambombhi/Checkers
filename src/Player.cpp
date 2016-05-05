@@ -145,7 +145,7 @@ void Player::initTeam() {
         //Vector now has 1 element @ index 4
         team[4].x = 1;
         team[4].y = 6;
-
+       
         //Push back new chip created with default constructor.
         team.push_back(Piece());
         //Vector now has 1 element @ index 5

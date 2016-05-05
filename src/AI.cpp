@@ -261,7 +261,6 @@ int AI::maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     bool killMove = false;
     
     if(depth <= 0){
-        cout<<"//////////// Node end ////////////\n"<<endl;
         return value;
     }
     if(!checkNode(tempBoard, teamCopy, enemyTeamCopy, direction, false)){
@@ -285,7 +284,7 @@ int AI::maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     
     value = valueCalculator(teamCopy, enemyTeamCopy);
     
-    value = findMax(value, minMove(tempBoard, teamCopy, enemyTeamCopy, depth--, value));
+    value = findMax(value, minMove(tempBoard, teamCopy, enemyTeamCopy, depth-=1, value));
 
     return value;
 }
@@ -314,7 +313,6 @@ int AI::minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     bool killMove = false;
 
     if(depth <= 0){
-        cout<<"//////////// Node end ////////////\n"<<endl;
         return value;
     }
     if(!checkNode(tempBoard, teamCopy, enemyTeamCopy, direction, true)){
@@ -339,7 +337,7 @@ int AI::minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     
     value = valueCalculator(teamCopy, enemyTeamCopy);
     
-    value = findMin(value, maxMove(tempBoard, teamCopy, enemyTeamCopy, depth--, value));
+    value = findMin(value, maxMove(tempBoard, teamCopy, enemyTeamCopy, depth-=1, value));
 
     return value;
 
