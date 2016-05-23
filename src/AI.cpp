@@ -152,26 +152,59 @@ int AI::findMin(int value1, int value2){
 }
 
 int AI::valueCalculator(vector<Piece> &teamCopy, vector<Piece> &enemyTeamCopy){
-    // TODO: ADD POINT SYSTEM FOR GOOD BOARD POSITIONS
     
     int value = 0;
     
     for(int i=0; i<teamCopy.size(); i++){
         if (teamCopy[i].isKing()) {
-            value += 2;
+            value += 6;
         }
         else{
-            value +=1;
+            value +=3;
         }
+        
+        int x = teamCopy[i].x;
+        int y = teamCopy[i].y;
+        
+        if ((x == 0 || x==7) || (y==0||y==7)){
+            value += 4;
+        }
+        else if((x == 1 || x==6) || (y==1||y==6)){
+            value += 3;
+        }
+        else if((x == 2 || x==5) || (y==2||y==5)){
+            value += 2;
+        }
+        else if((x == 3 || x==4) || (y==3||y==4)){
+            value += 1;
+        }
+
     }
     
     for(int j=0; j<enemyTeamCopy.size(); j++){
         if (enemyTeamCopy[j].isKing()) {
-            value -= 2;
+            value -= 6;
         }
         else{
+            value -= 3;
+        }
+        
+        int x = enemyTeamCopy[j].x;
+        int y = enemyTeamCopy[j].y;
+        
+        if ((x == 0 || x==7) || (y==0||y==7)){
+            value -= 4;
+        }
+        else if((x == 1 || x==6) || (y==1||y==6)){
+            value -= 3;
+        }
+        else if((x == 2 || x==5) || (y==2||y==5)){
+            value -= 2;
+        }
+        else if((x == 3 || x==4) || (y==3||y==4)){
             value -= 1;
         }
+
     }
     
     return value;
@@ -220,7 +253,7 @@ bool AI::makeMove(SDL_Event *event){
     
     // Init enemyTeam that this class can use
     getEnemyTeam();
-    
+
     for(int index=0;index<team.size();index++){
         currentIndex = index;
         
@@ -233,7 +266,7 @@ bool AI::makeMove(SDL_Event *event){
         }
         team[index].findBestDirection();
     }
-    
+
     int bestPieceIndex = bestPiece(team);
     cout<< "The chosen one: " << bestPieceIndex << " -> "<< team[bestPieceIndex].x << "," << team[bestPieceIndex].y;
     
@@ -250,6 +283,7 @@ bool AI::makeMove(SDL_Event *event){
             changeWithDirection(&x, &y, team[bestPieceIndex].bestDirection, false);
         }
         cout<< " best move: " << x << "," << y << endl;
+        cout<< "It potenial is: "<<team[bestPieceIndex].potential<<endl;
         movePiece(Board->virtualBoard, team, bestPieceIndex, x, y);
         return true;
     }
@@ -271,8 +305,13 @@ int AI::maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     
     changeWithDirection(&x, &y, direction, false);
     if(sameTeam(tempBoard[x][y],ENEMY_TEAM_NUMBER)){
-        changeWithDirection(&x, &y, direction, false);
-        killMove = true;
+        if(killCheckArea(tempBoard, x, y, direction, false)){
+            return OUT_OF_BOUND;
+        }
+        else{
+            changeWithDirection(&x, &y, direction, false);
+            killMove = true;
+        }
     }
     
     //This should move on the tempBoard
@@ -290,6 +329,7 @@ int AI::maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
 }
 
 int AI::minMove(vector<vector<int>> &tempboard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, int value){
+    //cout<<"Min nodes, depth: "<<depth<<endl;
     for(int index=0;index<enemyTeamCopy.size();index++){
         enemyCurrentIndex = index;
         
@@ -302,6 +342,7 @@ int AI::minMove(vector<vector<int>> &tempboard, vector<Piece> teamCopy, vector<P
         }
         
         enemyTeamCopy[index].findLargestPotenial();
+        //cout<<enemyTeamCopy[index].potential<<" "<<endl;
         
     }
     int bestPieceIndex = bestPiece(enemyTeamCopy);
@@ -324,8 +365,13 @@ int AI::minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     
     changeWithDirection(&x, &y, direction, true);
     if(sameTeam(tempBoard[x][y],TEAM_NUMBER)){
-        changeWithDirection(&x, &y, direction, true);
-        killMove = true;
+        if(killCheckArea(tempBoard, x, y, direction, true)){
+            return OUT_OF_BOUND;
+        }
+        else{
+            changeWithDirection(&x, &y, direction, true);
+            killMove = true;
+        }
     }
     
     //This should move on the tempBoard
@@ -344,7 +390,7 @@ int AI::minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
 }
 
 int AI::maxMove(vector<vector<int>> &tempboard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, int value){
-    
+    //cout<<"Max nodes, depth: "<<depth<<endl;
     for(int index=0;index<teamCopy.size();index++){
         currentIndex = index;
         
@@ -357,8 +403,10 @@ int AI::maxMove(vector<vector<int>> &tempboard, vector<Piece> teamCopy, vector<P
         }
         
         teamCopy[index].findLargestPotenial();
+        //cout<<teamCopy[index].potential<<" "<<endl;
         
     }
+    
     int bestPieceIndex = bestPiece(teamCopy);
     return teamCopy[bestPieceIndex].potential;
 }
