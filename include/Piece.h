@@ -32,7 +32,7 @@ public:
     int x;
     int y;
     int potential;
-    int directionValues[4] = {-99999999, -99999999, -99999999, -99999999};
+    int directionValues[4] = {-999,-999,-999,-999};
     Directions bestDirection;
     void findBestDirection();
     void findLargestPotenial();

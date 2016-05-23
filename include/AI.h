@@ -34,7 +34,7 @@ private:
     bool killCheckArea(vector<vector<int>>& tempBoard, int,int,Directions, bool);
     int bestPiece(vector<Piece>);
     
-    const int OUT_OF_BOUND = -99999999;
+    const int OUT_OF_BOUND = -999;
     // Temp max depth value:
     const int MAX_DEPTH = 3;
 

@@ -1,10 +1,6 @@
 //
 //  Piece.cpp
 //  CheckersProject
-//
-//  Created by Benjamin Emdon on 2016-02-13.
-//  Copyright © 2016 Ben Emdon. 
-//
 
 #include "../include/Piece.h"
 
@@ -55,7 +51,7 @@ void Piece::findBestDirection(){
     
     for(int j=0; j<4; j++){
         if (largest <= directionValues[j]) {
-            largestVector.push_back(directionValues[j]);
+            largestVector.push_back(j);
         }
     }
     
@@ -63,7 +59,7 @@ void Piece::findBestDirection(){
     int bestIndex = rand() % largestVector.size();
     
     for(int k=0; k<4; k++){
-        if (kingMoves[k] == bestIndex) {
+        if (kingMoves[k] == largestVector[bestIndex]) {
             bestDirection = kingMoves[k];
         }
     }
