@@ -211,7 +211,7 @@ int AI::valueCalculator(vector<Piece> &teamCopy, vector<Piece> &enemyTeamCopy){
     return value;
 }
 
-bool AI::checkNode(vector<vector<int>>& tempBoard, vector<Piece> &teamCopy, vector<Piece> &enemyTeamCopy,Directions direction, bool enemy){
+bool AI::checkNode(vector<vector<int>>& tempBoard, vector<Piece> &teamCopy, vector<Piece> &enemyTeamCopy, Directions direction, bool enemy){
     int x, y;
     int teamNumber = TEAM_NUMBER;
     int enemyTeamNumber = ENEMY_TEAM_NUMBER;
