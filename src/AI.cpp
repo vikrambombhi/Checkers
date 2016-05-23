@@ -49,7 +49,7 @@ void AI::updateKings(vector<vector<int>> &tempBoard, vector<Piece> &teamCopy, bo
     }
 }
 
-int AI::bestPiece(vector<Piece> pieceVector){
+int AI::bestPiece(vector<Piece>& pieceVector){
     
     int largest = pieceVector[0].potential;
     vector<int> largestVector;
@@ -154,17 +154,18 @@ int AI::findMin(int value1, int value2){
 int AI::valueCalculator(vector<Piece> &teamCopy, vector<Piece> &enemyTeamCopy){
     
     int value = 0;
+    int x,y;
     
     for(int i=0; i<teamCopy.size(); i++){
         if (teamCopy[i].isKing()) {
-            value += 6;
+            value += 20;
         }
         else{
-            value +=3;
+            value +=10;
         }
         
-        int x = teamCopy[i].x;
-        int y = teamCopy[i].y;
+        x = teamCopy[i].x;
+        y = teamCopy[i].y;
         
         if ((x == 0 || x==7) || (y==0||y==7)){
             value += 4;
@@ -183,14 +184,14 @@ int AI::valueCalculator(vector<Piece> &teamCopy, vector<Piece> &enemyTeamCopy){
     
     for(int j=0; j<enemyTeamCopy.size(); j++){
         if (enemyTeamCopy[j].isKing()) {
-            value -= 6;
+            value -= 20;
         }
         else{
-            value -= 3;
+            value -= 10;
         }
         
-        int x = enemyTeamCopy[j].x;
-        int y = enemyTeamCopy[j].y;
+        x = enemyTeamCopy[j].x;
+        y = enemyTeamCopy[j].y;
         
         if ((x == 0 || x==7) || (y==0||y==7)){
             value -= 4;
@@ -264,14 +265,14 @@ bool AI::makeMove(SDL_Event *event){
             team[index].directionValues[2] = maxValue(Board->virtualBoard, team, enemyTeam, MAX_DEPTH, BACK_LEFT, OUT_OF_BOUND);
             team[index].directionValues[3] = maxValue(Board->virtualBoard, team, enemyTeam, MAX_DEPTH, BACK_RIGHT, OUT_OF_BOUND);
         }
-        cout<<"Index: "<<currentIndex<<" Left: "<<team[index].directionValues[0]<<" Right: "<<team[index].directionValues[1];
+        cout<<"Index: "<<index<<" Left: "<<team[index].directionValues[0]<<" Right: "<<team[index].directionValues[1];
         cout<<" bLeft: "<<team[index].directionValues[2]<<" bRight: "<<team[index].directionValues[3]<<endl;
 
         team[index].findBestDirection();
     }
 
     int bestPieceIndex = bestPiece(team);
-    cout<< "The chosen one: " << bestPieceIndex << " -> "<< team[bestPieceIndex].x << "," << team[bestPieceIndex].y;
+    cout<< "The chosen one: " << bestPieceIndex << " -> ("<< team[bestPieceIndex].x << "," << team[bestPieceIndex].y;
     
     int x = team[bestPieceIndex].x;
     int y = team[bestPieceIndex].y;
@@ -285,7 +286,7 @@ bool AI::makeMove(SDL_Event *event){
             // Changes it again for moving 2 units diagonally //
             changeWithDirection(&x, &y, team[bestPieceIndex].bestDirection, false);
         }
-        cout<< " best move: " << x << "," << y << endl;
+        cout<<") best move: (" << x << "," << y <<")"<< endl;
         movePiece(Board->virtualBoard, team, bestPieceIndex, x, y);
         return true;
     }
@@ -321,6 +322,9 @@ int AI::maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     updateKings(tempBoard, teamCopy, false);
     if (killMove) {
         updateTeam(tempBoard, enemyTeamCopy, true);
+        if (enemyTeamCopy.size()<=0) {
+            return WIN_VALUE;
+        }
     }
     
     value = valueCalculator(teamCopy, enemyTeamCopy);
@@ -379,6 +383,10 @@ int AI::minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     updateKings(tempBoard, enemyTeamCopy, true);
     if (killMove) {
         updateTeam(tempBoard, teamCopy, false);
+        if (teamCopy.size()<=0) {
+            //smallest number
+            return -1 * WIN_VALUE;
+        }
     }
     
     value = valueCalculator(teamCopy, enemyTeamCopy);
