@@ -63,5 +63,4 @@ void Piece::findBestDirection(){
             bestDirection = kingMoves[k];
         }
     }
-    potential = largest;
 }
