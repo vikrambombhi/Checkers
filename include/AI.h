@@ -15,11 +15,11 @@ private:
     int findMax(int,int);
     int findMin(int,int);
     
-    int maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value);
-    int minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction, int value);
+    int maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction);
+    int minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction);
     
-    int minMove(vector<vector<int>> &tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, int value);
-    int maxMove(vector<vector<int>> &tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, int value);
+    int minMove(vector<vector<int>> &tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth);
+    int maxMove(vector<vector<int>> &tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth);
     
     bool checkNode(vector<vector<int>> &tempBoard, vector<Piece> &teamCopy, vector<Piece> &enemyTeamCopy, Directions direction, bool enemy);
     int valueCalculator(vector<Piece> &teamCopy, vector<Piece> &enemyTeamCopy);
