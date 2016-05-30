@@ -12,6 +12,7 @@ A simple checkers game created in C++ using SDL2's frameworks. That is planned t
 ## Current Features
 - Movable pieces, along with being able to kill an opponents piece
 - AI Player to play against
+- AI vs AI mode (*Must keep moving mouse as game loop depends on mouse movement*)
 - Scalability with code structure
 - Local Multiplayer 
 - Menu

@@ -79,6 +79,32 @@ int AI::findMin(int value1, int value2){
     return value2;
 }
 
+int AI::enemyBestPiece(vector<Piece>& pieceVector){
+    
+    int smallest = pieceVector[0].potential;
+    vector<int> smallestVector;
+    
+    for(int i=1;i<pieceVector.size();i++){
+        if(smallest < pieceVector[i].potential) {
+            smallest = pieceVector[i].potential;
+        }
+    }
+    
+    for(int j=0;j<pieceVector.size();j++){
+        if(smallest <= pieceVector[j].potential){
+            smallestVector.push_back(j);
+        }
+    }
+    
+    /* initialize random seed: */
+    srand(static_cast<unsigned int>(time(NULL)));
+    /* generate secret number from 0 to vectorSize*/
+    
+    int randIndex = rand() % smallestVector.size();
+    
+    return smallestVector[randIndex];
+}
+
 int AI::bestPiece(vector<Piece>& pieceVector){
     
     int largest = pieceVector[0].potential;
@@ -324,8 +350,7 @@ int AI::maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
         }
     }
     
-    value = valueCalculator(teamCopy, enemyTeamCopy);
-    value = findMax(value, minMove(tempBoard, teamCopy, enemyTeamCopy, depth-1, value));
+    value = findMax(valueCalculator(teamCopy, enemyTeamCopy), minMove(tempBoard, teamCopy, enemyTeamCopy, depth-1, value));
 
     return value;
 }
@@ -387,8 +412,7 @@ int AI::minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
         }
     }
     
-    value = valueCalculator(teamCopy, enemyTeamCopy);
-    value = findMin(value, maxMove(tempBoard, teamCopy, enemyTeamCopy, depth-1, value));
+    value = findMin(valueCalculator(teamCopy, enemyTeamCopy), maxMove(tempBoard, teamCopy, enemyTeamCopy, depth-1, value));
 
     return value;
 
@@ -414,6 +438,6 @@ int AI::maxMove(vector<vector<int>> &tempboard, vector<Piece> teamCopy, vector<P
         
     }
     
-    int bestPieceIndex = bestPiece(teamCopy);
+    int bestPieceIndex = enemyBestPiece(teamCopy);
     return teamCopy[bestPieceIndex].potential;
 }

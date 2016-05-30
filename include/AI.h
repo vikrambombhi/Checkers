@@ -33,6 +33,7 @@ private:
     bool changeWithDirection(int&,int&,Directions, bool);
     bool killCheckArea(vector<vector<int>>& tempBoard, int,int,Directions, bool);
     int bestPiece(vector<Piece> &);
+    int enemyBestPiece(vector<Piece> &);
     
     const int OUT_OF_BOUND = -999;
     const int WIN_VALUE = 999;
