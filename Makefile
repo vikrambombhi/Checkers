@@ -20,6 +20,7 @@ OBJ = $(patsubst %.cpp, %.o, $(SRC)) # patsubst is used to change all source fil
 # Main binary file
 all: $(OBJ)
 	@mkdir $(BDIR)
+	@mkdir $(ODIR)
 	$(CC) $(LFLAGS) $(OBJS) -I$(BDIR) -o $(BDIR)/$(PROJECT)
 
 # Indiviual objects files split up so they are only made when nessacry
@@ -67,7 +68,11 @@ Texture.o : Texture.h Texture.cpp
 
 # Compiles .cpp files into .o files
 .cpp.o:
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) $(CFLAGS) -I$(ODIR) -o $@ $<
 # clean for removing all the object files
 clean:
-	\rm $(DIR)/* $(BDIR)/*
+	\rm $(ODIR)/* $(BDIR)/*
+
+tempClean:
+	\rm -r $(BDIR)
+	\rm $(SDIR)/*.o
