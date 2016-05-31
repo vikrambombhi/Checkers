@@ -11,7 +11,13 @@
 
 #ifdef _WIN32
 #include <SDL.h>
-#else
+#endif
+
+#ifdef __APPLE__
+#include <SDL2/SDL.h>
+#endif
+
+#ifdef __linux
 #include <SDL2/SDL.h>
 #endif
 
