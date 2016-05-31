@@ -2,6 +2,7 @@
 PROJECT = Checkers
 # Directory marcos
 BDIR = bin
+ODIR = obj
 SDIR = src
 IDIR = include
 # Complier
@@ -69,4 +70,4 @@ Texture.o : Texture.h Texture.cpp
 	$(CC) $(CFLAGS) -o $@ $<
 # clean for removing all the object files
 clean:
-	/rm *.o all
+	\rm $(DIR)/* $(BDIR)/*
