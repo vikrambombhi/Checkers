@@ -22,47 +22,47 @@ all: $(OBJ)
 	$(CC) $(LFLAGS) $(OBJS) -I$(BDIR) -o $(BDIR)/$(PROJECT)
 
 # Indiviual objects files split up so they are only made when nessacry
-AI.o : AI.cpp AI.h GameState.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/AI.o : AI.cpp AI.h GameState.h
+	$(CC) $(CFLAGS) $<
 
-Application.o : Application.cpp Application.h ApplicationState.h ApplicationStateManager.h Texture.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/Application.o : Application.cpp Application.h ApplicationState.h ApplicationStateManager.h Texture.h
+	$(CC) $(CFLAGS) $<
 
-ApplicationState.o : ApplicationState.cpp ApplicationState.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/ApplicationState.o : ApplicationState.cpp ApplicationState.h
+	$(CC) $(CFLAGS) $<
 
-ApplicationStateManager.o : ApplicationStateManager.cpp ApplicationStateManager.h MenuState.h GameState.h GameOverState.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/ApplicationStateManager.o : ApplicationStateManager.cpp ApplicationStateManager.h MenuState.h GameState.h GameOverState.h
+	$(CC) $(CFLAGS) $<
 
-Button.o : Button.cpp Button.h GameState.h Texture.h Application.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/Button.o : Button.cpp Button.h GameState.h Texture.h Application.h
+	$(CC) $(CFLAGS) $<
 
-CheckersBoard.o : CheckersBoard.cpp CheckersBoard.h GameState.h Texture.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/CheckersBoard.o : CheckersBoard.cpp CheckersBoard.h GameState.h Texture.h
+	$(CC) $(CFLAGS) $<
 
-GameOverState.o : GameOverState.cpp GameOverState.h Texture.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/GameOverState.o : GameOverState.cpp GameOverState.h Texture.h
+	$(CC) $(CFLAGS) $<
 
-GameState.o : GameState.cpp GameState.h ApplicationStateManager.h CheckersBoard.h Player.h AI.h RealPlayer.h Button.h Texture.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/GameState.o : GameState.cpp GameState.h ApplicationStateManager.h CheckersBoard.h Player.h AI.h RealPlayer.h Button.h Texture.h
+	$(CC) $(CFLAGS) $<
 
-main.o : main.cpp Application.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/main.o : main.cpp Application.h
+	$(CC) $(CFLAGS) $<
 
-MenuState.o : MenuState.cpp MenuState.h Texture.h Button.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/MenuState.o : MenuState.cpp MenuState.h Texture.h Button.h
+	$(CC) $(CFLAGS) $<
 
-Piece.o : Piece.cpp Piece.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/Piece.o : Piece.cpp Piece.h
+	$(CC) $(CFLAGS) $<
 
-Player.o : Player.cpp Player.h CheckersBoard.h Button.h GameState.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/Player.o : Player.cpp Player.h CheckersBoard.h Button.h GameState.h
+	$(CC) $(CFLAGS) $<
 
-RealPlayer.o : RealPlayer.cpp RealPlayer.h GameState.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/RealPlayer.o : RealPlayer.cpp RealPlayer.h GameState.h
+	$(CC) $(CFLAGS) $<
 
-Texture.o : Texture.cpp Texture.h
-	$(CC) $(CFLAGS) $< -o $@
+$(ODIR)/Texture.o : Texture.cpp Texture.h
+	$(CC) $(CFLAGS) $<
 
 # Compiles .cpp files into .o files
 $(ODIR)/%.o: %.cpp
