@@ -16,35 +16,26 @@ CFLAGS = -std=c++11
 # Options to link
 LFLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 
-# Object files format: file.o
-#_OBJS = AI.o \
-#	    Application.o \
-#	    ApplicationState.o \
-#	    ApplicationStateManager.o \
-#	    Button.o \
-#	    CheckersBoard.o \
-#	    GameOverState.o \
-#	    GameState.o \
-#	    main.o \
-#	    MenuState.o \
-#	    Piece.o \
-#	    Player.o \
-#	    RealPlayer.o \
-#	    Texture.o
-#
-#OBJS = $(patsubst %,$())
+# Finds all cpp files in project directory
+# Format: src/.cpp
 SRC = $(wildcard **/*.cpp)
+
+# Makes a list of src file names as .o files
+# Format: obj/.o
 OBJS = $(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(SRC))
 
 # Main binary file
 all: $(OBJS)
+	# Makes bin folder
 	@mkdir -p $(BDIR)
 	$(CC) $(CFLAGS) -I$(IDIR) -o $(BDIR)/$(PROG) $^ $(LFLAGS)
 
 # Compiles .cpp files into .o files
 $(ODIR)/%.o: $(SDIR)/%.cpp
+	# Makes obj directory
 	@mkdir -p $(ODIR)
-	$(CC) $(CFLAGS) -I$(IDIR) -MMD -c -o $@ $<
+	# -MMD generates the dependences
+	$(CC) $(CFLAGS) -MMD -c -o $@ $<
 
 # clean for removing all the object files
 clean:
