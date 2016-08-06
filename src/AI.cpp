@@ -143,8 +143,8 @@ bool AI::makeMove(SDL_Event *event){
         team[index].directionValues[1] = maxValue(Board->virtualBoard, team, enemyTeam, MAX_DEPTH, RIGHT);
 
         if (team[index].isKing()) {
-            team[index].directionValues[2] = maxValue(Board->virtualBoard, team, enemyTeam, MAX_DEPTH, BACK_LEFT);
             team[index].directionValues[3] = maxValue(Board->virtualBoard, team, enemyTeam, MAX_DEPTH, BACK_RIGHT);
+            team[index].directionValues[2] = maxValue(Board->virtualBoard, team, enemyTeam, MAX_DEPTH, BACK_LEFT);
         }
         cout<<"Index: "<<index<<" ("<< team[index].x << "," << team[index].y;
         cout<<") Left: "<<team[index].directionValues[0]<<" Right: "<<team[index].directionValues[1];
@@ -368,8 +368,8 @@ int AI::minMove(vector<vector<int>> tempboard, vector<Piece> teamCopy, vector<Pi
         enemyTeamCopy[index].directionValues[1] = minValue(tempboard, teamCopy, enemyTeamCopy, depth, RIGHT);
 
         if (enemyTeamCopy[index].isKing()) {
-            enemyTeamCopy[index].directionValues[2] = minValue(tempboard, teamCopy, enemyTeamCopy, depth, BACK_LEFT);
             enemyTeamCopy[index].directionValues[3] = minValue(tempboard, teamCopy, enemyTeamCopy, depth, BACK_RIGHT);
+            enemyTeamCopy[index].directionValues[2] = minValue(tempboard, teamCopy, enemyTeamCopy, depth, BACK_LEFT);
         }
 
         enemyTeamCopy[index].findLargestPotenial();
