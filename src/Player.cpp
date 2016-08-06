@@ -145,7 +145,7 @@ void Player::initTeam() {
         //Vector now has 1 element @ index 4
         team[4].x = 1;
         team[4].y = 6;
-       
+
         //Push back new chip created with default constructor.
         team.push_back(Piece());
         //Vector now has 1 element @ index 5
@@ -187,7 +187,7 @@ void Player::initTeam() {
         //Vector now has 1 element @ index 11
         team[11].x = 6;
         team[11].y = 5;
-
+        
 
         //Sets TEAM_NUMBER
         TEAM_NUMBER = RED_PIECE;
@@ -225,7 +225,7 @@ void Player::movePiece(vector<vector<int>> &pBoard, vector<Piece>& teamMove, int
     pBoard[teamMove[teamIndex].x][teamMove[teamIndex].y] = EMPTY_PIECE;
     teamMove[teamIndex].x = newX;
     teamMove[teamIndex].y = newY;
-    
+
     // Prints virtualBoard at end of move
     //cout<<pBoard<<endl;
 }
@@ -252,7 +252,7 @@ void Player::updateTeam() {
 }
 
 void Player::updateKings() {
-    
+
     int yToMakeKing = 7 * topSide;
     bool updateMade = false;
     for(int index=0;index<team.size();index++){
