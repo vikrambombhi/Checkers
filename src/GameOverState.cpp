@@ -7,7 +7,7 @@ GameOverState::GameOverState(){
     BUTTON_HEIGHT = 40;
     currentStateEnum = GAME_OVER_STATE;
     nextStateEnum = GAME_OVER_STATE;
-    boardButtons = new Button[FULL_MENU];
+    boardButtons = new Button[END_FULL_MENU];
     userQuit = false;
 
 }
@@ -102,14 +102,14 @@ bool GameOverState::loadMedia(){
     SDL_Rect mainMenuHover = {346, 80, 346, 40};
     spriteClips.push_back(mainMenuHover);
     // Full Menu
-    //SDL_Rect fullMenu = {0, 120, 640, 640};
-    //spriteClips.push_back(fullMenu);
+    SDL_Rect fullMenu = {0, 120, 640, 640};
+    spriteClips.push_back(fullMenu);
 
-    boardButtons[MAIN_MENU].setPoint(0, 0);
+    boardButtons[END_MENU].setPoint(167, 400);
 
     return initSuccessfulful;
 }
 
 void GameOverState::drawMenu() {
-    spriteSheetTexture.render(0, 0, &spriteClips[FULL_MENU]);
+    spriteSheetTexture.render(0, 0, &spriteClips[2]);
 }

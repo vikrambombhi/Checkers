@@ -31,9 +31,9 @@
 
 class Button;
 
-enum MenuSpriteEnum {
-    MAIN_MENU,
-    FULL_MENU
+enum EndSpriteEnum {
+    END_MENU,
+    END_FULL_MENU
 };
 
 
