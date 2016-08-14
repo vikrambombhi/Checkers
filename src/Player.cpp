@@ -43,7 +43,7 @@ void Player::initTeam() {
         //Vector now has 1 element @ index 0
         team[0].x = 1;
         team[0].y = 0;
-
+/*
         //Push back new chip created with default constructor.
         team.push_back(Piece());
         //Vector now has 1 element @ index 1
@@ -113,6 +113,7 @@ void Player::initTeam() {
         //Sets TEAM_NUMBER
         TEAM_NUMBER = BLACK_PIECE;
         ENEMY_TEAM_NUMBER = RED_PIECE;
+*/
     }
     else {
         //-----------------------------RED TEAM----------------------------\\

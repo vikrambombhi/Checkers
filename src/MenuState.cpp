@@ -17,7 +17,7 @@ MenuState::MenuState(){
     nextStateEnum = MENU_STATE;
     boardButtons = new Button[FULL_MENU];
     userQuit = false;
-    
+
 }
 
 MenuState::~MenuState(){
@@ -35,16 +35,16 @@ void MenuState::stateEnter(){
 
 void MenuState::stateEvent(){
     SDL_Event event;
-    
+
     // Event loop //
     while(SDL_PollEvent(&event)!=0){
-        
+
         // Quits game //
         if(event.type==SDL_QUIT)
         {
             userQuit=true;
         }
-        
+
         if (event.type == SDL_MOUSEMOTION) {
             // Checks if mouse is hovering over a button
             for (int index = 0; index < 3; index ++) {
@@ -56,7 +56,7 @@ void MenuState::stateEvent(){
                 }
             }
         }
-        
+
         // Checks if a button was clicked
         if (event.type == SDL_MOUSEBUTTONDOWN) {
             for (int index = 0; index < 3; index++) {
@@ -95,13 +95,13 @@ bool MenuState::stateExit(){
 
 bool MenuState::loadMedia(){
     bool initSuccessfulful = true;
-    
+
     if (!spriteSheetTexture.loadFromFile("data/MenuState.png")) {
         printf("Could not load sprite");
         initSuccessfulful = false;
     }
-    
-    
+
+
     // SpriteClips
     // Standard Clips
     SDL_Rect localMultiplayer = {0, 0, 346, 40};
@@ -120,18 +120,14 @@ bool MenuState::loadMedia(){
     // Full Menu
     SDL_Rect fullMenu = {0, 120, 640, 640};
     spriteClips.push_back(fullMenu);
-    
+
     boardButtons[LOCAL_MULTIPLAYER].setPoint(148, 210);
     boardButtons[SINGLEPLAYER].setPoint(148, 280);
     boardButtons[AI_VS_AI].setPoint(148, 350);
-    
+
     return initSuccessfulful;
 }
 
 void MenuState::drawMenu() {
     spriteSheetTexture.render(0, 0, &spriteClips[FULL_MENU]);
 }
-
-
-
-

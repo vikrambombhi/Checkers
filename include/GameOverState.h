@@ -8,7 +8,34 @@
 #ifndef GameOverState_h
 #define GameOverState_h
 
+#ifdef _WIN32
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+#endif
+
+#ifdef __APPLE__
+#include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
+#include <SDL2_ttf/SDL_ttf.h>
+#endif
+
+#ifdef __linux
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#endif
+
 #include "ApplicationState.h"
+#include "Application.h"
+
+class Button;
+
+enum MenuSpriteEnum {
+    MAIN_MENU,
+    FULL_MENU
+};
+
 
 class GameOverState: public ApplicationState{
 public:
@@ -20,8 +47,12 @@ public:
     void stateRender();
     bool stateExit();
 private:
+    bool hover[1] = {false};
+    Button *boardButtons;
+    void drawMenu();
     bool loadMedia();
     bool userQuit;
 };
 
-#endif /* GameOverState_h */
+
+#endif /* MenuState_h */
