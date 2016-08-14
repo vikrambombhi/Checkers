@@ -30,7 +30,6 @@ void GameOverState::stateEvent(){
 
     // Event loop //
     while(SDL_PollEvent(&event)!=0){
-
         // Quits game //
         if(event.type==SDL_QUIT)
         {
@@ -39,23 +38,19 @@ void GameOverState::stateEvent(){
 
         if (event.type == SDL_MOUSEMOTION) {
             // Checks if mouse is hovering over a button
-            for (int index = 0; index < 1; index ++) {
-                if (boardButtons[index].insideButton(346, 40)) {
-                    hover[index] = true;
-                }
-                else {
-                    hover[index] = false;
-                }
+            if (boardButtons[MAIN_MENU].insideButton(346, 40)) {
+                hover[MAIN_MENU] = true;
+            }
+            else {
+                hover[MAIN_MENU] = false;
             }
         }
 
         // Checks if a button was clicked
         if (event.type == SDL_MOUSEBUTTONDOWN) {
-            for (int index = 0; index < 1; index++) {
-                if (hover[index]) {
-                    nextStateEnum = GAME_STATE;
-                    GAMEMODE = index;
-                }
+            if (hover[MAIN_MENU]) {
+                nextStateEnum = GAME_STATE;
+                GAMEMODE = MAIN_MENU;
             }
         }
     }
@@ -105,11 +100,11 @@ bool GameOverState::loadMedia(){
     SDL_Rect fullMenu = {0, 120, 640, 640};
     spriteClips.push_back(fullMenu);
 
-    boardButtons[END_MENU].setPoint(167, 400);
+    boardButtons[MAIN_MENU].setPoint(167, 400);
 
     return initSuccessfulful;
 }
 
 void GameOverState::drawMenu() {
-    spriteSheetTexture.render(0, 0, &spriteClips[2]);
+    spriteSheetTexture.render(0, 0, &spriteClips[END_FULL_MENU]);
 }

@@ -31,8 +31,9 @@
 
 class Button;
 
-enum EndSpriteEnum {
-    END_MENU,
+enum EndMenuSpriteEnum {
+    MAIN_MENU,
+    MAIN_MENU_HOVER,
     END_FULL_MENU
 };
 
