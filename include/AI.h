@@ -20,6 +20,9 @@ private:
 
     int minMove(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth);
     int maxMove(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth);
+    
+    int minDoubleMove(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction);
+    int maxDoubleMove(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction);
 
     bool checkNode(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, Directions direction, bool enemy);
     int valueCalculator(vector<Piece> teamCopy, vector<Piece> enemyTeamCopy);
@@ -27,6 +30,8 @@ private:
     void updateTeam(vector<vector<int>> &tempBoard, vector<Piece> &teamCopy, bool enemy);
 
     void updateKings(vector<vector<int>> &tempBoard, vector<Piece> &teamCopy, bool enemy);
+    
+   
 
     // Old AI stuff
     void getEnemyTeam();
@@ -38,7 +43,7 @@ private:
     const int OUT_OF_BOUND = -999;
     const int WIN_VALUE = 999;
     // Temp max depth value:
-    const int MAX_DEPTH = 1;
+    const int MAX_DEPTH = 3;
 
     // Used for finding min values
     vector<Piece> enemyTeam;

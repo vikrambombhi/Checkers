@@ -36,6 +36,7 @@ public:
     Directions bestDirection;
     void findBestDirection();
     void findLargestPotenial();
+    void findDoubleLargestPotenial();
 private:
     bool king;
 };

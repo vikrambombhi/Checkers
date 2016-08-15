@@ -353,29 +353,32 @@ int AI::maxValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     if (depth <= 0) {
         return valueCalculator(teamCopy, enemyTeamCopy);
     }
+    else if (killMove) {
+        return maxDoubleMove(tempBoard, teamCopy, enemyTeamCopy, depth, direction);
+    }
     else{
         return minMove(tempBoard, teamCopy, enemyTeamCopy, depth-1);
     }
 
 }
 
-int AI::minMove(vector<vector<int>> tempboard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth){
+int AI::minMove(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth){
 
     for(int index=0;index<enemyTeamCopy.size();index++){
         enemyCurrentIndex = index;
 
-        enemyTeamCopy[index].directionValues[0] = minValue(tempboard, teamCopy, enemyTeamCopy, depth, LEFT);
-        enemyTeamCopy[index].directionValues[1] = minValue(tempboard, teamCopy, enemyTeamCopy, depth, RIGHT);
+        enemyTeamCopy[index].directionValues[0] = minValue(tempBoard, teamCopy, enemyTeamCopy, depth, LEFT);
+        enemyTeamCopy[index].directionValues[1] = minValue(tempBoard, teamCopy, enemyTeamCopy, depth, RIGHT);
 
         if (enemyTeamCopy[index].isKing()) {
-            enemyTeamCopy[index].directionValues[3] = minValue(tempboard, teamCopy, enemyTeamCopy, depth, BACK_RIGHT);
-            enemyTeamCopy[index].directionValues[2] = minValue(tempboard, teamCopy, enemyTeamCopy, depth, BACK_LEFT);
+            enemyTeamCopy[index].directionValues[3] = minValue(tempBoard, teamCopy, enemyTeamCopy, depth, BACK_RIGHT);
+            enemyTeamCopy[index].directionValues[2] = minValue(tempBoard, teamCopy, enemyTeamCopy, depth, BACK_LEFT);
         }
 
         enemyTeamCopy[index].findLargestPotenial();
 
     }
-    int bestPieceIndex = bestPiece(enemyTeamCopy);
+    int bestPieceIndex = enemyBestPiece(enemyTeamCopy);
     return enemyTeamCopy[bestPieceIndex].potential;
 }
 
@@ -415,29 +418,138 @@ int AI::minValue(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<P
     if (depth <= 0) {
         return valueCalculator(teamCopy, enemyTeamCopy);
     }
+    else if (killMove) {
+        return minDoubleMove(tempBoard, teamCopy, enemyTeamCopy, depth, direction);
+    }
     else{
         return maxMove(tempBoard, teamCopy, enemyTeamCopy, depth-1);
     }
 
 }
 
-int AI::maxMove(vector<vector<int>> tempboard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth){
+int AI::maxMove(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth){
 
     for(int index=0;index<teamCopy.size();index++){
         currentIndex = index;
 
-        teamCopy[index].directionValues[0] = maxValue(tempboard, teamCopy, enemyTeamCopy, depth, LEFT);
-        teamCopy[index].directionValues[1] = maxValue(tempboard, teamCopy, enemyTeamCopy, depth, RIGHT);
+        teamCopy[index].directionValues[0] = maxValue(tempBoard, teamCopy, enemyTeamCopy, depth, LEFT);
+        teamCopy[index].directionValues[1] = maxValue(tempBoard, teamCopy, enemyTeamCopy, depth, RIGHT);
 
         if (teamCopy[index].isKing()) {
-            teamCopy[index].directionValues[2] = maxValue(tempboard, teamCopy, enemyTeamCopy, depth, BACK_LEFT);
-            teamCopy[index].directionValues[3] = maxValue(tempboard, teamCopy, enemyTeamCopy, depth, BACK_RIGHT);
+            teamCopy[index].directionValues[2] = maxValue(tempBoard, teamCopy, enemyTeamCopy, depth, BACK_LEFT);
+            teamCopy[index].directionValues[3] = maxValue(tempBoard, teamCopy, enemyTeamCopy, depth, BACK_RIGHT);
         }
 
         teamCopy[index].findLargestPotenial();
 
     }
 
-    int bestPieceIndex = enemyBestPiece(teamCopy);
+    int bestPieceIndex = bestPiece(teamCopy);
     return teamCopy[bestPieceIndex].potential;
 }
+
+int AI::minDoubleMove(vector<vector<int> > tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction){
+    int index = enemyCurrentIndex;
+    vector<int> smallestVector;
+    int smallestValue;
+    int smallestDirection;
+    Directions newDirection;
+    
+    int x = enemyTeamCopy[index].x;
+    int y = enemyTeamCopy[index].y;
+    
+    int xCopy = x;
+    int yCopy = y;
+    
+    int directionCheck = 2;
+    if (enemyTeamCopy[index].isKing()) {
+        directionCheck = 4;
+    }
+    
+    for(int i=0;i<directionCheck;i++){
+        changeWithDirection(xCopy, yCopy, kingMoves[i], true);
+        if (killCheckArea(tempBoard, xCopy, yCopy, kingMoves[i], true)) {
+            smallestVector.push_back(i);
+        }
+        xCopy = x;
+        yCopy = y;
+    }
+
+    if (smallestVector.size() <= 0) {
+        return minMove(tempBoard, teamCopy, enemyTeamCopy, depth-1);
+    }
+    else{
+        smallestValue = enemyTeamCopy[index].directionValues[smallestVector[0]];
+        smallestDirection = 0;
+        for(int i=1;i<smallestVector.size();i++){
+            if (enemyTeamCopy[index].directionValues[smallestVector[i]] < smallestValue) {
+                smallestValue = enemyTeamCopy[index].directionValues[smallestVector[i]];
+                smallestDirection = i;
+            }
+        }
+        
+        
+        newDirection = kingMoves[smallestDirection];
+        
+        changeWithDirection(x, y, newDirection, true);
+        changeWithDirection(x, y, newDirection, true);
+        movePiece(tempBoard, enemyTeamCopy, index, x, y);
+        updateKings(tempBoard, enemyTeamCopy, true);
+        updateTeam(tempBoard, enemyTeamCopy, false);
+        
+        return maxMove(tempBoard, teamCopy, enemyTeamCopy, depth-1);
+    }
+}
+
+int AI::maxDoubleMove(vector<vector<int>> tempBoard, vector<Piece> teamCopy, vector<Piece> enemyTeamCopy, int depth, Directions direction){
+    int index = currentIndex;
+    vector<int> largestVector;
+    int largestValue;
+    int largestDirection;
+    Directions newDirection;
+    
+    int x = teamCopy[index].x;
+    int y = teamCopy[index].y;
+    
+    int xCopy = x;
+    int yCopy = y;
+    
+    int directionCheck = 2;
+    if (teamCopy[index].isKing()) {
+        directionCheck = 4;
+    }
+    
+    for(int i=0;i<directionCheck;i++){
+        changeWithDirection(xCopy, yCopy, kingMoves[i], false);
+        if (killCheckArea(tempBoard, xCopy, yCopy, kingMoves[i], false)) {
+            largestVector.push_back(i);
+        }
+        xCopy = x;
+        yCopy = y;
+    }
+    
+    if (largestVector.size() <= 0) {
+        return minMove(tempBoard, teamCopy, enemyTeamCopy, depth-1);
+    }
+    else{
+        largestValue = teamCopy[index].directionValues[largestVector[0]];
+        largestDirection = 0;
+        for(int i=1;i<largestVector.size();i++){
+            if (teamCopy[index].directionValues[largestVector[i]] > largestValue) {
+                largestValue = teamCopy[index].directionValues[largestVector[i]];
+                largestDirection = i;
+            }
+        }
+        
+        newDirection = kingMoves[largestDirection];
+        
+        changeWithDirection(x, y, newDirection, false);
+        changeWithDirection(x, y, newDirection, false);
+        movePiece(tempBoard, teamCopy, index, x, y);
+        updateKings(tempBoard, teamCopy, false);
+        updateTeam(tempBoard, enemyTeamCopy, true);
+
+        return minMove(tempBoard, teamCopy, enemyTeamCopy, depth-1);
+    }
+}
+
