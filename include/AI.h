@@ -38,7 +38,7 @@ private:
     const int OUT_OF_BOUND = -999;
     const int WIN_VALUE = 999;
     // Temp max depth value:
-    const int MAX_DEPTH = 1;
+    const int MAX_DEPTH = 4;
 
     // Used for finding min values
     vector<Piece> enemyTeam;
